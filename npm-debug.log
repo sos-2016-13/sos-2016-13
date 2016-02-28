@@ -9,7 +9,7 @@
 6 info start sos-2016-13@1.0.0
 7 verbose unsafe-perm in lifecycle true
 8 info sos-2016-13@1.0.0 Failed to exec start script
-9 verbose stack Error: sos-2016-13@1.0.0 start: `node index alvsanmun.js`
+9 verbose stack Error: sos-2016-13@1.0.0 start: `node indexalvsanmun.js`
 9 verbose stack Exit status 1
 9 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:214:16)
 9 verbose stack     at emitTwo (events.js:87:13)
@@ -26,13 +26,13 @@
 14 error node v4.3.1
 15 error npm  v2.14.12
 16 error code ELIFECYCLE
-17 error sos-2016-13@1.0.0 start: `node index alvsanmun.js`
+17 error sos-2016-13@1.0.0 start: `node indexalvsanmun.js`
 17 error Exit status 1
-18 error Failed at the sos-2016-13@1.0.0 start script 'node index alvsanmun.js'.
+18 error Failed at the sos-2016-13@1.0.0 start script 'node indexalvsanmun.js'.
 18 error This is most likely a problem with the sos-2016-13 package,
 18 error not with npm itself.
 18 error Tell the author that this fails on your system:
-18 error     node index alvsanmun.js
+18 error     node indexalvsanmun.js
 18 error You can get their info via:
 18 error     npm owner ls sos-2016-13
 18 error There is likely additional logging output above.
