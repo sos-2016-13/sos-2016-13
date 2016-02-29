@@ -1,10 +1,9 @@
 {
   "name": "sos-2016-13",
   "version": "1.0.0",
-  "description": "",
-  "main": "index alvsanmun.js",
+  "main": "indexenrparalv.js",
   "scripts": {
-    "start": "node indexalvsanmun.js",
+    "start": "node indexenrparalv.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +18,7 @@
   "homepage": "https://github.com/sos-2016-13/sos-2016-13#readme",
   "dependencies": {
     "express": "^4.13.4"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
