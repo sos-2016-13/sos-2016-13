@@ -10,5 +10,11 @@ res.write("</ul>___________________</body></html>");
 res.end();
 });
 
+app.get("/about/oil-electricity-consumed",(req,res) => {
+res.write("<li>"+"Alvaro Santos Muñoz"+ " ("+"Oil and electricity consumed"+")</li>");
+res.end();
+});
+
+
 
 app.listen(process.env.PORT);
