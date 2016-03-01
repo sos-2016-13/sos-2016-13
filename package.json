@@ -1,0 +1,23 @@
+{
+  "name": "sos-2016-13",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index alvsanmun.js",
+  "scripts": {
+    "start": "node indexalvsanmun.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sos-2016-13/sos-2016-13.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sos-2016-13/sos-2016-13/issues"
+  },
+  "homepage": "https://github.com/sos-2016-13/sos-2016-13#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
