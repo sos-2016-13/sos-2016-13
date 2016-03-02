@@ -9,4 +9,4 @@ app.use(express.static(__dirname + '/public'));
 
 //app.use("/about/population",express.static(__dirname + '/public/population'));
 
-app.listen(12345);
+app.listen(process.env.PORT);
