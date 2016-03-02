@@ -1,9 +1,14 @@
 {
-  "name": "sos-2016-13",
+  "name": "entrega1",
   "version": "1.0.0",
-  "main": "indexenrparalv.js",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {},
   "scripts": {
-    "start": "node indexenrparalv.js",
+	"start": "index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,10 +20,5 @@
   "bugs": {
     "url": "https://github.com/sos-2016-13/sos-2016-13/issues"
   },
-  "homepage": "https://github.com/sos-2016-13/sos-2016-13#readme",
-  "dependencies": {
-    "express": "^4.13.4"
-  },
-  "devDependencies": {},
-  "description": ""
+  "homepage": "https://github.com/sos-2016-13/sos-2016-13#readme"
 }
