@@ -12,7 +12,7 @@ app.use("/emissions",express.static(__dirname + '/static/emissions'));
 
 app.use("/population",express.static(__dirname + '/static/population'));
 
-//-------PRUEBA--------
+//---------------------
 app.use(bodyParser.json());
 //---------------------
 app.get("/time",(req,res) => {
@@ -65,6 +65,20 @@ function borra(array,res){
 }
 
 
+function cambia(array,name,res,player){
+	if(array == null || array.length == 0){
+		res.sendStatus(404);
+	}
+	for(i=0; i< array.length;i++) {
+		if(name == array[i].name){
+			array.splice(i,1,player);
+			res.sendStatus(200);
+		}else{
+			res.sendStatus(404);
+		}
+	}
+}
+
 //---------------------GET------------------
 
 var games = [];
@@ -90,7 +104,7 @@ app.get("/api/sandbox/books/:name", (req,res) =>{
  });
 
 
-var players = [{"name": "Pau-Gasol"},{"name": "Marc-Gasol" },{"name": "Rudy" }];
+var players = [];
 
 app.get("/api/sandbox/nba",(req,res) => {
 	res.send(players);
@@ -108,27 +122,33 @@ app.get("/api/sandbox/nba/:name",(req,res) => {
 
 app.post("/api-test/nba/loadInitialData", (req,res)=> {
 	var playertest = { name: "Pau-Gasol"};
+	var playertest2 = { name: "Marc-Gasol"};
 	players.push(playertest);
+	players.push(playertest2);
 	res.sendStatus(200);
 });
 
 
 app.post("/api-test/books/loadInitialData", (req,res)=> {
-	var bookstest =  [{name: "La-cena-secreta"}];
+	var bookstest =  {name: "La-cena-secreta"};
+	var bookstest2 =  {name: "Angels-and-Demons"};
 	books.push(bookstest);
+	books.push(bookstest2);
 	res.sendStatus(200);
 });
 
 
 
 app.post("/api-test/games/loadInitialData", (req,res)=> {
-	var gamestest = [{ name: "WoW"}];
+	var gamestest = { name: "WoW"};
+	var gamestest2 = { name: "LoL"};
 	games.push(gamestest);
+	games.push(gamestest2);
 	res.sendStatus(200);
 });
 
 
-//-----------------------POST-----------------------FALLA EL POST A UN OBJETO
+//-----------------------POST-----------------------
 
 
 app.post("/api/sandbox/games",(req,res) => {
@@ -215,15 +235,13 @@ app.put("/api/sandbox/games",(req,res) =>{
 app.put("/api/sandbox/nba/:name",(req,res) => {
 var name = req.params.name;
 var player = req.body;
-busca(players,name,res);
-players.push(player);
+cambia(players,name,res,player);
 });
 
 app.put("/api/sandbox/games/:name",(req,res) => {
 var name = req.params.name;
 var game = req.body;
-busca(games,name,res);
-games.push(game);
+cambia(games,name,res,game);
 });
 
 //players[0].name.set(name);
@@ -231,8 +249,7 @@ games.push(game);
 app.put("/api/sandbox/books/:name",(req,res) => {
 var name = req.params.name;
 var book = req.body;
-busca(books,name,res);
-books.push(book);
+cambia(books,name,res,book);
 });
 
 
