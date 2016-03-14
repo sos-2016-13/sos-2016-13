@@ -43,7 +43,7 @@ function busca(array,name,res){
 	}
 	for(i=0; i< array.length;i++) {
 		if(name == array[i].name){
-			delete array[i];
+			array.splice(i,1);
 			res.sendStatus(200);
 		}else{
 			res.sendStatus(404);
@@ -55,8 +55,8 @@ function borra(array,res){
 	if(array == null || array.length == 0){
 		res.sendStatus(200);
 	}
-	for(i=0; i< array.length;i++) {
-			delete array[i];
+	while(array.length > 0 ) {
+			array.splice(0,1);
 	}
 		res.sendStatus(200);
 }
