@@ -130,8 +130,8 @@ app.post("/api-test/nba/loadInitialData", (req,res)=> {
 
 
 app.post("/api-test/books/loadInitialData", (req,res)=> {
-	var bookstest =  {name: "La-cena-secreta"};
-	var bookstest2 =  {name: "Angels-and-Demons"};
+	var bookstest =  {name: "LaCenaSecreta"};
+	var bookstest2 =  {name: "Angels&Demons"};
 	books.push(bookstest);
 	books.push(bookstest2);
 	res.sendStatus(200);
