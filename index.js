@@ -1,4 +1,4 @@
-  var express = require("express");      
+var express = require("express");
 var app = express();
 var bodyParser =  require("body-parser");
 
@@ -22,16 +22,18 @@ app.get("/time",(req,res) => {
 //-------------------FUNCIONES------------------
 
 function existe(array,name,res){
+	var ok = 0;
 	if(array == null || array.length == 0){
 		res.sendStatus(404);
 	}
 	for(i=0; i< array.length;i++) {
 		if(name == array[i].name){
 			res.send(array[i]);
-		}else{
+			ok = 1;
+		}
+	}if(ok == 0){
 			res.sendStatus(404);
 		}
-	}
 }
 
 
@@ -65,7 +67,6 @@ function borra(array,res){
 var games = [];
 
 app.get("/api/sandbox/games",(req,res) => {
- var name = req.params.name;
  res.send(games);
 });
 
@@ -77,7 +78,6 @@ app.get("/api/sandbox/games/:name",(req,res) => {
 var books = [];
 
 app.get("/api/sandbox/books", (req,res) =>{
-  var  book = req.params.name;
    res.send(books);
  });
 
@@ -87,10 +87,9 @@ app.get("/api/sandbox/books/:name", (req,res) =>{
  });
 
 
-var players = [];
+var players = [{"name": "Pau-Gasol"},{"name": "Marc-Gasol" },{"name": "Rudy" }];
 
 app.get("/api/sandbox/nba",(req,res) => {
-	var name = req.params.name;
 	res.send(players);
 });
 
@@ -126,7 +125,7 @@ app.post("/api-test/games/loadInitialData", (req,res)=> {
 });
 
 
-//-----------------------POST-----------------------
+//-----------------------POST-----------------------FALLA EL POST A UN OBJETO
 
 
 app.post("/api/sandbox/games",(req,res) => {
