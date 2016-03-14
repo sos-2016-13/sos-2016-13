@@ -41,7 +41,7 @@ function existe(array,name,res){
 
 
 function busca(array,name,res){
-	if(array == null || array.length == 0){
+	if(array.length == 0){
 		res.sendStatus(404);
 	}
 	for(i=0; i< array.length;i++) {
@@ -58,7 +58,7 @@ function borra(array,res){
 	if(array == null || array.length == 0){
 		res.sendStatus(200);
 	}
-	while(array.length > 0 ) {
+	while(array.length > 0) {
 			array.splice(0,1);
 	}
 		res.sendStatus(200);
@@ -202,17 +202,14 @@ busca(books,name,res);
 
 
 app.delete("/api/sandbox/nba",(req,res) => {
-var name = req.params.name;
 borra(players,res);
 });
 
 app.delete("/api/sandbox/games",(req,res) => {
-var name = req.params.name;
 borra(games,res);
 });
 
 app.delete("/api/sandbox/books",(req,res) => {
-var name = req.params.name;
 borra(books,res);
 });
 
