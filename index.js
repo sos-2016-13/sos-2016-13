@@ -12,6 +12,9 @@ app.use("/emissions",express.static(__dirname + '/static/emissions'));
 
 app.use("/population",express.static(__dirname + '/static/population'));
 
+//-------PRUEBA--------
+app.use(bodyParser.json());
+//---------------------
 app.get("/time",(req,res) => {
  
  var now = new Date()
