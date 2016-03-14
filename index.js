@@ -99,7 +99,7 @@ app.get("/api/sandbox/books", (req,res) =>{
  });
 
 app.get("/api/sandbox/books/:name", (req,res) =>{
-  var  book = req.params.name;
+  var  name = req.params.name;
   existe(books,name,res);
  });
 
