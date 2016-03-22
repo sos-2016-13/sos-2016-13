@@ -1,4 +1,4 @@
-  var express = require("express");
+var express = require("express");
 var app = express();
 var bodyParser =  require("body-parser");
 
@@ -24,13 +24,13 @@ app.get("/time",(req,res) => {
 
 //-------------------FUNCIONES------------------
 
-function existe(array,name,res){
+function existe(array,country,res){
 	var ok = 0;
 	if(array == null || array.length == 0){
 		res.sendStatus(404);
 	}
 	for(i=0; i< array.length;i++) {
-		if(name == array[i].name){
+		if(country == array[i].country){
 			res.send(array[i]);
 			ok = 1;
 		}
@@ -40,12 +40,12 @@ function existe(array,name,res){
 }
 
 
-function busca(array,name,res){
+function busca(array,country,res){
 	if(array.length == 0){
 		res.sendStatus(404);
 	}
 	for(i=0; i< array.length;i++) {
-		if(name == array[i].name){
+		if(country == array[i].country){
 			array.splice(i,1);
 			res.sendStatus(200);
 		}else{
@@ -65,13 +65,13 @@ function borra(array,res){
 }
 
 
-function cambia(array,name,res,player){
+function cambia(array,country,res,oneconsumed){
 	if(array == null || array.length == 0){
 		res.sendStatus(404);
 	}
 	for(i=0; i< array.length;i++) {
-		if(name == array[i].name){
-			array.splice(i,1,player);
+		if(country == array[i].country){
+			array.splice(i,1,oneconsumed);
 			res.sendStatus(200);
 		}else{
 			res.sendStatus(404);
@@ -79,71 +79,118 @@ function cambia(array,name,res,player){
 	}
 }
 
+function isNumeric(obj) {
+    return !isNaN(parseFloat(obj)) && isFinite(obj);
+}
+
 //---------------------GET------------------
 
-var games = [];
+var emissions = [];
 
-app.get("/api/sandbox/games",(req,res) => {
- res.send(games);
+app.get("/api/v1/emissions",(req,res) => {
+ res.send(emissions);
 });
 
-app.get("/api/sandbox/games/:name",(req,res) => {
- var name = req.params.name;
- existe(games,name,res);
+app.get("/api/v1/emissions/:var",(req,res) => {
+	var country2 = [];
+	var var1 = req.params.var;
+	if(isNumeric(var1)){
+			for (i=0; i<= emissions.length-1; i++) {
+				if(emissions[i].year == var1){
+					country2.push(emissions[i]);
+				}
+			}
+		res.send(country2);
+	}else{
+		existe(emissions,var1,res);
+	}
 });
 
-var books = [];
+var population = [];
 
-app.get("/api/sandbox/books", (req,res) =>{
-   res.send(books);
+app.get("/api/v1/population", (req,res) =>{
+   res.send(population);
  });
 
-app.get("/api/sandbox/books/:name", (req,res) =>{
-  var  name = req.params.name;
-  existe(books,name,res);
- });
 
+app.get("/api/v1/population/:var",(req,res) => {
+	var country2 = [];
+	var var1 = req.params.var;
+	if(isNumeric(var1)){
+			for (i=0; i<= population.length-1; i++) {
+				if(population[i].year == var1){
+					country2.push(population[i]);
+				}
+			}
+		res.send(country2);
+	}else{
+		existe(population,var1,res);
+	}
+});
 
-var players = [];
+var consumed = [];
 
-app.get("/api/sandbox/nba",(req,res) => {
-	res.send(players);
+app.get("/api/v1/consumed",(req,res) => {
+	res.send(consumed);
 });
 
 
-app.get("/api/sandbox/nba/:name",(req,res) => {
-	var name = req.params.name;
-	existe(players,name,res);
-	
+app.get("/api/v1/consumed/:var",(req,res) => {
+	var country2 = [];
+	var var1 = req.params.var;
+	if(isNumeric(var1)){
+			for (i=0; i<= consumed.length-1; i++) {
+				if(consumed[i].year == var1){
+					country2.push(consumed[i]);
+				}
+			}
+		res.send(country2);
+	}else{
+		existe(consumed,var1,res);
+	}
 });
+
 
 
 //-------------------POST INICIALIZA-----------------------
 
-app.post("/api-test/nba/loadInitialData", (req,res)=> {
-	var playertest = { name: "Pau-Gasol"};
-	var playertest2 = { name: "Marc-Gasol"};
-	players.push(playertest);
-	players.push(playertest2);
+app.post("/api/v1/consumed/loadInitialData", (req,res)=> {
+	var oneconsumedtest = [{ country: "Afganistan" , year: 2010 , petroleum_cost: 4800, electric_cost:801.4 },
+							{ country: "Albania" , year: 2010 , petroleum_cost: 33000, electric_cost:3323000 },
+							{ country: "Alemania" , year: 2010 , petroleum_cost: 2495000, electric_cost:545500000 },
+							{ country: "Angola" , year: 2010 , petroleum_cost: 74000, electric_cost:2201000 },
+							{ country: "Arabia Saudi" , year: 2010 , petroleum_cost: 5000, electric_cost:97.65 },
+							{ country: "Spain" , year: "2015" , petroleum_cost: 5000, electric_cost:97.65 }];
+	for (i=0; i<= oneconsumedtest.length-1; i++) {
+		consumed.push(oneconsumedtest[i]);
+	}
 	res.sendStatus(200);
 });
 
 
-app.post("/api-test/books/loadInitialData", (req,res)=> {
-	var bookstest =  {name: "LaCenaSecreta"};
-	var bookstest2 =  {name: "Angels&Demons"};
-	books.push(bookstest);
-	books.push(bookstest2);
+app.post("/api/v1/population/loadInitialData", (req,res)=> {
+	var populationtest =  [{ country: "Afganistan" , year: 2010 , population: 31627506, access_to_electricity:43.0 },
+       { country: "Albania" , year: 2010 , population: 2894475, access_to_electricity:100.0 },
+       { country: "Alemania" , year: 2010 , population: 80889505, access_to_electricity:100.0 },
+       { country: "Andorra" , year: 2010 , population: 72786, access_to_electricity:100.0 },
+       { country: "Angola" , year: 2010 , population: 24227524, access_to_electricity:37.0 }];
+	for (i=0; i<= populationtest.length-1; i++) {
+		population.push(populationtest[i]);
+	}
 	res.sendStatus(200);
 });
 
 
 
-app.post("/api-test/games/loadInitialData", (req,res)=> {
-	var gamestest = { name: "WoW"};
-	var gamestest2 = { name: "LoL"};
-	games.push(gamestest);
-	games.push(gamestest2);
+app.post("/api/v1/emissions/loadInitialData", (req,res)=> {
+	var emissionstest =  [{ country: "Albania" , year: 2010 , nitrous_oxide_emissions: 1121, methane_emissions:2517 , co2_emissions: 1.6 },
+       { country: "Alemania" , year: 2010 ,nitrous_oxide_emissions: 49966, methane_emissions:46329 , co2_emissions: 3.2 },
+       { country: "Angola" , year: 2010 ,nitrous_oxide_emissions: 3307, methane_emissions:0 , co2_emissions: 6.3 },
+       { country: "Arabia-Saudita" , year: 2010 ,nitrous_oxide_emissions: 6773, methane_emissions:0 , co2_emissions: 5.6 },
+       { country: "Argelia" , year: 2010 ,nitrous_oxide_emissions: 5687, methane_emissions:97702 , co2_emissions: 4.7 }];
+	for (i=0; i<= emissionstest.length-1; i++) {
+		emissions.push(emissionstest[i]);
+	}
 	res.sendStatus(200);
 });
 
@@ -151,33 +198,33 @@ app.post("/api-test/games/loadInitialData", (req,res)=> {
 //-----------------------POST-----------------------
 
 
-app.post("/api/sandbox/games",(req,res) => {
- var newgame = req.body;
- games.push(newgame);
+app.post("/api/v1/emissions",(req,res) => {
+ var newemission = req.body;
+ emissions.push(newemission);
  res.sendStatus(200);
 });
 
-app.post("/api/sandbox/nba",(req,res) => {
- var newnba = req.body;
- players.push(newnba);
+app.post("/api/v1/consumed",(req,res) => {
+ var newconsumed = req.body;
+ consumed.push(newconsumed);
  res.sendStatus(200);
 });
 
-app.post("/api/sandbox/books",(req,res) => {
- var newbook = req.body;
- books.push(newbook);
+app.post("/api/v1/population",(req,res) => {
+ var newpeople = req.body;
+ population.push(newpeople);
  res.sendStatus(200);
 });
 
-app.post("/api/sandbox/games/:name",(req,res) => {
+app.post("/api/v1/emissions/:country",(req,res) => {
  res.sendStatus(405);
 });
 
-app.post("/api/sandbox/nba/:name",(req,res) => {
+app.post("/api/v1/consumed/:country",(req,res) => {
  res.sendStatus(405);
 });
 
-app.post("/api/sandbox/books/:name",(req,res) => {
+app.post("/api/v1/population/:country",(req,res) => {
  res.sendStatus(405);
 });
 
@@ -185,68 +232,67 @@ app.post("/api/sandbox/books/:name",(req,res) => {
 //--------------------DELETE-----------------
 
 
-app.delete("/api/sandbox/nba/:name",(req,res) => {
-var name = req.params.name;
-busca(players,name,res);
+app.delete("/api/v1/consumed/:country",(req,res) => {
+var country = req.params.country;
+busca(consumed,country,res);
 });
 
-app.delete("/api/sandbox/games/:name",(req,res) => {
-var name = req.params.name;
-busca(games,name,res);
+app.delete("/api/v1/emissions/:country",(req,res) => {
+var country = req.params.country;
+busca(emissions,country,res);
 });
 
-app.delete("/api/sandbox/books/:name",(req,res) => {
-var name = req.params.name;
-busca(books,name,res);
+app.delete("/api/v1/population/:country",(req,res) => {
+var country = req.params.country;
+busca(population,country,res);
 });
 
 
-app.delete("/api/sandbox/nba",(req,res) => {
-borra(players,res);
+app.delete("/api/v1/consumed",(req,res) => {
+borra(consumed,res);
 });
 
-app.delete("/api/sandbox/games",(req,res) => {
-borra(games,res);
+app.delete("/api/v1/emissions",(req,res) => {
+borra(emissions,res);
 });
 
-app.delete("/api/sandbox/books",(req,res) => {
-borra(books,res);
+app.delete("/api/v1/population",(req,res) => {
+borra(population,res);
 });
 
 //------------------------PUT---------------------
 
-app.put("/api/sandbox/books",(req,res) =>{
+app.put("/api/v1/population",(req,res) =>{
   res.sendStatus(405);
 });
 
-app.put("/api/sandbox/nba",(req,res) =>{
+app.put("/api/v1/consumed",(req,res) =>{
   res.sendStatus(405);
 });
 
-app.put("/api/sandbox/games",(req,res) =>{
+app.put("/api/v1/emissions",(req,res) =>{
   res.sendStatus(405);
 });
 
 
 
-app.put("/api/sandbox/nba/:name",(req,res) => {
-var name = req.params.name;
-var player = req.body;
-cambia(players,name,res,player);
+app.put("/api/v1/consumed/:country",(req,res) => {
+var country = req.params.country;
+var oneconsumed = req.body;
+cambia(consumed,country,res,oneconsumed);
 });
 
-app.put("/api/sandbox/games/:name",(req,res) => {
-var name = req.params.name;
-var game = req.body;
-cambia(games,name,res,game);
+app.put("/api/v1/emissions/:country",(req,res) => {
+var country = req.params.country;
+var emission = req.body;
+cambia(emissions,country,res,emission);
 });
 
-//players[0].name.set(name);
 
-app.put("/api/sandbox/books/:name",(req,res) => {
-var name = req.params.name;
-var book = req.body;
-cambia(books,name,res,book);
+app.put("/api/v1/population/:country",(req,res) => {
+var country = req.params.country;
+var people = req.body;
+cambia(population,country,res,people);
 });
 
 
