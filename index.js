@@ -227,7 +227,7 @@ app.post("/api/v1/consumed/:country",(req,res) => {
 app.post("/api/v1/population/:country",(req,res) => {
  res.sendStatus(405);
 });
-
+ 
 
 //--------------------DELETE-----------------
 
