@@ -41,16 +41,16 @@ function existe(array,country,res){
 
 
 function busca(array,country,res){
-	if(array.length == 0){
-		res.sendStatus(404);
-	}
+	var res1 = 0;
 	for(i=0; i< array.length;i++) {
 		if(country == array[i].country){
 			array.splice(i,1);
 			res.sendStatus(200);
-		}else{
-			res.sendStatus(404);
+			res1 = 1;
 		}
+	}
+	if(res1 != 1){
+			res.sendStatus(404);
 	}
 }
 
