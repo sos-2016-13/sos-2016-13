@@ -66,14 +66,16 @@ function borra(array,res){
 
 
 function cambia(array,country,res,nuevo){
+	var res1 = 0;
 	for(i=0; i< array.length;i++) {
 		if(country == array[i].country){
 			array.splice(i,1,nuevo);
 			res.sendStatus(200);
+			res1 = 1;
 			break;
-		}else{
-			res.sendStatus(404);
 		}
+	}if (res1 != 1){
+			res.sendStatus(404);
 	}
 }
 
