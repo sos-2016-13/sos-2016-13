@@ -66,9 +66,6 @@ function borra(array,res){
 
 
 function cambia(array,country,res,nuevo){
-	if(array == null || array.length == 0){
-		res.sendStatus(404);
-	}
 	for(i=0; i< array.length;i++) {
 		if(country == array[i].country){
 			array.splice(i,1,nuevo);
