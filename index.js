@@ -65,19 +65,6 @@ function borra(array,res){
 }
 
 
-function cambia(array,country,res,nuevo){
-	var res1 = 0;
-	for(i=0; i< array.length;i++) {
-		if(country == array[i].country){
-			array.splice(i,1,nuevo);
-			res.sendStatus(200);
-			res1 = 1;
-			break;
-		}
-	}if (res1 != 1){
-			res.sendStatus(404);
-	}
-}
 
 function isNumeric(obj) {
     return !isNaN(parseFloat(obj)) && isFinite(obj);
@@ -88,7 +75,56 @@ function isNumeric(obj) {
 var emissions = [];
 
 app.get("/api/v1/emissions",(req,res) => {
- res.send(emissions);
+	//Búsquedas y Paginación
+
+	//Fallo el from si pones un numero muy alto, muestra todos. Y el to si pones un numero muy bajo tambien los muestra todos.
+
+	//Preguntar si el limit, es la paginacion
+
+	//Limit y busqueda no se puede hacer a la vez.
+
+
+	var limit = req.query.limit;
+	var noemin = req.query.from;
+	var noemax = req.query.to;
+	var filtro = 0;
+	var emissions2 = [];
+
+	if(noemax != null && noemin != null){
+		for(i=0; i<= emissions.length-1; i++){
+			if(emissions[i].nitrous_oxide_emissions > noemin && emissions[i].nitrous_oxide_emissions < noemax){
+				emissions2.push(emissions[i]);
+				filtro = 1;
+			}
+		}
+	}else if(noemax != null){
+		for(i=0; i<= emissions.length-1; i++){
+			if(emissions[i].nitrous_oxide_emissions < noemax){
+				emissions2.push(emissions[i]);
+				filtro = 1;
+			}
+		}
+	}else if(noemin != null){
+		for(i=0; i<= emissions.length-1; i++){
+			if(emissions[i].nitrous_oxide_emissions > noemin){
+				emissions2.push(emissions[i]);
+				filtro = 1;
+			}
+		}
+	}
+
+	if(limit && limit-1 < emissions.length-1 ){
+		for(i=0; i<= limit-1; i++){
+			emissions2.push(emissions[i]);
+			filtro = 1;
+		}
+	}
+
+	if(filtro == 1){
+		res.send(emissions2);
+	}else{
+		res.send(emissions);
+	}
 });
 
 app.get("/api/v1/emissions/:var",(req,res) => {
@@ -201,7 +237,7 @@ app.post("/api/v1/consumed/loadInitialData", (req,res)=> {
 	for (i=0; i<= oneconsumedtest.length-1; i++) {
 		consumed.push(oneconsumedtest[i]);
 	}
-	res.sendStatus(200);
+	res.sendStatus(201);
 });
 
 
@@ -214,7 +250,7 @@ app.post("/api/v1/population/loadInitialData", (req,res)=> {
 	for (i=0; i<= populationtest.length-1; i++) {
 		population.push(populationtest[i]);
 	}
-	res.sendStatus(200);
+	res.sendStatus(201);
 });
 
 
@@ -228,7 +264,7 @@ app.post("/api/v1/emissions/loadInitialData", (req,res)=> {
 	for (i=0; i<= emissionstest.length-1; i++) {
 		emissions.push(emissionstest[i]);
 	}
-	res.sendStatus(200);
+	res.sendStatus(201);
 });
 
 
@@ -238,19 +274,19 @@ app.post("/api/v1/emissions/loadInitialData", (req,res)=> {
 app.post("/api/v1/emissions",(req,res) => {
  var newemission = req.body;
  emissions.push(newemission);
- res.sendStatus(200);
+ res.sendStatus(201);
 });
 
 app.post("/api/v1/consumed",(req,res) => {
  var newconsumed = req.body;
  consumed.push(newconsumed);
- res.sendStatus(200);
+ res.sendStatus(201);
 });
 
 app.post("/api/v1/population",(req,res) => {
  var newpeople = req.body;
  population.push(newpeople);
- res.sendStatus(200);
+ res.sendStatus(201);
 });
 
 app.post("/api/v1/emissions/:country",(req,res) => {
