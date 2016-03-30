@@ -315,21 +315,95 @@ app.put("/api/v1/emissions",(req,res) =>{
 
 app.put("/api/v1/consumed/:country",(req,res) => {
 var country = req.params.country;
-var oneconsumed = req.body;
-cambia(consumed,country,res,oneconsumed);
+var nuevo = req.body;
+var ok = 0;
+	for(i=0; i< consumed.length;i++){
+		if(country == consumed[i].country && nuevo.country == consumed[i].country){
+			//cambia param
+			var campo1 = nuevo.country;
+			var campo2 = nuevo.year;
+			var campo3 = nuevo.petroleum_cost;
+			var campo4 = nuevo.electric_cost;
+
+			if (campo1 == null || campo2 == null || campo3 == null || campo4 == null){
+				res.sendStatus(400);
+			}else{
+				consumed[i].country = campo1;
+				consumed[i].year = campo2;
+				consumed[i].petroleum_cost = campo3;
+				consumed[i].electric_cost = campo4;
+			}
+			ok = 1;
+			res.sendStatus(200);
+			break;
+		}
+	}
+	if(ok != 1){
+		res.sendStatus(404);
+	}
 });
 
 app.put("/api/v1/emissions/:country",(req,res) => {
 var country = req.params.country;
-var emission = req.body;
-cambia(emissions,country,res,emission);
+var nuevo = req.body;
+var ok = 0;
+	for(i=0; i< emissions.length;i++){
+		if(country == emissions[i].country && nuevo.country == emissions[i].country){
+			//cambia param
+			var campo1 = nuevo.country;
+			var campo2 = nuevo.year;
+			var campo3 = nuevo.nitrous_oxide_emissions;
+			var campo4 = nuevo.methane_emissions;
+			var campo5 = nuevo.co2_emissions;
+
+			if (campo1 == null || campo2 == null || campo3 == null || campo4 == null || campo5 == null){
+				res.sendStatus(400);
+			}else{
+				emissions[i].country = campo1;
+				emissions[i].year = campo2;
+				emissions[i].nitrous_oxide_emissions = campo3;
+				emissions[i].methane_emissions = campo4;
+				emissions[i].co2_emissions = campo5;
+			}
+			ok = 1;
+			res.sendStatus(200);
+			break;
+		}
+	}
+	if(ok != 1){
+		res.sendStatus(404);
+	}
 });
 
 
 app.put("/api/v1/population/:country",(req,res) => {
 var country = req.params.country;
-var people = req.body;
-cambia(population,country,res,people);
+var nuevo = req.body;
+var ok = 0;
+	for(i=0; i< population.length;i++){
+		if(country == population[i].country && nuevo.country == population[i].country){
+			//cambia param
+			var campo1 = nuevo.country;
+			var campo2 = nuevo.year;
+			var campo3 = nuevo.population;
+			var campo4 = nuevo.access_to_electricity;
+
+			if (campo1 == null || campo2 == null || campo3 == null || campo4 == null){
+				res.sendStatus(400);
+			}else{
+				population[i].country = campo1;
+				population[i].year = campo2;
+				population[i].population = campo3;
+				population[i].access_to_electricity = campo4;
+			}
+			ok = 1;
+			res.sendStatus(200);
+			break;
+		}
+	}
+	if(ok != 1){
+		res.sendStatus(404);
+	}
 });
 
 
