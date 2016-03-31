@@ -70,64 +70,80 @@ function isNumeric(obj) {
     return !isNaN(parseFloat(obj)) && isFinite(obj);
 }
 
+
+function login(res,req){
+	var key = req.query.apikey;
+		if (key != "eea"){
+			res.send(401);
+		}
+}
+
 //---------------------GET------------------
 
 var emissions = [];
 
 app.get("/api/v1/emissions",(req,res) => {
+	
+	login(res,req);
+
 	//Búsquedas y Paginación
-
-	//Fallo el from si pones un numero muy alto, muestra todos. Y el to si pones un numero muy bajo tambien los muestra todos.
-
-	//Preguntar si el limit, es la paginacion
-
-	//Limit y busqueda no se puede hacer a la vez.
-
 
 	var limit = req.query.limit;
 	var noemin = req.query.from;
 	var noemax = req.query.to;
 	var filtro = 0;
 	var emissions2 = [];
+	var emissions3 = [];
+	var pag = 0;
 
 	if(noemax != null && noemin != null){
+		filtro = 1;
 		for(i=0; i<= emissions.length-1; i++){
 			if(emissions[i].nitrous_oxide_emissions > noemin && emissions[i].nitrous_oxide_emissions < noemax){
 				emissions2.push(emissions[i]);
-				filtro = 1;
 			}
 		}
-	}else if(noemax != null){
+	}else if(noemax != null && noemin == null){
+		filtro = 1;
 		for(i=0; i<= emissions.length-1; i++){
 			if(emissions[i].nitrous_oxide_emissions < noemax){
 				emissions2.push(emissions[i]);
-				filtro = 1;
 			}
 		}
-	}else if(noemin != null){
+	}else if(noemin != null && noemax == null){
+		filtro = 1;
 		for(i=0; i<= emissions.length-1; i++){
 			if(emissions[i].nitrous_oxide_emissions > noemin){
 				emissions2.push(emissions[i]);
-				filtro = 1;
 			}
 		}
 	}
 
-	if(limit && limit-1 < emissions.length-1 ){
-		for(i=0; i<= limit-1; i++){
-			emissions2.push(emissions[i]);
-			filtro = 1;
-		}
+if(filtro == 1 && limit != null && limit-1 < emissions.length-1){
+	for(i=0; i<= limit-1; i++){
+			emissions3.push(emissions2[i]);
 	}
-
-	if(filtro == 1){
+	pag = 1;
+}else if(limit != null && limit-1 < emissions.length-1){
+	for(i=0; i<= limit-1; i++){
+			emissions3.push(emissions[i]);
+	}
+	pag = 1;
+}
+	
+	if(filtro == 1 && pag == 1){
+		res.send(emissions3);
+	}else if(filtro == 1){
 		res.send(emissions2);
+	}else if(pag == 1){
+		res.send(emissions3);
 	}else{
 		res.send(emissions);
 	}
 });
 
 app.get("/api/v1/emissions/:var",(req,res) => {
+	login(res,req);
 	var country2 = [];
 	var var1 = req.params.var;
 	if(isNumeric(var1)){
@@ -143,6 +159,7 @@ app.get("/api/v1/emissions/:var",(req,res) => {
 });
 
 app.get("/api/v1/emissions/:var/:var2",(req,res) => {
+	login(res,req);
 	var country2 = [];
 	var var1 = req.params.var;
 	var var2 = req.params.var2;
@@ -158,11 +175,65 @@ app.get("/api/v1/emissions/:var/:var2",(req,res) => {
 var population = [];
 
 app.get("/api/v1/population", (req,res) =>{
-   res.send(population);
- });
+	login(res,req);
+   
+	var limit = req.query.limit;
+	var noemin = req.query.from;
+	var noemax = req.query.to;
+	var filtro = 0;
+	var population2 = [];
+	var population3 = [];
+	var pag = 0;
+
+	if(noemax != null && noemin != null){
+		filtro = 1;
+		for(i=0; i<= population.length-1; i++){
+			if(population[i].access_to_electricity > noemin && population[i].access_to_electricity < noemax){
+				population2.push(population[i]);
+			}
+		}
+	}else if(noemax != null && noemin == null){
+		filtro = 1;
+		for(i=0; i<= population.length-1; i++){
+			if(population[i].access_to_electricity < noemax){
+				population2.push(population[i]);
+			}
+		}
+	}else if(noemin != null && noemax == null){
+		filtro = 1;
+		for(i=0; i<= population.length-1; i++){
+			if(population[i].access_to_electricity > noemin){
+				population2.push(population[i]);
+			}
+		}
+	}
+
+if(filtro == 1 && limit != null && limit-1 < population.length-1){
+	for(i=0; i<= limit-1; i++){
+			population3.push(population2[i]);
+	}
+	pag = 1;
+}else if(limit != null && limit-1 < population.length-1){
+	for(i=0; i<= limit-1; i++){
+			population3.push(population[i]);
+	}
+	pag = 1;
+}
+	
+	if(filtro == 1 && pag == 1){
+		res.send(population3);
+	}else if(filtro == 1){
+		res.send(population2);
+	}else if(pag == 1){
+		res.send(population3);
+	}else{
+		res.send(population);
+	}
+});
 
 
 app.get("/api/v1/population/:var",(req,res) => {
+	login(res,req);
 	var country2 = [];
 	var var1 = req.params.var;
 	if(isNumeric(var1)){
@@ -178,6 +249,7 @@ app.get("/api/v1/population/:var",(req,res) => {
 });
 
 app.get("/api/v1/population/:var/:var2",(req,res) => {
+	login(res,req);
 	var country2 = [];
 	var var1 = req.params.var;
 	var var2 = req.params.var2;
@@ -193,11 +265,64 @@ app.get("/api/v1/population/:var/:var2",(req,res) => {
 var consumed = [];
 
 app.get("/api/v1/consumed",(req,res) => {
-	res.send(consumed);
+	login(res,req);
+	var limit = req.query.limit;
+	var noemin = req.query.from;
+	var noemax = req.query.to;
+	var filtro = 0;
+	var consumed2 = [];
+	var consumed3 = [];
+	var pag = 0;
+
+	if(noemax != null && noemin != null){
+		filtro = 1;
+		for(i=0; i<= consumed.length-1; i++){
+			if(consumed[i].petroleum_cost > noemin && consumed[i].petroleum_cost < noemax){
+				consumed2.push(consumed[i]);
+			}
+		}
+	}else if(noemax != null && noemin == null){
+		filtro = 1;
+		for(i=0; i<= consumed.length-1; i++){
+			if(consumed[i].petroleum_cost < noemax){
+				consumed2.push(consumed[i]);
+			}
+		}
+	}else if(noemin != null && noemax == null){
+		filtro = 1;
+		for(i=0; i<= consumed.length-1; i++){
+			if(consumed[i].petroleum_cost > noemin){
+				consumed2.push(consumed[i]);
+			}
+		}
+	}
+
+if(filtro == 1 && limit != null && limit-1 < consumed.length-1){
+	for(i=0; i<= limit-1; i++){
+			consumed3.push(consumed2[i]);
+	}
+	pag = 1;
+}else if(limit != null && limit-1 < consumed.length-1){
+	for(i=0; i<= limit-1; i++){
+			consumed3.push(consumed[i]);
+	}
+	pag = 1;
+}
+	
+	if(filtro == 1 && pag == 1){
+		res.send(consumed3);
+	}else if(filtro == 1){
+		res.send(consumed2);
+	}else if(pag == 1){
+		res.send(consumed3);
+	}else{
+		res.send(consumed);
+	}
 });
 
 
 app.get("/api/v1/consumed/:var",(req,res) => {
+	login(res,req);
 	var country2 = [];
 	var var1 = req.params.var;
 	if(isNumeric(var1)){
@@ -213,6 +338,7 @@ app.get("/api/v1/consumed/:var",(req,res) => {
 });
 
 app.get("/api/v1/consumed/:var/:var2",(req,res) => {
+	login(res,req);
 	var country2 = [];
 	var var1 = req.params.var;
 	var var2 = req.params.var2;
@@ -228,6 +354,7 @@ app.get("/api/v1/consumed/:var/:var2",(req,res) => {
 //-------------------POST INICIALIZA-----------------------
 
 app.post("/api/v1/consumed/loadInitialData", (req,res)=> {
+	login(res,req);
 	var oneconsumedtest = [{ country: "Afganistan" , year: 2010 , petroleum_cost: 4800, electric_cost:801.4 },
 							{ country: "Albania" , year: 2010 , petroleum_cost: 33000, electric_cost:3323000 },
 							{ country: "Alemania" , year: 2010 , petroleum_cost: 2495000, electric_cost:545500000 },
@@ -242,6 +369,7 @@ app.post("/api/v1/consumed/loadInitialData", (req,res)=> {
 
 
 app.post("/api/v1/population/loadInitialData", (req,res)=> {
+	login(res,req);
 	var populationtest =  [{ country: "Afganistan" , year: 2010 , population: 31627506, access_to_electricity:43.0 },
        { country: "Albania" , year: 2010 , population: 2894475, access_to_electricity:100.0 },
        { country: "Alemania" , year: 2010 , population: 80889505, access_to_electricity:100.0 },
@@ -256,6 +384,7 @@ app.post("/api/v1/population/loadInitialData", (req,res)=> {
 
 
 app.post("/api/v1/emissions/loadInitialData", (req,res)=> {
+	login(res,req);
 	var emissionstest =  [{ country: "Albania" , year: 2010 , nitrous_oxide_emissions: 1121, methane_emissions:2517 , co2_emissions: 1.6 },
        { country: "Alemania" , year: 2010 ,nitrous_oxide_emissions: 49966, methane_emissions:46329 , co2_emissions: 3.2 },
        { country: "Angola" , year: 2010 ,nitrous_oxide_emissions: 3307, methane_emissions:0 , co2_emissions: 6.3 },
@@ -272,32 +401,38 @@ app.post("/api/v1/emissions/loadInitialData", (req,res)=> {
 
 
 app.post("/api/v1/emissions",(req,res) => {
+	login(res,req);
  var newemission = req.body;
  emissions.push(newemission);
  res.sendStatus(201);
 });
 
 app.post("/api/v1/consumed",(req,res) => {
+	login(res,req);
  var newconsumed = req.body;
  consumed.push(newconsumed);
  res.sendStatus(201);
 });
 
 app.post("/api/v1/population",(req,res) => {
+	login(res,req);
  var newpeople = req.body;
  population.push(newpeople);
  res.sendStatus(201);
 });
 
 app.post("/api/v1/emissions/:country",(req,res) => {
+	login(res,req);
  res.sendStatus(405);
 });
 
 app.post("/api/v1/consumed/:country",(req,res) => {
+	login(res,req);
  res.sendStatus(405);
 });
 
 app.post("/api/v1/population/:country",(req,res) => {
+	login(res,req);
  res.sendStatus(405);
 });
  
@@ -306,50 +441,60 @@ app.post("/api/v1/population/:country",(req,res) => {
 
 
 app.delete("/api/v1/consumed/:country",(req,res) => {
+	login(res,req);
 var country = req.params.country;
 busca(consumed,country,res);
 });
 
 app.delete("/api/v1/emissions/:country",(req,res) => {
+	login(res,req);
 var country = req.params.country;
 busca(emissions,country,res);
 });
 
 app.delete("/api/v1/population/:country",(req,res) => {
+	login(res,req);
 var country = req.params.country;
 busca(population,country,res);
 });
 
 
 app.delete("/api/v1/consumed",(req,res) => {
+	login(res,req);
 borra(consumed,res);
 });
 
 app.delete("/api/v1/emissions",(req,res) => {
+	login(res,req);
 borra(emissions,res);
 });
 
 app.delete("/api/v1/population",(req,res) => {
+	login(res,req);
 borra(population,res);
 });
 
 //------------------------PUT---------------------
 
 app.put("/api/v1/population",(req,res) =>{
+	login(res,req);
   res.sendStatus(405);
 });
 
 app.put("/api/v1/consumed",(req,res) =>{
+	login(res,req);
   res.sendStatus(405);
 });
 
 app.put("/api/v1/emissions",(req,res) =>{
+	login(res,req);
   res.sendStatus(405);
 });
 
 
 
 app.put("/api/v1/consumed/:country",(req,res) => {
+	login(res,req);
 var country = req.params.country;
 var nuevo = req.body;
 var ok = 0;
@@ -380,6 +525,7 @@ var ok = 0;
 });
 
 app.put("/api/v1/emissions/:country",(req,res) => {
+	login(res,req);
 var country = req.params.country;
 var nuevo = req.body;
 var ok = 0;
@@ -413,6 +559,7 @@ var ok = 0;
 
 
 app.put("/api/v1/population/:country",(req,res) => {
+	login(res,req);
 var country = req.params.country;
 var nuevo = req.body;
 var ok = 0;
