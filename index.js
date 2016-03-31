@@ -403,11 +403,11 @@ app.post("/api/v1/emissions/loadInitialData", (req,res)=> {
 app.post("/api/v1/emissions",(req,res) => {
 	login(res,req);
 	var newemission = req.body;
- 	var ok =0;
+ 	var ok =1;
 
  for (i = 0; i<= emissions.length-1 ; i++){
- 	if(newemission.country != emissions[i].country){
-         ok = 1; 		
+ 	if(newemission.country == emissions[i].country){
+         ok = 0; 		
  		}
  	}
  	if(ok==1){
@@ -421,29 +421,30 @@ app.post("/api/v1/emissions",(req,res) => {
 app.post("/api/v1/consumed",(req,res) => {
 	login(res,req);
  var newconsumed = req.body;
- var ok =0;
-
+ var ok =1;
+ 
  for (i = 0; i<= consumed.length-1 ; i++){
- 	if(newconsumed.country != consumed[i].country){
-         ok = 1; 		
+ 	if(newconsumed.country == consumed[i].country){
+         ok = 0; 		
  		}
  	}
  	if(ok==1){
  		 consumed.push(newconsumed);
  		 res.sendStatus(201);
- 		}else{
+ 	}else{
  		 res.sendStatus(409);
- 		}
+ 	}
+	
 });
 
 app.post("/api/v1/population",(req,res) => {
 	login(res,req);
  var newpeople = req.body;
-  var ok =0;
+  var ok =1;
 
  for (i = 0; i<= population.length-1 ; i++){
  	if(newpeople.country == population[i].country){
-         ok = 1; 		
+         ok = 0; 		
  		}
  	}
  	if(ok==1){
