@@ -407,14 +407,14 @@ app.post("/api/v1/emissions",(req,res) => {
 
  for (i = 0; i<= emissions.length-1 ; i++){
  	if(newemission.country != emissions[i].country){
- 		 emissions.push(newemission);
          ok = 1; 		
  		}
  	}
  	if(ok==1){
+ 		 emissions.push(newemission);
  		 res.sendStatus(201);
  		}else{
- 			res.sendStatus(409);
+ 		 res.sendStatus(409);
  		}
 });
 
@@ -425,14 +425,14 @@ app.post("/api/v1/consumed",(req,res) => {
 
  for (i = 0; i<= consumed.length-1 ; i++){
  	if(newconsumed.country != consumed[i].country){
- 		 consumed.push(newconsumed);
          ok = 1; 		
  		}
  	}
  	if(ok==1){
+ 		 consumed.push(newconsumed);
  		 res.sendStatus(201);
  		}else{
- 			res.sendStatus(409);
+ 		 res.sendStatus(409);
  		}
 });
 
@@ -442,15 +442,15 @@ app.post("/api/v1/population",(req,res) => {
   var ok =0;
 
  for (i = 0; i<= population.length-1 ; i++){
- 	if(newpeople.country != population[i].country){
- 		 population.push(newpeople);
+ 	if(newpeople.country == population[i].country){
          ok = 1; 		
  		}
  	}
  	if(ok==1){
+ 		 population.push(newpeople);
  		 res.sendStatus(201);
  		}else{
- 			res.sendStatus(409);
+ 		 res.sendStatus(409);
  		}
 });
 
