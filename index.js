@@ -554,7 +554,7 @@ var ok = 0;
 		}
 	}
 	if(ok != 1){
-		res.sendStatus(404);
+		res.sendStatus(400);
 	}
 });
 
@@ -587,7 +587,7 @@ var ok = 0;
 		}
 	}
 	if(ok != 1){
-		res.sendStatus(404);
+		res.sendStatus(400);
 	}
 });
 
@@ -619,7 +619,7 @@ var ok = 0;
 		}
 	}
 	if(ok != 1){
-		res.sendStatus(404);
+		res.sendStatus(400);
 	}
 });
 
