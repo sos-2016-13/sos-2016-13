@@ -406,6 +406,16 @@ app.post("/api/v1/emissions",(req,res) => {
  	var ok =1;
 
  for (i = 0; i<= emissions.length-1 ; i++){
+
+			var campo1 = newemission.country;
+			var campo2 = newemission.year;
+			var campo3 = newemission.nitrous_oxide_emissions;
+			var campo4 = newemission.methane_emissions;
+			var campo5 = newemission.co2_emissions;
+
+			if (campo1 == null || campo2 == null || campo3 == null || campo4 == null || campo5 == null){
+				res.sendStatus(400);
+			}
  	if(newemission.country == emissions[i].country){
          ok = 0; 		
  		}
@@ -424,6 +434,16 @@ app.post("/api/v1/consumed",(req,res) => {
  var ok =1;
  
  for (i = 0; i<= consumed.length-1 ; i++){
+
+			var campo1 = newconsumed.country;
+			var campo2 = newconsumed.year;
+			var campo3 = newconsumed.petroleum_cost;
+			var campo4 = newconsumed.electric_cost;
+
+			if (campo1 == null || campo2 == null || campo3 == null || campo4 == null){
+				res.sendStatus(400);
+			}
+
  	if(newconsumed.country == consumed[i].country){
          ok = 0; 		
  		}
@@ -443,6 +463,17 @@ app.post("/api/v1/population",(req,res) => {
   var ok =1;
 
  for (i = 0; i<= population.length-1 ; i++){
+
+ 			var campo1 = newpeople.country;
+			var campo2 = newpeople.year;
+			var campo3 = newpeople.population;
+			var campo4 = newpeople.access_to_electricity;
+
+			if (campo1 == null || campo2 == null || campo3 == null || campo4 == null){
+				res.sendStatus(400);
+			}
+
+
  	if(newpeople.country == population[i].country){
          ok = 0; 		
  		}
