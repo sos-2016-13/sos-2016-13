@@ -91,6 +91,7 @@ app.get("/api/v1/emissions",(req,res) => {
 	var limit = req.query.limit;
 	var noemin = req.query.from;
 	var noemax = req.query.to;
+	var offset = req.query.offset;
 	var filtro = 0;
 	var emissions2 = [];
 	var emissions3 = [];
@@ -125,7 +126,7 @@ if(filtro == 1 && limit != null && limit-1 < emissions.length-1){
 	}
 	pag = 1;
 }else if(limit != null && limit-1 < emissions.length-1){
-	for(i=0; i<= limit-1; i++){
+	for(i=0; i<=limit-1; i++){
 			emissions3.push(emissions[i]);
 	}
 	pag = 1;
@@ -585,7 +586,7 @@ var ok = 0;
 		}
 	}
 	if(ok != 1){
-		res.sendStatus(400);
+		res.sendStatus(404);
 	}
 });
 
@@ -618,7 +619,7 @@ var ok = 0;
 		}
 	}
 	if(ok != 1){
-		res.sendStatus(400);
+		res.sendStatus(404);
 	}
 });
 
@@ -650,7 +651,7 @@ var ok = 0;
 		}
 	}
 	if(ok != 1){
-		res.sendStatus(400);
+		res.sendStatus(404);
 	}
 });
 
