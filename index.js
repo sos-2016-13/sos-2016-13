@@ -564,7 +564,11 @@ app.put("/api/v1/consumed/:country",(req,res) => {
 var country = req.params.country;
 var nuevo = req.body;
 var ok = 0;
+var url = 0;
 	for(i=0; i< consumed.length;i++){
+		if(country != nuevo.country){
+			url = 1
+		}
 		if(country == consumed[i].country && nuevo.country == consumed[i].country){
 			//cambia param
 			var campo1 = nuevo.country;
@@ -585,6 +589,9 @@ var ok = 0;
 			break;
 		}
 	}
+	if(url == 1){
+		res.sendStatus(400);
+	}
 	if(ok != 1){
 		res.sendStatus(404);
 	}
@@ -595,7 +602,11 @@ app.put("/api/v1/emissions/:country",(req,res) => {
 var country = req.params.country;
 var nuevo = req.body;
 var ok = 0;
+var url = 0;
 	for(i=0; i< emissions.length;i++){
+		if(country != nuevo.country){
+			url = 1
+		}
 		if(country == emissions[i].country && nuevo.country == emissions[i].country){
 			//cambia param
 			var campo1 = nuevo.country;
@@ -618,6 +629,9 @@ var ok = 0;
 			break;
 		}
 	}
+	if(url == 1){
+		res.sendStatus(400);
+	}
 	if(ok != 1){
 		res.sendStatus(404);
 	}
@@ -629,7 +643,11 @@ app.put("/api/v1/population/:country",(req,res) => {
 var country = req.params.country;
 var nuevo = req.body;
 var ok = 0;
+var url = 0;
 	for(i=0; i< population.length;i++){
+		if(country != nuevo.country){
+			url = 1
+		}
 		if(country == population[i].country && nuevo.country == population[i].country){
 			//cambia param
 			var campo1 = nuevo.country;
@@ -649,6 +667,9 @@ var ok = 0;
 			res.sendStatus(200);
 			break;
 		}
+	}
+	if(url == 1){
+		res.sendStatus(400);
 	}
 	if(ok != 1){
 		res.sendStatus(404);
