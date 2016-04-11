@@ -21,8 +21,11 @@
 				});
 				
 				request.always(function(jqXHR,status){
-				if(status=="error")
-					$("#status").text(jqXHR.status)		
+				if(status=="error"){
+					$("#status").text(jqXHR.status)
+				}else{
+					$("#status").text("")
+				}
 				});
 				
 			});
