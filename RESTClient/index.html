@@ -1,0 +1,60 @@
+<html>
+	<head>
+	
+	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script>
+		$("body").ready(function(){
+		
+			$("#button").click(function ()){
+				
+				var method = $("input[type=radio]:checked").attr("id");
+				
+				var request = $.ajax({
+					url: $("#url").val(),
+					type: method,
+					data: $("#payload").val()
+					contentType : "application/json"
+				});
+				
+				request.done(function (data){
+					$("#data").text(JSON.stringify(data));
+				}};
+				
+				request.always(function(jqXHR,status){
+				if(status=="error")
+				console.log("Status: " + jqXHR.status);				
+				});
+				
+			}
+		
+		});
+	</script>
+	</head>
+
+<body>
+	<h1> JQuery RESTClient</h1>
+	URL: <input id="url" size="30" />
+		GET <input name="method" type="radio" id="GET" checked="checked"/> &nbsp;&nbsp;
+		POST <input name="method" type="radio" id="POST" checked="checked"/> &nbsp;&nbsp;
+		PUT <input name="method" type="radio" id="PUT" checked="checked"/> &nbsp;&nbsp;
+		DELETE <input name="method" type="radio" id="DELETE" checked="checked"/> &nbsp;&nbsp;
+		<br/>
+		Payload: <input id="payload" size="60"/>
+		
+		<br/><br/>
+		
+		<span id="button">Send</span>
+		
+		<br/><hr/>
+		
+		HTTP Status: <span id="status"></span>
+		
+		<br/><hr/>
+		<span id ="data"></span>
+		<br/><hr/>
+		<span id ="list"></span>
+		<hr/>
+		Log: <span id ="log"></span>
+</body>
+
+</html>
