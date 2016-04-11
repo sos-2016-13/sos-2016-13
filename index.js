@@ -83,7 +83,7 @@ function isNumeric(obj) {
 function login(res,req){
 	var key = req.query.apikey;
 		if (key != "eea"){
-			res.send(401);
+			res.sendStatus(401);
 		}
 }
 
