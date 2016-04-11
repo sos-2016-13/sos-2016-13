@@ -31,7 +31,7 @@ function existe(array,country,year,res){
 		res.sendStatus(404);
 	}
 	for(i=0; i< array.length;i++) {
-		if(country == array[i].country  || year == array[i].year){
+		if(country == array[i].country  && year == array[i].year){
 			res.send(array[i]);
 			ok = 1;
 		}
@@ -44,7 +44,7 @@ function existe(array,country,year,res){
 function busca(array,country,year,res){
 	var res1 = 0;
 	for(i=0; i< array.length;i++) {
-		if(country == array[i].country || year == array[i].year ){
+		if(country == array[i].country && year == array[i].year ){
 			array.splice(i,1);
 			res.sendStatus(200);
 			res1 = 1;
