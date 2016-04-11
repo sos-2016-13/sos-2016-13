@@ -190,12 +190,42 @@ app.get("/api/v1/emissions/:var",(req,res) => {
 					country2.push(emissions[i]);
 				}
 			}
+			if(country2.length==0){
+				res.sendStatus(404);
+			}else{
 		res.send(country2);
+	}
 	}else{
 
-		existe(emissions,var1,var1,res);
+		
+
+			for (i=0; i<= emissions.length-1; i++) {
+				if( emissions[i].country == var1){
+					country2.push(emissions[i]);
+				}
+			}
+			if(country2.length==0){
+
+             res.sendStatus(404);
+			}else{
+			res.send(country2);
 	}
+
+}
 });
+/*app.get("/api/v1/emissions/:var",(req,res) => {
+	login(res,req);
+	var country2 = [];
+	var var1 = req.params.var; 
+	//var var2 = req.params.var2;
+
+			for (i=0; i<= emissions.length-1; i++) {
+				if( emissions[i].country == var1){
+					country2.push(emissions[i]);
+				}
+			}
+		res.send(country2);
+});*/
 
 app.get("/api/v1/emissions/:var/:var2",(req,res) => {
 	login(res,req);
