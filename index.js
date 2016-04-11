@@ -406,7 +406,7 @@ app.get("/api/v1/consumed/:var",(req,res) => {
  if(consumed.length != 0){
    while(consumed.length > 0) {
    consumed.splice(0,1);
-   }
+    }
   }
 
  for (i=0; i<= oneconsumedtest.length-1; i++) {
