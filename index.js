@@ -13,6 +13,13 @@ app.use("/emissions",express.static(__dirname + '/static/emissions'));
 
 app.use("/population",express.static(__dirname + '/static/population'));
 
+app.use(function(req, res, next) {
+res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST,PUT,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+});
+
 //---------------------
 app.use(bodyParser.json());
 //---------------------
