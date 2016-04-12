@@ -1,5 +1,52 @@
 <html>
+<head>
+
+
+</head>
 <body>
-<h1>Alvaro Santos Muñoz (Oil and electricity consumed)</h1>
+<h1>Alvaro Santos Muñoz (Oil and electricity consumed)</h1><br/><br/>
+<table id="location" border='1'>
+    <tr>
+        <th>Countries</th>
+         <th>Year</th>
+		 <th>Petroleum Cost</th>
+		 <th>Electric Cost</th>
+    </tr>
+</table>
+
+	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script>
+		$("body").ready(function(){
+		
+		
+				
+		$.ajax(
+		{
+			type: "GET",
+			url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed?apikey=eea',
+			data: "{}",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			cache: false,
+			success: function (data) {
+				var trHTML = '';
+
+			$.each(data, function (i, item) {
+				trHTML += '<tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr>';
+			});
+
+			$('#location').append(trHTML);
+			},
+			error: function (msg) {
+				alert(msg.responseText);
+			}
+    });
+				
+	
+		
+		});
+	</script>
+
+
 </body>
 </html>
