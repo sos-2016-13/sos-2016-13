@@ -213,19 +213,7 @@ app.get("/api/v1/emissions/:var",(req,res) => {
 
 }
 });
-/*app.get("/api/v1/emissions/:var",(req,res) => {
-	login(res,req);
-	var country2 = [];
-	var var1 = req.params.var; 
-	//var var2 = req.params.var2;
 
-			for (i=0; i<= emissions.length-1; i++) {
-				if( emissions[i].country == var1){
-					country2.push(emissions[i]);
-				}
-			}
-		res.send(country2);
-});*/
 
 app.get("/api/v1/emissions/:var/:var2",(req,res) => {
 	login(res,req);
@@ -337,14 +325,32 @@ app.get("/api/v1/population/:var",(req,res) => {
  }
 	if(isNumeric(var1)){
 			for (i=0; i<= population.length-1; i++) {
-				if(population[i].year == var1){
+				if(population[i].year == var1 ){
 					country2.push(population[i]);
 				}
 			}
+			if(country2.length==0){
+				res.sendStatus(404);
+			}else{
 		res.send(country2);
-	}else{
-		existe(population,var1,res);
 	}
+	}else{
+
+		
+
+			for (i=0; i<= population.length-1; i++) {
+				if( population[i].country == var1){
+					country2.push(population[i]);
+				}
+			}
+			if(country2.length==0){
+
+             res.sendStatus(404);
+			}else{
+			res.send(country2);
+	}
+
+}
 });
 
 app.get("/api/v1/population/:var/:var2",(req,res) => {
@@ -453,16 +459,34 @@ app.get("/api/v1/consumed/:var",(req,res) => {
  }
 
 
-	if(isNumeric(var1)){
+		if(isNumeric(var1)){
 			for (i=0; i<= consumed.length-1; i++) {
-				if(consumed[i].year == var1){
+				if(consumed[i].year == var1 ){
 					country2.push(consumed[i]);
 				}
 			}
+			if(country2.length==0){
+				res.sendStatus(404);
+			}else{
 		res.send(country2);
-	}else{
-		existe(consumed,var1,res);
 	}
+	}else{
+
+		
+
+			for (i=0; i<= consumed.length-1; i++) {
+				if( consumed[i].country == var1){
+					country2.push(consumed[i]);
+				}
+			}
+			if(country2.length==0){
+
+             res.sendStatus(404);
+			}else{
+			res.send(country2);
+	}
+
+}
 });
 
 app.get("/api/v1/consumed/:var/:var2",(req,res) => {
