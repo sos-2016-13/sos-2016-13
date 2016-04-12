@@ -7,11 +7,11 @@ var port = (process.env.PORT || 10000);
 app.use("/",express.static(__dirname + '/static'));
 app.use("/RESTClient",express.static(__dirname + '/RESTClient'));
 
-app.use("/consumed",express.static(__dirname + '/data/consumed'));
+app.use("/consumed",express.static(__dirname + '/static/consumed'));
 
-app.use("/emissions",express.static(__dirname + '/data/emissions'));
+app.use("/emissions",express.static(__dirname + '/static/emissions'));
 
-app.use("/population",express.static(__dirname + '/data/population'));
+app.use("/population",express.static(__dirname + '/static/population'));
 
 app.use(function(req, res, next) {
 res.setHeader('Access-Control-Allow-Origin', '*');
