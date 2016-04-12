@@ -1,5 +1,49 @@
 <html>
 <body>
 <h2>Enrique Pardo Alvarez ( Methane emissions, CO2 emissions and nitrous oxide emissions )</h2>
+<table id="location" border='1'>
+    <tr>
+        <th>Countries</th>
+         <th>Year</th>
+		 <th>Nitrous Oxide Emissions</th>
+		 <th>Methane Emissions</th>
+		 <th>CO2_Emissions</th>
+    </tr>
+</table>
+
+	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script>
+		$("body").ready(function(){
+		
+		
+				
+		$.ajax(
+		{
+			type: "GET",
+			url: 'https://sos-2016-13.herokuapp.com/api/v1/emissions?apikey=eea',
+			data: "{}",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			cache: false,
+			success: function (data) {
+				var trHTML = '';
+
+			$.each(data, function (i, item) {
+				trHTML += '<tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr>';
+			});
+
+			$('#location').append(trHTML);
+			},
+			error: function (msg) {
+				alert(msg.responseText);
+			}
+    });
+				
+	
+		
+		});
+	</script>
+
+
 </body>
 </html>
