@@ -167,7 +167,7 @@ module.exports.getConsumedCY=function(req,res){
  		 res.sendStatus(409);
  	}
 	
-});
+};
 
 
 module.exports.postConsumedC=function(req,res){

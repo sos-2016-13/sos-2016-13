@@ -71,7 +71,7 @@ if(filtro == 1 && limit != null && limit-1 < population.length-1 && offset != nu
  }else{
   res.send(population);
  }
-});
+};
 
 
 	module.exports.getPopulationInit=function(req,res){
@@ -192,7 +192,7 @@ if(filtro == 1 && limit != null && limit-1 < population.length-1 && offset != nu
 var country = req.params.country;
 var year= req.params.year;
 functionsCtl.busca(population,country,year,res);
-});
+};
 
 
 
