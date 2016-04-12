@@ -42,9 +42,9 @@ app.get("/api/v1/emissions/:var/:var2",emissionsCtl.getEmissionsCY);
 app.get("/api/v1/population",populationCtl.getPopulationPag);
 app.get("/api/v1/population/:var",populationCtl.getPopulationInit);
 app.get("/api/v1/population/:var/:var2",populationCtl.getPopulationCY);
-app.get("/api/v1/population",consumedCtl.getConsumedPag);
-app.get("/api/v1/population/:var",consumedCtl.getConsumedInit);
-app.get("/api/v1/population/:var/:var2",consumedCtl.getConsumedCY);
+app.get("/api/v1/consumed",consumedCtl.getConsumedPag);
+app.get("/api/v1/consumed/:var",consumedCtl.getConsumedInit);
+app.get("/api/v1/consumed/:var/:var2",consumedCtl.getConsumedCY);
 
 
 //--------------------POST------------------------------//
@@ -55,24 +55,24 @@ app.post("/api/v1/emissions/:year",emissionsCtl.postEmissionsY);
 app.post("/api/v1/population",populationCtl.postPopulationRB);
 app.post("/api/v1/population/:country",populationCtl.postPopulationC);
 app.post("/api/v1/population/:year",populationCtl.postPopulationY);
-app.post("/api/v1/population",consumedCtl.postConsumedRB);
-app.post("/api/v1/population/:country",consumedCtl.postConsumedC);
-app.post("/api/v1/population/:year",consumedCtl.postConsumedY);
+app.post("/api/v1/consumed",consumedCtl.postConsumedRB);
+app.post("/api/v1/consumed/:country",consumedCtl.postConsumedC);
+app.post("/api/v1/consumed/:year",consumedCtl.postConsumedY);
 
 //----------------------DELETE------------------------//
 app.delete("/api/v1/emissions/:country/:year",emissionsCtl.deleteEmissionsCY);
 app.delete("/api/v1/emissions",emissionsCtl.deleteEmissions);
 app.delete("/api/v1/population/:country/:year",populationCtl.deletePopulationCY);
 app.delete("/api/v1/population",populationCtl.deletePopulation);
-app.delete("/api/v1/population/:country/:year",consumedCtl.deleteConsumedCY);
-app.delete("/api/v1/population",consumedCtl.deleteConsumed);
+app.delete("/api/v1/consumed/:country/:year",consumedCtl.deleteConsumedCY);
+app.delete("/api/v1/consumed",consumedCtl.deleteConsumed);
 
 //--------------------PUT---------------------------//
 app.put("/api/v1/emissions",emissionsCtl.putEmissionsRB);
 app.put("/api/v1/emissions/:country/:year",emissionsCtl.putEmissionsCY);
 app.put("/api/v1/population",populationCtl.putPopulationRB);
 app.put("/api/v1/population/:country/:year",populationCtl.putPopulationCY);
-app.put("/api/v1/population",consumedCtl.putConsumedRB);
+app.put("/api/v1/consumed",consumedCtl.putConsumedRB);
 app.put("/api/v1/consumed/:country/:year",consumedCtl.putConsumedCY);
 
 app.listen(port);
