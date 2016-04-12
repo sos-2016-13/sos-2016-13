@@ -22,7 +22,8 @@
 				
 				request.always(function(jqXHR,status){
 				if(status=="error"){
-					$("#status").text(jqXHR.status)
+					$("#data").text("");
+					$("#status").text(jqXHR.status);
 				}else{
 					$("#status").text("")
 				}
