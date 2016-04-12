@@ -217,16 +217,9 @@ app.get("/api/v1/emissions/:var",(req,res) => {
 
 app.get("/api/v1/emissions/:var/:var2",(req,res) => {
 	login(res,req);
-	var country2 = [];
 	var var1 = req.params.var; 
 	var var2 = req.params.var2;
-
-			for (i=0; i<= emissions.length-1; i++) {
-				if(emissions[i].year == var2 && emissions[i].country == var1){
-					country2.push(emissions[i]);
-				}
-			}
-		res.send(country2);
+	existe(emissions,var1,var2,res);
 });
 
 var population = [];
@@ -355,16 +348,9 @@ app.get("/api/v1/population/:var",(req,res) => {
 
 app.get("/api/v1/population/:var/:var2",(req,res) => {
 	login(res,req);
-	var country2 = [];
 	var var1 = req.params.var;
 	var var2 = req.params.var2;
-
-			for (i=0; i<= population.length-1; i++) {
-				if(population[i].year == var2 && population[i].country == var1){
-					country2.push(population[i]);
-				}
-			}
-		res.send(country2);
+	existe(population,var1,var2,res);
 });
 
 var consumed = [];
@@ -491,16 +477,9 @@ app.get("/api/v1/consumed/:var",(req,res) => {
 
 app.get("/api/v1/consumed/:var/:var2",(req,res) => {
 	login(res,req);
-	var country2 = [];
 	var var1 = req.params.var;
 	var var2 = req.params.var2;
-
-			for (i=0; i<= consumed.length-1; i++) {
-				if(consumed[i].year == var2 && consumed[i].country == var1){
-					country2.push(consumed[i]);
-				}
-			}
-		res.send(country2);
+	existe(consumed,var1,var2,res);
 });
 
 
