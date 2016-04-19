@@ -1,4 +1,4 @@
-var  functionsCtl = require("./functions.js");
+﻿var  functionsCtl = require("./functions.js");
  
 var emissions = [];
 
@@ -183,11 +183,6 @@ module.exports.postEmissionsC=	function(req,res){
   res. sendStatus(405);
 };
 
-
-module.exports.postEmissionsY= function(req,res){
-functionCtl.login(res,req);
- res.sendStatus(405);
-};
 
 
 //-----------------------DELETE--------------------------//

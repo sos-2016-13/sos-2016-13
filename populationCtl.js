@@ -178,11 +178,6 @@ if(filtro == 1 && limit != null && limit-1 < population.length-1 && offset != nu
  res.sendStatus(405);
 };
 
-	module.exports.postPopulationY=function(req,res){
-	functionsCtl.login(res,req);
- res.sendStatus(405);
-};
-
 
 //----------------------------------DELETE----------------------//
 

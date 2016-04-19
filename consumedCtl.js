@@ -175,10 +175,6 @@ module.exports.postConsumedC=function(req,res){
  res.sendStatus(405);
 };
 
-module.exports.postConsumedY=function(req,res){
-	functionsCtl.login(res,req);
- res.sendStatus(405);
-};
 
 
 //------------------------DELETE---------------------------//
