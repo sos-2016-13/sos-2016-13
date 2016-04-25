@@ -15,11 +15,15 @@ app.use("/RESTClient",express.static(__dirname + '/RESTClient'));
 
 app.use("/consumed",express.static(__dirname + '/static/consumed'));
 
-app.use("/RestClientConsumed",express.static(__dirname + '/static/consumed/RestClientConsumed'));
+app.use("/RestClient",express.static(__dirname + '/static/consumed/RestClient'));
 
 app.use("/emissions",express.static(__dirname + '/static/emissions'));
 
+app.use("/RestClient",express.static(__dirname + '/static/emissions/RestClient'));
+
 app.use("/population",express.static(__dirname + '/static/population'));
+
+app.use("/RestClient",express.static(__dirname + '/static/population/RestClient'));
 
 app.use(function(req, res, next) {
 res.setHeader('Access-Control-Allow-Origin', '*');
