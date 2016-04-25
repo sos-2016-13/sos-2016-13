@@ -13,6 +13,8 @@ var port = (process.env.PORT || 10000);
 app.use("/",express.static(__dirname + '/static'));
 app.use("/RESTClient",express.static(__dirname + '/RESTClient'));
 
+app.use("(/data/consumed/RESTClient",express.static(__dirname + '/RESTClientConsumed'));
+
 app.use("/consumed",express.static(__dirname + '/static/consumed'));
 
 app.use("/emissions",express.static(__dirname + '/static/emissions'));
