@@ -15,6 +15,8 @@ app.use("/RESTClient",express.static(__dirname + '/RESTClient'));
 
 app.use("/consumed",express.static(__dirname + '/static/consumed'));
 
+app.use("/RestClientConsumed",express.static(__dirname + '/static/consumed/RestClientConsumed'));
+
 app.use("/emissions",express.static(__dirname + '/static/emissions'));
 
 app.use("/population",express.static(__dirname + '/static/population'));
