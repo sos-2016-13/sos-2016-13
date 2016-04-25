@@ -11,7 +11,6 @@ var consumedCtl= require("./consumedCtl.js");
 var port = (process.env.PORT || 10000);
 
 app.use("/",express.static(__dirname + '/static'));
-app.use("/RESTClient",express.static(__dirname + '/RESTClient'));
 
 app.use("/consumed",express.static(__dirname + '/static/consumed'));
 
