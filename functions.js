@@ -13,8 +13,6 @@ module.exports.existe =function (array,country,year,res){
 		}
 	}if(ok == 0){
 			res.sendStatus(404);
-		}else{
-			res.sendStatus(200);
 		}
 }
 

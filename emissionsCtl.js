@@ -63,16 +63,12 @@ if(filtro == 1 && limit != null && limit-1 < emissions.length-1 && offset != nul
  
  if(filtro == 1 && pag == 1){
   res.send(emissions3);
-  res.sendStatus(200);
  }else if(filtro == 1){
   res.send(emissions2);
-  res.sendStatus(200);
  }else if(pag == 1){
   res.send(emissions3);
-  res.sendStatus(200);
  }else{
   res.send(emissions);
-  res.sendStatus(200);
  }
 };
 
@@ -116,7 +112,6 @@ if(filtro == 1 && limit != null && limit-1 < emissions.length-1 && offset != nul
 				res.sendStatus(404);
 			}else{
 		res.send(country2);
-		res.sendStatus(200);
 	}
 	}else{
 
@@ -132,7 +127,6 @@ if(filtro == 1 && limit != null && limit-1 < emissions.length-1 && offset != nul
              res.sendStatus(404);
 			}else{
 			res.send(country2);
-			res.sendStatus(200);
 	}
 
 }
