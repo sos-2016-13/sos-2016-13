@@ -1,17 +1,24 @@
 <html>
 <body>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<div class="container">
 <h1>Alvaro Santos Muñoz (Oil and electricity consumed)</h1><br/><br/>
 <table id="location" class="table">
+	<thead>
     <tr>
         <th>Countries</th>
          <th>Year</th>
 		 <th>Petroleum Cost</th>
 		 <th>Electric Cost</th>
     </tr>
+	</thead>
 </table>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</div>
+	
 	<script>
 		$("body").ready(function(){
 		
@@ -29,7 +36,7 @@
 				var trHTML = '';
 
 			$.each(data, function (i, item) {
-				trHTML += '<tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr>';
+				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr></thead>';
 			});
 
 			$('#location').append(trHTML);
