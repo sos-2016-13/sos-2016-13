@@ -1,9 +1,11 @@
+backgorund{
+color:blue;
+}
 hr {
- border : 1px solid grey;
+ border : 2px solid red;
 }
 
 #button {
- background-color : #DDDDDD;
  cursor :pointer;
  padding : 5px;
 

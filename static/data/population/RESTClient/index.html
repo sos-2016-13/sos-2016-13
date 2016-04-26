@@ -1,6 +1,12 @@
 <html >
 	<head>
 		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<link rel="stylesheet" type="text/css" href="eaysui/themes/default/easyui.css">
+		
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="easyui/demo.css">
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 	<script>
 		$("body").ready(function(){
@@ -37,29 +43,36 @@
 	</head>
 
 <body>
-	<h1> JQuery RESTClient</h1>
-	URL: <input id="url" size="30" />
+	<div class="easyui-panel" title="JQuery RESTClient" style="width:1000px">
+		<div style="margin:20px 0;"></div>
+<h1> JQuery RESTClient</h1>
+		URL: <input id="url"  size="30" value="/api/v1/population/?apikey=eea"/>
 		GET <input name="method" type="radio" id="GET" checked="checked"/> &nbsp;&nbsp;
 		POST <input name="method" type="radio" id="POST" checked="checked"/> &nbsp;&nbsp;
 		PUT <input name="method" type="radio" id="PUT" checked="checked"/> &nbsp;&nbsp;
 		DELETE <input name="method" type="radio" id="DELETE" checked="checked"/> &nbsp;&nbsp;
+	
 		<br/>
+		
 		Payload: <input id="payload" size="60"/>
 		
 		<br/><br/>
 		
-		<span id="button">Send</span>
+		<button class="btn waves-effect waves-light" type="submit" name="action" id= "button">Send
+    	<i class="material-icons right"></i>
+  		</button>
 		
-		<br/><hr/>
-		
+		<br/><hr/>		
 		HTTP Status: <span id="status"></span>
 		
 		<br/><hr/>
 		<span id ="data"></span>
+		
 		<br/><hr/>
 		<span id ="list"></span>
 		<hr/>
 		Log: <span id ="log"></span>
+	</div>
 </body>
 
 </html>

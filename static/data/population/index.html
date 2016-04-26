@@ -1,21 +1,29 @@
 <html>
+
+<head>
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+</head>
+    
 <body>
 <h1>Eugenio Jesus Rodriguez Molina (Population and electricity access)</h1>
-<table id="location" border='1'>
+
+    
+
+	
+<table class="striped" id="location" border='1'>
     <tr>
-        <th>Countries</th>
+         <th>Country</th>
          <th>Year</th>
 		 <th>Population</th>
-		 <th>Access to Electricity</th>
+		 <th>Access_to_electricity</th>
     </tr>
 </table>
-
-	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 	<script>
 		$("body").ready(function(){
 		
 		
-				
+		 		
 		$.ajax(
 		{
 			type: "GET",
