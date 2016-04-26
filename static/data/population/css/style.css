@@ -1,0 +1,19 @@
+backgorund{
+color:blue;
+}
+hr {
+ border : 2px solid red;
+}
+
+#button {
+ cursor :pointer;
+ padding : 5px;
+
+}
+
+
+.active {
+ color:green ;
+ front-weight: bolder;
+ broder : 1px solid black
+}
