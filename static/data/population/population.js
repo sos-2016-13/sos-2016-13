@@ -6,7 +6,7 @@
     $.ajax(
     {
       type: "GET",
-      url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed?apikey=eea',
+      url: 'https://sos-2016-13.herokuapp.com/api/v1/population?apikey=eea',
       data: "{}",
       contentType: "application/json; charset=utf-8",
       dataType: "json",
