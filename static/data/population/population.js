@@ -15,7 +15,7 @@
         var trHTML = '';
 
       $.each(data, function (i, item) {
-        trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr></thead>';
+        trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.population + '</td><td>' + item.access_to_electricity + '</td></tr></thead>';
       });
 
       $('#location').append(trHTML);
