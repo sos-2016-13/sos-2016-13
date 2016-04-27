@@ -1,3 +1,7 @@
+ 
+
+
+
  $(document).ready(function (){
         console.log("JQuery ready");
       
@@ -11,7 +15,7 @@
               success: (data) => {
               var trHTML = '';
               $.each(data, function (i, item) {
-              //Cambiar codigo para que muestre los elementos independientes
+              
                   trHTML += '<tr><td>' + data[i].country + '</td><td>' + data[i].year + '</td><td>'+ data[i].population + '</td><td>' + data[i].access_to_electricity + '</td><td>';
               });
 
@@ -22,7 +26,7 @@
             request.done((data)=>{
               console.log("data received");
               console.log(data);
-              //$("#location").text(JSON.stringify(data));
+            
             });
             request.always((jqXHR,status)=>{
                 if(status=="error")
