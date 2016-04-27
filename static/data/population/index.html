@@ -1,20 +1,40 @@
-<html><head>
-        <meta charset="UTF-8">
-        <title>Population table</title>
-        <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script><style type="text/css"></style>
-        <script src="js/population.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
-        <script type="text/javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
-        
 
-               
-    </head>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Table Population</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="jquery-1.12.2.min.js"></script>
+        <script type="text/javascript" src="js/population.js"></script>
+        <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="easyui/demo.css">
+        <script type="text/javascript" src="easyui/jquery.min.js"></script>
+        <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+      </head>
+  
+
+    <body>
     
-    <body>  
-            <div id="population_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="population_length"><label>Show <select name="population_length" aria-controls="population" class=""><option value="10">10</option><option value="3">3</option><option value="5">5</option><option value="10">10</option></select> entries</label></div><div id="population_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="population"></label></div><table id="population" class="display dataTable no-footer" cellspacing="0" width="100%" role="grid" aria-describedby="population_info" style="width: 100%;">
-                <thead>
-                        <tr role="row"><th class="sorting" tabindex="0" aria-controls="population" rowspan="1" colspan="1" style="width: 74px;" aria-label="Country: activate to sort column ascending">Country</th><th class="sorting" tabindex="0" aria-controls="population" rowspan="1" colspan="1" style="width: 44px;" aria-label="Year: activate to sort column ascending">Year</th><th class="sorting" tabindex="0" aria-controls="population" rowspan="1" colspan="1" style="width: 183px;" aria-label="Population: activate to sort column ascending">Population</th><th class="sorting_asc" tabindex="0" aria-controls="population" rowspan="1" colspan="1" style="width: 202px;" aria-label="Access to electricity: activate to sort column descending" aria-sort="ascending">Access to electricity</th></tr>
-                    </thead>
-            <tbody><tr class="odd"><td valign="top" colspan="4" class="dataTables_empty">No data available in table</td></tr></tbody></table><div class="dataTables_info" id="population_info" role="status" aria-live="polite">Showing 0 to 0 of 0 entries</div><div class="dataTables_paginate paging_simple_numbers" id="population_paginate"><a class="paginate_button previous enabled" aria-controls="population" data-dt-idx="0" tabindex="0" id="population_previous">Previous</a><span></span><a class="paginate_button next enabled" aria-controls="population" data-dt-idx="1" tabindex="0" id="population_next">Next</a></div></div>
+    <h2>Basic DataGrid</h2>
+    <p>TABLE POPULATION</p>
+     <div style="margin:20px 0;"></div>
+  
     
-</body></html>
+    <table class="easyui-datagrid" id"location" rules="all" title="Population" style="width:420px;height:250px"
+           data-options="singleSelect:true,collapsible:true,url:'https://sos-2016-13.herokuapp.com/api/v1/population?apikey=eea',method:'GET'">
+        <thead>
+       
+            <tr>
+                <th  class="easyui-datagrid" data-options="field:'country',align:'center',width:80">Country</th>
+                <th data-options="field:'year',width:80,align:'center'">Year</th>
+                <th data-options="field:'sales',width:80,align:'center'">Population</th>
+                <th data-options="field:'nodigital',width:80,align:'center'">Access to electricity</th>
+            
+            </tr>
+            
+        </thead>
+    </table>
+ </div>
+</body>
+</html>
