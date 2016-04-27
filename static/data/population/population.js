@@ -1,36 +1,31 @@
- 
 
+    $("body").ready(function(){
+    
+    
+        
+    $.ajax(
+    {
+      type: "GET",
+      url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed?apikey=eea',
+      data: "{}",
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      cache: false,
+      success: function (data) {
+        var trHTML = '';
 
+      $.each(data, function (i, item) {
+        trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr></thead>';
+      });
 
- $(document).ready(function (){
-        console.log("JQuery ready");
-      
-          var request = $.ajax({
-              type: "GET",
-              url:'https://sos-2016-13.herokuapp.com/api/v1/population?apikey=eea',
-              data: "{}",
-              contentType: "application/json",
-              dataType: "json",
-              cache: false,
-              success: (data) => {
-              var trHTML = '';
-              $.each(data, function (i, item) {
-              
-                  trHTML += '<tr><td>' + data[i].country + '</td><td>' + data[i].year + '</td><td>'+ data[i].population + '</td><td>' + data[i].access_to_electricity + '</td><td>';
-              });
-
-              $('#location').append(trHTML);
-              console.log(trHTML);
-              }
-            });
-            request.done((data)=>{
-              console.log("data received");
-              console.log(data);
-            
-            });
-            request.always((jqXHR,status)=>{
-                if(status=="error")
-                console.log("Status: "+ jqXHR.status);
-            });
-       
+      $('#location').append(trHTML);
+      },
+      error: function (msg) {
+        alert(msg.responseText);
+      }
     });
+        
+  
+    
+    });
+  
