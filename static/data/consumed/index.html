@@ -16,6 +16,8 @@
         <th>Year</th>
 		<th>Petroleum Cost</th>
 		<th>Electric Cost</th>
+		<th></th>
+		<th></th>
     </tr>
 	</thead>
 </table>
@@ -38,7 +40,7 @@
 				var trHTML = '';
 
 			$.each(data, function (i, item) {
-				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr></thead>';
+				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href=""><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
 			});
 
 			$('#location').append(trHTML);
