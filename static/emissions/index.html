@@ -15,22 +15,137 @@
       <script type="text/javascript" src="js/materialize.min.js"></script>
 
 <h3>Enrique Pardo Alvarez ( Methane emissions, CO2 emissions and nitrous oxide emissions ) </h3>
+<a class="waves-effect waves-light btn" id="loadInitialData">Load Inital Data</a>
+<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="" id="apikey" type="text" class="validate">
+          <label for="apikey">Apikey: </label>
+        </div>
+      </div>
+    </form>
+</div>
+
+<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="" id="country" type="text" class="validate">
+          <label for="country">Country: </label>
+		</div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="" id="year" type="text" class="validate">
+          <label for="year">Year: </label>
+          </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="" id="nitrous_oxide_emission" type="text" class="validate">
+          <label for="nitrous_oxide_emission">Nitrous Oxide Emission: </label>
+          </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="" id="methane_emissions" type="text" class="validate">
+          <label for="methane_emissions">Methane Emissions: </label>
+          </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="" id="co2_emissions" type="text" class="validate">
+          <label for="co2_emissions">CO2 Emissions: </label>
+        </div>
+      </div>
+    </form>
+</div>
+
+<a class="waves-effect waves-light btn" id="new">Añadir</a>
+<a class="waves-effect waves-light btn" id="edit">Editar</a>
+<a class="waves-effect waves-light btn" id="new">Borrar</a>
+<a class="waves-effect waves-light btn" id="removeall">Remove All</a>
+
 <table class="striped" id="location" border='1'>
     <tr>
         <th>Countries</th>
          <th>Year</th>
 		 <th>Nitrous Oxide Emissions</th>
 		 <th>Methane Emissions</th>
-		 <th>CO2_Emissions</th>
+		 <th>CO2 Emissions</th>
+		 <th>Boton Añadir</th>
+		 <th>Boton Eliminar</th>
+		 
     </tr>
 </table>
 
 	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 	<script>
+
+		$("#loadInitialData").click(function(){
+
+        var apikey = $("#apikey").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/loadInitialData?apikey="+apikey,
+            type:"GET",
+            contentType : "application/json"
+
+   		     });
+  		});
+	
+
+		$("#removeall").click(function(){
+
+        var apikey = $("#apikey").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/?apikey="+apikey,
+            type:"DELETE",
+            contentType : "application/json"
+
+   		     });
+  		});
+
+		$("#new").click(function(){
+
+        var apikey = $("#apikey").val();
+        var country = $("#country").val();
+        var year = $("#year").val();
+        var nitrous_oxide_emission = $("#nitrous_oxide_emission").val();
+        var methane_emissions = $("#methane_emissions").val();
+        var co2_emissions = $("#co2_emissions").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/" + "?apikey="+apikey,
+            type:"POST",
+            data: '{"country":"'+country+'","year":'+year+',"nitrous_oxide_emission":'+nitrous_oxide_emission+',"methane_emissions":'+methane_emissions+',"co2_emissions":'+co2_emissions+'}',
+            contentType : "application/json"
+
+   		     });
+  		});
+
+		$("#edit").click(function(){
+ 		
+ 		var apikey = $("#apikey").val();
+        var country = $("#country").val();
+        var year = $("#year").val();
+        var nitrous_oxide_emission = $("#nitrous_oxide_emission").val();
+        var methane_emissions = $("#methane_emissions").val();
+        var co2_emissions = $("#co2_emissions").val();
+
+ 		$.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emission/" + country + "/" + year + "?apikey="+apikey,
+            type:"PUT",
+            data: '{"country":"'+country+'","year":'+year+',"nitrous_oxide_emission":'+nitrous_oxide_emission+',"methane_emissions":'+methane_emissions+',"co2_emissions":'+co2_emissions+'}',
+            contentType : "application/json"
+
+   		     });
+		});
 		$("body").ready(function(){
 		
-		
-				
+			
 		$.ajax(
 		{
 			type: "GET",
@@ -43,13 +158,20 @@
 				var trHTML = '';
 
 			$.each(data, function (i, item) {
-				trHTML += '<tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr>';
+				trHTML += '<tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td><td><a href="" id="edit" ><img src="edit.ico" width="15" height="15"></a>' + '</td><td><a href="" id="remove"><img src="remove.png" width="15" height="15"></a></td></tr>';
 			});
 
 			$('#location').append(trHTML);
 			},
 			error: function (msg) {
 				alert(msg.responseText);
+			},
+			complete: function funcionEliminar(count,year){
+				$.each(data,function (i,item){
+					if(count == item.country && year == item.year ){
+						data.splice(i,1);	
+					}
+				});
 			}
     });
 				
