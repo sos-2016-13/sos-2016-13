@@ -9,7 +9,21 @@
 <body>
 <div class="container">
 <h1>Alvaro Santos Muñoz (Oil and electricity consumed)</h1><br/><br/>
-<button id="loadInitialData">Load Inital Data</button> Apikey: <input id="apikey"></input>
+<button id="loadInitialData">Load Inital Data</button> Apikey: <input id="apikey"></input></br>
+
+Country: <input id="country"></input></br>
+Year: <input id="year"></input></br>
+Petroleum Cost: <input id="petroleum_cost"></input></br>
+Electric Cost: <input id="electric_cost"></input></br>
+
+<button id="new">Añadir</button>
+<button id="edit">Editar</button>
+<button id="remove">Borrar</button>
+<button id="removeall">Borrar Todo</button>
+
+
+
+
 <table id="location" class="table">
 	<thead>
     <tr>
@@ -42,9 +56,72 @@
   		});
 
 
+
+  		$("#new").click(function(){
+
+        var apikey = $("#apikey").val();
+        var country = $("#country").val();
+        var year = $("#year").val();
+        var petroleum_cost = $("#petroleum_cost").val();
+        var electric_cost = $("#electric_cost").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + "?apikey="+apikey,
+            type:"POST",
+            data: '{"country":"'+country+'","year":'+year+',"petroleum_cost":'+petroleum_cost+',"electric_cost":'+electric_cost+'}',
+            contentType : "application/json"
+
+   		     });
+  		});
+
+  		$("#edit").click(function(){
+
+        var apikey = $("#apikey").val();
+        var country = $("#country").val();
+        var year = $("#year").val();
+        var petroleum_cost = $("#petroleum_cost").val();
+        var electric_cost = $("#electric_cost").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey,
+            type:"PUT",
+            data: '{"country":"'+country+'","year":'+year+',"petroleum_cost":'+petroleum_cost+',"electric_cost":'+electric_cost+'}',
+            contentType : "application/json"
+
+   		     });
+  		});
+
+
+
+  		$("#remove").click(function(){
+
+        var apikey = $("#apikey").val();
+        var country = $("#country").val();
+        var year = $("#year").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey,
+            type:"DELETE",
+            contentType : "application/json"
+
+   		     });
+  		});
+
+
+ 		$("#removeall").click(function(){
+
+        var apikey = $("#apikey").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey,
+            type:"DELETE",
+            contentType : "application/json"
+
+   		     });
+  		});
+
 		$("body").ready(function(){
 
-				
 		$.ajax(
 		{
 			type: "GET",
@@ -57,7 +134,7 @@
 				var trHTML = '';
 
 			$.each(data, function (i, item) {
-				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href="" id="fun_edit"><img src="edit.ico" width="15" height="15"></a></td><td><a href="" id="fun_remove"><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
+				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
 			});
 
 			$('#location').append(trHTML);
