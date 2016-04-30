@@ -9,6 +9,7 @@
 <body>
 <div class="container">
 <h1>Alvaro Santos Muñoz (Oil and electricity consumed)</h1><br/><br/>
+<button id="loadInitialData">Load Inital Data</button> Apikey: <input id="apikey"></input>
 <table id="location" class="table">
 	<thead>
     <tr>
@@ -22,11 +23,27 @@
 	</thead>
 </table>
 </div>
+
+
+
+
 	
 	<script>
+		$("#loadInitialData").click(function(){
+
+        var apikey = $("#apikey").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/loadInitialData?apikey="+apikey,
+            type:"GET",
+            contentType : "application/json"
+
+   		     });
+  		});
+
+
 		$("body").ready(function(){
-		
-		
+
 				
 		$.ajax(
 		{
@@ -40,7 +57,7 @@
 				var trHTML = '';
 
 			$.each(data, function (i, item) {
-				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href=""><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
+				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href="" id="fun_edit"><img src="edit.ico" width="15" height="15"></a></td><td><a href="" id="fun_remove"><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
 			});
 
 			$('#location').append(trHTML);
@@ -48,11 +65,13 @@
 			error: function (msg) {
 				alert(msg.responseText);
 			}
-    });
-				
-	
-		
-		});
+
+
+
+   		 });		
+	});
+
+
 	</script>
 
 
