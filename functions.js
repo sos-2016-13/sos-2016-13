@@ -3,12 +3,14 @@
 
 module.exports.existe =function (array,country,year,res){
 	var ok = 0;
+	var array1 = [];
 	if(array == null || array.length == 0){
 		res.sendStatus(404);
 	}
 	for(i=0; i< array.length;i++) {
 		if(country == array[i].country  && year == array[i].year){
-			res.send(array[i]);
+			array1.push(array[i]);
+			res.send(array1);
 			ok = 1;
 		}
 	}if(ok == 0){

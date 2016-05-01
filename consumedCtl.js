@@ -132,6 +132,7 @@ module.exports.getConsumedCY=function(req,res){
 	functionsCtl.login(res,req);
 	var var1 = req.params.var;
 	var var2 = req.params.var2;
+	var consumed5 = [];
 	functionsCtl.existe(consumed,var1,var2,res);
 };
 

@@ -58,36 +58,85 @@ Electric Cost: <input id="electric_cost"></input></br>
   		});
 
 
-//SI SOLO HAY UN OBJETO EN LA BUSQUEDA DA FALLO.
   		$("#buscar").click(function(){
 
   		var apikey = $("#apikey").val();
         var year = $("#year").val();
-
-		$.ajax(
-		{
-			type: "GET",
-			url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed/' + year +'?apikey='+apikey,
-			data: "{}",
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			cache: false,
-			success: function (data) {
-				var trHTML = '';
-
-			$.each(data, function (i, item) {
-				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
-			});
-
-			$('#location').append(trHTML);
-			},
-			error: function (msg) {
-				alert(msg.responseText);
-			}
+        var country = $("#country").val();
+        var petroleum_cost = $("#petroleum_cost").val();
 
 
+        if(country == "" && year != ""){
+			$.ajax(
+			{
+				type: "GET",
+				url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed/' + year +'?apikey='+apikey,
+				data: "{}",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				cache: false,
+				success: function (data) {
+					var trHTML = '';
 
-   		 });
+				$.each(data, function (i, item) {
+					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
+				});
+
+				$('#location').append(trHTML);
+				},
+				error: function (msg) {
+					alert(msg.responseText);
+				}
+	   		 });
+
+		}else if(year == "" && country !=""){
+			$.ajax(
+			{
+				type: "GET",
+				url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed/' + country +'?apikey='+apikey,
+				data: "{}",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				cache: false,
+				success: function (data) {
+					var trHTML = '';
+
+				$.each(data, function (i, item) {
+					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
+				});
+
+				$('#location').append(trHTML);
+				},
+				error: function (msg) {
+					alert(msg.responseText);
+				}
+	   		 });
+
+		}else if (petroleum_cost == "" && country != "" && year !=""){
+			$.ajax(
+			{
+				type: "GET",
+				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey,
+				data: "{}",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				cache: false,
+				success: function (data) {
+					var trHTML = '';
+
+				$.each(data, function (i, item) {
+					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
+				});
+
+				$('#location').append(trHTML);
+				},
+				error: function (msg) {
+					alert(msg.responseText);
+				}
+	   		 });
+		}
+
+
 	});
 
       
