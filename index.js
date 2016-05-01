@@ -10,6 +10,8 @@ var populationCtl= require("./populationCtl.js");
 var consumedCtl= require("./consumedCtl.js");
 var port = (process.env.PORT || 10000);
 
+app.use("/",express.static(__dirname));
+
 app.use("/",express.static(__dirname + '/static'));
 
 app.use("/consumed",express.static(__dirname + '/static/consumed'));
