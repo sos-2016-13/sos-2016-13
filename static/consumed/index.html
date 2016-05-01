@@ -234,8 +234,8 @@ Paginación: <select id= "pag" name="pag" class="form-control">
         var electric_cost = $("#electric_cost").val();
 
         $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey,
-            type:"GET",
+            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey,
+            type:"POST",
             data: '{"country":"'+country+'","year":'+year+',"petroleum_cost":'+petroleum_cost+',"electric_cost":'+electric_cost+'}',
             contentType : "application/json"
 
@@ -311,7 +311,6 @@ Paginación: <select id= "pag" name="pag" class="form-control">
 			},
 			error: function (msg) {
 				alert(msg.responseText);
-				
 			}
 
 
