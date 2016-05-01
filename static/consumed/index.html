@@ -9,31 +9,36 @@
 <body>
 <div class="container">
 <h1>Alvaro Santos Muñoz (Oil and electricity consumed)</h1><br/><br/>
-<button id="loadInitialData">Load Inital Data</button> Apikey: <input id="apikey"></input></br>
 
-Country: <input id="country"></input></br>
-Year: <input id="year"></input></br>
-Petroleum Cost: <input id="petroleum_cost"></input></br>
-Electric Cost: <input id="electric_cost"></input></br>
 
-Búsqueda: Desde <input id="desde"></input>   Hasta: <input id="hasta"></input></br>
-Paginación: <select id= "pag" name="pag">
+<div class="col-xs-3">
+Apikey:<input id="apikey" class="form-control"></input></br>
+
+Country: <input id="country" class="form-control"></input></br>
+Year: <input id="year" class="form-control"></input></br>
+Petroleum Cost: <input id="petroleum_cost" class="form-control"></input></br>
+Electric Cost: <input id="electric_cost" class="form-control"></input></br>
+</div>
+<div class="col-xs-3">
+Búsqueda: </br></br>Desde <input id="desde" class="form-control"></input>   Hasta <input id="hasta" class="form-control"></input></br>
+</div>
+<div class="col-xs-3">
+Paginación: <select id= "pag" name="pag" class="form-control">
    <option value="0">0</option> 
    <option value="1">1</option> 
    <option value="2">2</option> 
    <option value="3">3</option>
    <option value="5">5</option> 
    <option value="10">10</option> 
-</select> Desde el elemento <input id="pag2"></input></br>
-
-<button id="ver">Ver Todos</button>
-<button id="new">Añadir</button>
-<button id="edit">Editar</button>
-<button id="remove">Borrar</button>
-<button id="buscar">Buscar</button>
-<button id="removeall">Borrar Todo</button>
-
-
+</select> Desde el elemento <input id="pag2" class="form-control"></input>
+</div>
+<button id="ver" class="btn btn-info">Ver Todos</button>
+<button id="new" class="btn btn-info">Añadir</button>
+<button id="edit" class="btn btn-info">Editar</button>
+<button id="remove" class="btn btn-info">Borrar</button>
+<button id="buscar" class="btn btn-info">Buscar</button>
+<button id="removeall" class="btn btn-info">Borrar Todo</button>
+<button id="loadInitialData" class="btn btn-info">Load Inital Data</button>
 
 
 <table id="location" class="table">
