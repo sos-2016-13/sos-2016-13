@@ -9,7 +9,9 @@
 <body>
 <div class="container">
 <h1>Alvaro Santos Muñoz (Oil and electricity consumed)</h1><br/><br/>
-
+<div class="well">
+		<span id="status"></span>
+</div>
 
 <div class="col-xs-3">
 Apikey:<input id="apikey" class="form-control"></input></br>
@@ -48,32 +50,65 @@ Paginación: <select id= "pag" name="pag" class="form-control">
         <th>Year</th>
 		<th>Petroleum Cost</th>
 		<th>Electric Cost</th>
-		<th></th>
-		<th></th>
     </tr>
 	</thead>
 </table>
 </div>
 
 
-
-
-	
 	<script>
+
+
+
+	function refrescar(apikey){
+		$.ajax(
+			{
+				type: "GET",
+				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed?apikey="+apikey,
+				data: "{}",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				cache: false,
+				success: function (data) {
+					var trHTML = '';
+
+				$.each(data, function (i, item) {
+					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr></thead>';
+				});
+
+				$('#location').append(trHTML);
+				},
+				error: function (msg) {
+					alert(msg.responseText);
+				}
+	   		 });
+	}
+
 		$("#loadInitialData").click(function(){
+
+			$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
 
-        $.ajax({
+        var request = $.ajax({
             url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/loadInitialData?apikey="+apikey,
             type:"GET",
             contentType : "application/json"
 
    		     });
+
+        		request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+
+        refrescar(apikey);
+
   		});
 
 
   		$("#buscar").click(function(){
+
+ 		 $("#location td").remove(); 
 
   		var apikey = $("#apikey").val();
         var year = $("#year").val();
@@ -83,12 +118,30 @@ Paginación: <select id= "pag" name="pag" class="form-control">
         var pag = $("#pag").val();
         var pag2 = $("#pag2").val();
 
-      
- 	 if(country == "" && year != "" && desde == "" && hasta == ""){
-			$.ajax(
+			if(year != ""){
+				year = "/"+year;
+			}
+			if(country != ""){
+				country = "/" + country;
+			}
+			if(desde != ""){
+				desde = "&from=" + desde;
+			}
+			if(hasta != ""){
+				hasta = "&to=" + hasta;
+			}
+			if(pag != ""){
+				pag = "&limit=" + pag;
+			}
+			if(pag2 != ""){
+				pag2 = "&offset=" + pag2;
+			}
+
+
+          var request = $.ajax(
 			{
 				type: "GET",
-				url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed/' + year +'?apikey='+apikey + "&offset=" + pag2 + "&limit="+ pag,
+				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
 				data: "{}",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
@@ -97,7 +150,7 @@ Paginación: <select id= "pag" name="pag" class="form-control">
 					var trHTML = '';
 
 				$.each(data, function (i, item) {
-					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
+					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr></thead>';
 				});
 
 				$('#location').append(trHTML);
@@ -107,192 +160,112 @@ Paginación: <select id= "pag" name="pag" class="form-control">
 				}
 	   		 });
 
-		}else if(year == "" && country !="" && desde == "" && hasta == ""){
-			$.ajax(
-			{
-				type: "GET",
-				url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed/' + country +'?apikey='+apikey + "&offset=" + pag2 + "&limit="+ pag,
-				data: "{}",
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				cache: false,
-				success: function (data) {
-					var trHTML = '';
-
-				$.each(data, function (i, item) {
-					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
+			request.always(function(jqXHR,status){
+				errores(jqXHR,status);
 				});
-
-				$('#location').append(trHTML);
-				},
-				error: function (msg) {
-					alert(msg.responseText);
-				}
-	   		 });
-
-		}else if (desde == "" && hasta == "" && country != "" && year != ""){
-			$.ajax(
-			{
-				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey + "&offset=" + pag2 + "&limit="+ pag,
-				data: "{}",
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				cache: false,
-				success: function (data) {
-					var trHTML = '';
-
-				$.each(data, function (i, item) {
-					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
-				});
-
-				$('#location').append(trHTML);
-				},
-				error: function (msg) {
-					alert(msg.responseText);
-				}
-	   		 });
-		}else if (desde != "" && hasta != "" && country != "" && year !=""){
-			$.ajax(
-			{
-				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey+ "&from="+desde + "&to="+hasta + "&offset=" + pag2 + "&limit="+ pag,
-				data: "{}",
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				cache: false,
-				success: function (data) {
-					var trHTML = '';
-
-				$.each(data, function (i, item) {
-					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
-				});
-
-				$('#location').append(trHTML);
-				},
-				error: function (msg) {
-					alert(msg.responseText);
-				}
-	   		 });
-		}else if (desde != "" && hasta != "" && country == "" && year ==""){
-			$.ajax(
-			{
-				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey+ "&from="+desde + "&to="+hasta + "&offset=" + pag2 + "&limit="+ pag,
-				data: "{}",
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				cache: false,
-				success: function (data) {
-					var trHTML = '';
-
-				$.each(data, function (i, item) {
-					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
-				});
-
-				$('#location').append(trHTML);
-				},
-				error: function (msg) {
-					alert(msg.responseText);
-				}
-	   		 });
-
-		}else if(country == "" && year == "" && desde == "" && hasta == ""){
-			$.ajax(
-			{
-				type: "GET",
-				url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey='+apikey + "&offset=" + pag2 + "&limit="+ pag ,
-				data: "{}",
-				contentType: "application/json; charset=utf-8",
-				dataType: "json",
-				cache: false,
-				success: function (data) {
-					var trHTML = '';
-
-				$.each(data, function (i, item) {
-					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
-				});
-
-				$('#location').append(trHTML);
-				},
-				error: function (msg) {
-					alert(msg.responseText);
-				}
-	   		 });
-		}
-
 	});
 
       
 
   		$("#new").click(function(){
 
+		$("#location td").remove(); 
+
         var apikey = $("#apikey").val();
         var country = $("#country").val();
         var year = $("#year").val();
         var petroleum_cost = $("#petroleum_cost").val();
         var electric_cost = $("#electric_cost").val();
 
-        $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey,
-            type:"POST",
-            data: '{"country":"'+country+'","year":'+year+',"petroleum_cost":'+petroleum_cost+',"electric_cost":'+electric_cost+'}',
-            contentType : "application/json"
+		       	var request = $.ajax({
+		            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey,
+		            type:"POST",
+		            data: '{"country":"'+country+'","year":'+year+',"petroleum_cost":'+petroleum_cost+',"electric_cost":'+electric_cost+'}',
+		            contentType : "application/json"
 
-   		     });
+		   		     });
+
+        		request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+				refrescar(apikey);
   		});
 
   		$("#edit").click(function(){
 
+		$("#location td").remove(); 
+
         var apikey = $("#apikey").val();
         var country = $("#country").val();
         var year = $("#year").val();
         var petroleum_cost = $("#petroleum_cost").val();
         var electric_cost = $("#electric_cost").val();
 
-        $.ajax({
+        var request = $.ajax({
             url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey,
             type:"PUT",
             data: '{"country":"'+country+'","year":'+year+',"petroleum_cost":'+petroleum_cost+',"electric_cost":'+electric_cost+'}',
             contentType : "application/json"
 
    		     });
+
+        		request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+
+				refrescar(apikey);
   		});
 
 
 
   		$("#remove").click(function(){
 
+		$("#location td").remove(); 
+
         var apikey = $("#apikey").val();
         var country = $("#country").val();
         var year = $("#year").val();
 
-        $.ajax({
+        var request = $.ajax({
             url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey,
             type:"DELETE",
             contentType : "application/json"
 
    		     });
+
+        		request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+				refrescar(apikey);
   		});
 
 
  		$("#removeall").click(function(){
 
+			$("#location td").remove(); 
+
         var apikey = $("#apikey").val();
 
-        $.ajax({
+        	var request = $.ajax({
             url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey,
             type:"DELETE",
             contentType : "application/json"
 
    		     });
+
+       		 request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+       		 refrescar(apikey);
   		});
 
 		$("#ver").click(function(){
 
+			$("#location td").remove(); 
+
 		var apikey = $("#apikey").val();
 
-		$.ajax(
+		var request = $.ajax(
 		{
 			type: "GET",
 			url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed?apikey='+apikey,
@@ -304,7 +277,7 @@ Paginación: <select id= "pag" name="pag" class="form-control">
 				var trHTML = '';
 
 			$.each(data, function (i, item) {
-				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td><td><a href=""><img src="edit.ico" width="15" height="15"></a></td><td><a href="" ><img src="remove.png" width="15" height="15"></a></td></tr></thead>';
+				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr></thead>';
 			});
 
 			$('#location').append(trHTML);
@@ -316,9 +289,23 @@ Paginación: <select id= "pag" name="pag" class="form-control">
 
 
    		 });
+				request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
 	});
 
-
+function errores(jqXHR,status){
+	if(status=="error"){
+					if(jqXHR.status == "401"){
+						$("#status").text("Apikey incorrecta, por favor inserte una apikey correcta");
+					}else if (jqXHR.status == "409"){
+						$("#status").text("No se puede añadir ese registro, ese dato ya existe.");
+					}
+					
+				}else{
+					$("#status").text("")
+				}
+			};
 	</script>
 
 
