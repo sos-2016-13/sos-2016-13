@@ -26,46 +26,73 @@
       </div>
     </form>
 </div>
+<div class="input-field col s6">
+          <input id="country" type="text" class="validate">
+          <label for="country">Country: </label></input>
+</div>
+          
+<div class="input-field col s6">
+          <input id="year" type="text" class="validate">
+          <label for="year">Year: </label></input>
+</div>
+
+<div class="input-field col s6">
+          <input id="nitrous_oxide_emissions" type="text" class="validate">
+          <label for="nitrous_oxide_emissions">Nitrous Oxide Emission: </label></input>
+</div>
+
+<div class="input-field col s6">
+          <input id="methane_emissions" type="text" class="validate">
+          <label for="methane_emissions">Methane Emissions: </label></input>
+</div>
+
+<div class="input-field col s6">
+          <input id="co2_emissions" type="text" class="validate">
+          <label for="co2_emissions">CO2 Emissions: </label></input>
+</div>
+
+<div class="input-field col s6">
+          Búsqueda
+</div>
 
 <div class="row">
     <form class="col s12">
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder="" id="country" type="text" class="validate">
-          <label for="country">Country: </label>
-		</div>
-      </div>
-      <div class="row">
+          <input placeholder="Placeholder" id="desde" type="text" class="validate">
+          <label for="desde">desde</label>
+        </div>
         <div class="input-field col s6">
-          <input placeholder="" id="year" type="text" class="validate">
-          <label for="year">Year: </label>
-          </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="" id="nitrous_oxide_emission" type="text" class="validate">
-          <label for="nitrous_oxide_emission">Nitrous Oxide Emission: </label>
-          </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="" id="methane_emissions" type="text" class="validate">
-          <label for="methane_emissions">Methane Emissions: </label>
-          </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="" id="co2_emissions" type="text" class="validate">
-          <label for="co2_emissions">CO2 Emissions: </label>
+          <input id="hasta" type="text" class="validate">
+          <label for="hasta">hasta</label>
         </div>
       </div>
-    </form>
+
+  <label>Paginación</label>
+  <select class="browser-default" id="pag" name = "pag">
+    <option value="" disabled selected>Elige Opción</option>
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="5">5</option>
+    <option value="10">10</option>
+  </select>
+
+<div class="input-field col s6">
+          <input id="pag2" type="text" class="validate">
+          <label for="pag2">Desde el Elemento: </label></input>
 </div>
 
-<a class="waves-effect waves-light btn" id="new">Añadir</a>
-<a class="waves-effect waves-light btn" id="edit">Editar</a>
-<a class="waves-effect waves-light btn" id="new">Borrar</a>
-<a class="waves-effect waves-light btn" id="removeall">Remove All</a>
+</div>          
+    <div>
+    <a class="waves-effect waves-light btn" id="ver">Ver Todos</a>
+	<a class="waves-effect waves-light btn" id="new">Añadir</a>
+	<a class="waves-effect waves-light btn" id="edit">Editar</a>
+	<a class="waves-effect waves-light btn" id="remove">Borrar</a>
+	<a class="waves-effect waves-light btn" id="buscar">Buscar</a>
+	<a class="waves-effect waves-light btn" id="removeall">Borrar Todo</a>
+	<div>
 
 <table class="striped" id="location" border='1'>
     <tr>
@@ -78,23 +105,146 @@
 		 <th>Boton Eliminar</th>
 		 
     </tr>
+
+
 </table>
+
+<span id="status"></span>
 
 	<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 	<script>
 
+
+	function refrescar(apikey){
+		$.ajax(
+			{
+				type: "GET",
+				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions?apikey="+apikey,
+				data: "{}",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				cache: false,
+				success: function (data) {
+					var trHTML = '';
+
+				$.each(data, function (i, item) {
+					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
+				});
+
+				$('#location').append(trHTML);
+				},
+				error: function (msg) {
+					alert(msg.responseText);
+				}
+	   		 });
+	}
 		$("#loadInitialData").click(function(){
+
+			$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
 
-        $.ajax({
+        var request = $.ajax({
             url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/loadInitialData?apikey="+apikey,
             type:"GET",
             contentType : "application/json"
 
    		     });
+
+        		request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+
+        refrescar(apikey);
+
   		});
 	
+$("#buscar").click(function(){
+
+ 		 $("#location td").remove(); 
+
+  		var apikey = $("#apikey").val();
+        var year = $("#year").val();
+        var country = $("#country").val();
+        var desde = $("#desde").val();
+        var hasta = $("#hasta").val();
+        var pag = $("#pag").val();
+        var pag2 = $("#pag2").val();
+
+			if(year != ""){
+				year = "/"+year;
+			}
+			if(country != ""){
+				country = "/" + country;
+			}
+			if(desde != ""){
+				desde = "&from=" + desde;
+			}
+			if(hasta != ""){
+				hasta = "&to=" + hasta;
+			}
+			if(pag != ""){
+				pag = "&limit=" + pag;
+			}
+			if(pag2 != ""){
+				pag2 = "&offset=" + pag2;
+			}
+
+
+          var request = $.ajax(
+			{
+				type: "GET",
+				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+				data: "{}",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				cache: false,
+				success: function (data) {
+					var trHTML = '';
+
+				$.each(data, function (i, item) {
+					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
+				});
+
+				$('#location').append(trHTML);
+				},
+				error: function (msg) {
+					alert(msg.responseText);
+				}
+	   		 });
+
+			request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+	});
+
+
+		$("#new").click(function(){
+
+		$("#location td").remove(); 
+
+        var apikey = $("#apikey").val();
+        var country = $("#country").val();
+        var year = $("#year").val();
+        var nitrous_oxide_emissions = $("#nitrous_oxide_emissions").val();
+        var methane_emissions = $("#methane_emissions").val();
+        var co2_emissions = $("#co2_emissions").val();
+
+		       	var request = $.ajax({
+		            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/?apikey="+apikey,
+		            type:"POST",
+		            data: '{"country":"'+country+'","year":'+year+',"nitrous_oxide_emissions":'+nitrous_oxide_emissions+',"methane_emissions":'+methane_emissions+',"co2_emissions":'+co2_emissions+'}',
+		            contentType : "application/json"
+
+		   		     });
+
+        		request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+				refrescar(apikey);
+  		});
+
+
 
 		$("#removeall").click(function(){
 
@@ -108,48 +258,85 @@
    		     });
   		});
 
-		$("#new").click(function(){
+		$("#edit").click(function(){
+
+		$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
         var country = $("#country").val();
         var year = $("#year").val();
-        var nitrous_oxide_emission = $("#nitrous_oxide_emission").val();
+        var nitrous_oxide_emissions = $("#nitrous_oxide_emissions").val();
         var methane_emissions = $("#methane_emissions").val();
         var co2_emissions = $("#co2_emissions").val();
 
-        $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/" + "?apikey="+apikey,
-            type:"POST",
-            data: '{"country":"'+country+'","year":'+year+',"nitrous_oxide_emission":'+nitrous_oxide_emission+',"methane_emissions":'+methane_emissions+',"co2_emissions":'+co2_emissions+'}',
+        var request = $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/" + country + "/" + year + "?apikey="+apikey,
+            type:"PUT",
+             data: '{"country":"'+country+'","year":'+year+',"nitrous_oxide_emissions":'+nitrous_oxide_emissions+',"methane_emissions":'+methane_emissions+',"co2_emissions":'+co2_emissions+'}',
             contentType : "application/json"
 
    		     });
+
+        		request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+
+				refrescar(apikey);
   		});
 
-		$("#edit").click(function(){
- 		
- 		var apikey = $("#apikey").val();
+
+
+  		$("#remove").click(function(){
+
+		$("#location td").remove(); 
+
+        var apikey = $("#apikey").val();
         var country = $("#country").val();
         var year = $("#year").val();
-        var nitrous_oxide_emission = $("#nitrous_oxide_emission").val();
-        var methane_emissions = $("#methane_emissions").val();
-        var co2_emissions = $("#co2_emissions").val();
 
- 		$.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/emission/" + country + "/" + year + "?apikey="+apikey,
-            type:"PUT",
-            data: '{"country":"'+country+'","year":'+year+',"nitrous_oxide_emission":'+nitrous_oxide_emission+',"methane_emissions":'+methane_emissions+',"co2_emissions":'+co2_emissions+'}',
+        var request = $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/" + country + "/" + year + "?apikey="+apikey,
+            type:"DELETE",
             contentType : "application/json"
 
    		     });
-		});
-		$("body").ready(function(){
-		
-			
-		$.ajax(
+
+        		request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+				refrescar(apikey);
+  		});
+
+
+ 		$("#removeall").click(function(){
+
+			$("#location td").remove(); 
+
+        var apikey = $("#apikey").val();
+
+        	var request = $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/?apikey="+apikey,
+            type:"DELETE",
+            contentType : "application/json"
+
+   		     });
+
+       		 request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+       		 refrescar(apikey);
+  		});
+
+		$("#ver").click(function(){
+
+			$("#location td").remove(); 
+
+		var apikey = $("#apikey").val();
+
+		var request = $.ajax(
 		{
 			type: "GET",
-			url: 'https://sos-2016-13.herokuapp.com/api/v1/emissions?apikey=eea',
+			url: 'https://sos-2016-13.herokuapp.com/api/v1/emissions?apikey='+apikey,
 			data: "{}",
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
@@ -158,26 +345,35 @@
 				var trHTML = '';
 
 			$.each(data, function (i, item) {
-				trHTML += '<tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td><td><a href="" id="edit" ><img src="edit.ico" width="15" height="15"></a>' + '</td><td><a href="" id="remove"><img src="remove.png" width="15" height="15"></a></td></tr>';
+				trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
 			});
 
 			$('#location').append(trHTML);
 			},
 			error: function (msg) {
 				alert(msg.responseText);
-			},
-			complete: function funcionEliminar(count,year){
-				$.each(data,function (i,item){
-					if(count == item.country && year == item.year ){
-						data.splice(i,1);	
-					}
-				});
 			}
-    });
-				
-	
-		
-		});
+
+
+
+   		 });
+				request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+	});
+
+function errores(jqXHR,status){
+	if(status=="error"){
+					if(jqXHR.status == "401"){
+						$("#status").text("Apikey incorrecta, por favor inserte una apikey correcta");
+					}else if (jqXHR.status == "409"){
+						$("#status").text("No se puede añadir ese registro, ese dato ya existe.");
+					}
+					
+				}else{
+					$("#status").text("")
+				}
+			};
 	</script>
 
 
