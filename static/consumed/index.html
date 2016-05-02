@@ -14,35 +14,37 @@
 </div>
 
 <div class="col-xs-3">
-Apikey:<input id="apikey" class="form-control"></input></br>
+Datos: </br></br><input id="apikey" class="form-control" placeholder="Apikey" ></input></br>
 
-Country: <input id="country" class="form-control"></input></br>
-Year: <input id="year" class="form-control"></input></br>
-Petroleum Cost: <input id="petroleum_cost" class="form-control"></input></br>
-Electric Cost: <input id="electric_cost" class="form-control"></input></br>
+<input id="country" class="form-control" placeholder="Country"></input></br>
+<input id="year" class="form-control" placeholder="Year"></input></br>
+<input id="petroleum_cost" class="form-control" placeholder="Petrouleum Cost"></input></br>
+<input id="electric_cost" class="form-control" placeholder="Electric Cost"></input></br>
 </div>
 <div class="col-xs-3">
-Búsqueda: </br></br>Desde <input id="desde" class="form-control"></input>   Hasta <input id="hasta" class="form-control"></input></br>
+Búsqueda: </br></br> <input id="desde" class="form-control" placeholder="Desde"></input> </br>   <input id="hasta" class="form-control" placeholder="Hasta"></input></br>
 </div>
 <div class="col-xs-3">
-Paginación: <select id= "pag" name="pag" class="form-control">
-   <option value="0">0</option> 
+Paginación: </br></br> <select id= "pag" name="pag" class="form-control">
+   <option value="0">0  Elementos</option> 
    <option value="1">1</option> 
    <option value="2">2</option> 
    <option value="3">3</option>
    <option value="5">5</option> 
    <option value="10">10</option> 
-</select> Desde el elemento <input id="pag2" class="form-control"></input>
+</select></br> <input id="pag2" class="form-control" placeholder="Comenzando por el elemento"></input>
 </div>
-<button id="ver" class="btn btn-info">Ver Todos</button>
-<button id="new" class="btn btn-info">Añadir</button>
-<button id="edit" class="btn btn-info">Editar</button>
-<button id="remove" class="btn btn-info">Borrar</button>
-<button id="buscar" class="btn btn-info">Buscar</button>
-<button id="removeall" class="btn btn-info">Borrar Todo</button>
-<button id="loadInitialData" class="btn btn-info">Load Inital Data</button>
-
-
+<div class="col-xs-3">
+<center>
+<button id="ver" class="btn btn-primary btn-block">Ver Todos</button></br>
+<button id="new" class="btn btn-primary btn-block">Añadir</button></br>
+<button id="edit" class="btn btn-primary btn-block">Editar</button></br>
+<button id="remove" class="btn btn-primary btn-block">Borrar</button></br>
+<button id="buscar" class="btn btn-primary btn-block">Buscar</button></br>
+<button id="removeall" class="btn btn-primary btn-block">Borrar Todo</button></br>
+<button id="loadInitialData" class="btn btn-primary btn-block">Load Inital Data</button>
+</center>
+</div>
 <table id="location" class="table">
 	<thead>
     <tr>
