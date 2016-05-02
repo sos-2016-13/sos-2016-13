@@ -135,7 +135,7 @@ Access_to_Electricity<input id="access_to_electricity"> </input>
         var access_to_electricity = $("#access_to_electricity").val();
 
         $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population/" + country + "/" + year + "?apikey="+apikey,
             type:"GET",
             data: '{"country":"'+country+'","year":'+year+',"population":'+population+',"access_to_electricity":'+access_to_electricity+'}',
             contentType : "application/json"
@@ -152,7 +152,7 @@ Access_to_Electricity<input id="access_to_electricity"> </input>
         var access_to_electricity = $("#access_to_electricity").val();
 
         $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population/" + country + "/" + year + "?apikey="+apikey,
             type:"PUT",
             data: '{"country":"'+country+'","year":'+year+',"population":'+population+',"access_to_electricity":'+access_to_electricity+'}',
             contentType : "application/json"
