@@ -14,18 +14,22 @@
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
 
-<h3>Enrique Pardo Alvarez ( Methane emissions, CO2 emissions and nitrous oxide emissions ) </h3>
-<a class="waves-effect waves-light btn" id="loadInitialData">Load Inital Data</a>
+<h4>Enrique Pardo Alvarez ( Methane emissions, CO2 emissions and nitrous oxide emissions ) </h4>
+
 <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="" id="apikey" type="text" class="validate">
-          <label for="apikey">Apikey: </label>
-        </div>
-      </div>
-    </form>
+	
+    <div class="input-field col s12 m 4 l2">
+          <input id="apikey" type="text" class="validate">
+          <label for="apikey">Apikey: </label></input>
+	</div>
+    
+    <div class="input-field col s6">
+		<a class="waves-effect waves-light btn" id="loadInitialData">Load Inital Data
+		</a>
+	</div>
 </div>
+      
+<div class="row">
 <div class="input-field col s6">
           <input id="country" type="text" class="validate">
           <label for="country">Country: </label></input>
@@ -35,20 +39,23 @@
           <input id="year" type="text" class="validate">
           <label for="year">Year: </label></input>
 </div>
+</div>
 
-<div class="input-field col s6">
+<div class="row">
+<div class="input-field col s12 m4 l4">
           <input id="nitrous_oxide_emissions" type="text" class="validate">
           <label for="nitrous_oxide_emissions">Nitrous Oxide Emission: </label></input>
 </div>
 
-<div class="input-field col s6">
+<div class="input-field col s12 m4 l4">
           <input id="methane_emissions" type="text" class="validate">
           <label for="methane_emissions">Methane Emissions: </label></input>
 </div>
 
-<div class="input-field col s6">
+<div class="input-field col s12 m4 l4">
           <input id="co2_emissions" type="text" class="validate">
           <label for="co2_emissions">CO2 Emissions: </label></input>
+</div>
 </div>
 
 <div class="input-field col s6">
@@ -59,7 +66,7 @@
     <form class="col s12">
       <div class="row">
         <div class="input-field col s6">
-          <input placeholder="Placeholder" id="desde" type="text" class="validate">
+          <input id="desde" type="text" class="validate">
           <label for="desde">desde</label>
         </div>
         <div class="input-field col s6">
@@ -75,8 +82,6 @@
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
-    <option value="5">5</option>
-    <option value="10">10</option>
   </select>
 
 <div class="input-field col s6">
@@ -100,10 +105,7 @@
          <th>Year</th>
 		 <th>Nitrous Oxide Emissions</th>
 		 <th>Methane Emissions</th>
-		 <th>CO2 Emissions</th>
-		 <th>Boton Añadir</th>
-		 <th>Boton Eliminar</th>
-		 
+		 <th>CO2 Emissions</th> 
     </tr>
 
 
