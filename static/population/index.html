@@ -149,9 +149,9 @@ Access_to_Electricity<input id="access_to_electricity"> </input>
         var access_to_electricity = $("#access_to_electricity").val();
 
                 var request = $.ajax({
-                    url:"https://sos-2016-13.herokuapp.com/api/v1/population?apikey="+apikey,
                     type:"POST",
-                    data: '{"country":"'+country+'","year":'+year+',"population:'+population+',"access_to_electricity":'+access_to_electricity+'}',
+                    url:"https://sos-2016-13.herokuapp.com/api/v1/population?apikey="+apikey,
+                    data: '{"country":"'+country+'","year":'+year+',"population":'+population+',"access_to_electricity":'+access_to_electricity+'}',
                     contentType : "application/json"
 
                      });
