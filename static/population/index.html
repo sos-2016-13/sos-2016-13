@@ -1,40 +1,228 @@
-
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Table Population</title>
-        <link rel="stylesheet" type="text/css" href="style.css" />
-        
-        <script type="text/javascript" src="population.js"></script>
-        <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
-        <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
-        <link rel="stylesheet" type="text/css" href="easyui/demo.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-        <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
-      </head>
-  
+<head>
 
-    <body>
-    
-    <h2>Basic DataGrid</h2>
-    <p>TABLE POPULATION</p>
-     <div style="margin:20px 0;"></div>
-  
-    
-    <table class="easyui-datagrid" id"location" rules="all" title="Population" style="width:420px;height:200px"
-           data-options="singleSelect:true,collapsible:true,url:'https://sos-2016-13.herokuapp.com/api/v1/population?apikey=eea',method:'GET'">
-        <thead>
-       
-            <tr>
-                <th  class="easyui-datagrid" data-options="field:'country',align:'center',width:80">Country</th>
-                <th data-options="field:'year',width:80,align:'center'">Year</th>
-                <th data-options="field:'population',width:80,align:'center'">Population</th>
-                <th data-options="field:'access_to_electricity',width:180,align:'center'">Access to electricity</th>
-            
-            </tr>
-            
-        </thead>
-    </table>
- </div>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+</head>
+<body>
+<h1>Eugenio Jesus Rodriguez Molina (Population and electricity access)</h1>
+
+<button id ="loadInitialData">loadInitialData</button>
+<button id ="Add"> Add</button>   
+<button id ="Edit">Edit</button>
+<button id ="Delete">Delete</button>
+<button id ="DeleteAll"> DeleteAll</button>
+<button id ="SeeAll"> SeeAll</button>
+
+Apikey:<input  id="apikey"></input>
+Country:<input id="country"> </input>
+Year:<input id="year"> </input>
+Population:<input id="population"> </input>
+Access_to_Electricity<input id="access_to_electricity"> </input>
+<table id="location" border='1'>
+    <tr>
+        <th>Countries</th>
+         <th>Year</th>
+		 <th>Population</th>
+		 <th>Access to Electricity</th>
+    </tr>
+</table>
+
+	
+
+<script>
+        $("#loadInitialData").click(function(){
+
+        var apikey = $("#apikey").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population/loadInitialData?apikey="+apikey,
+            type:"GET",
+            contentType : "application/json"
+
+             });
+        });
+
+
+        $("#buscar").click(function(){
+
+        var apikey = $("#apikey").val();
+        var year = $("#year").val();
+        var country = $("#country").val();
+        var population = $("#population").val();
+
+
+        if(country == "" && year != ""){
+            $.ajax(
+            {
+                type: "GET",
+                url: 'https://sos-2016-13.herokuapp.com/api/population/' + year +'?apikey='+apikey,
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    var trHTML = '';
+
+                $.each(data, function (i, item) {
+                    trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.population + '</td><td>' + item.access_to_electricity + '</td></tr></thead>';
+                });
+
+                $('#location').append(trHTML);
+                },
+                error: function (msg) {
+                    alert(msg.responseText);
+                }
+             });
+
+        }else if(year == "" && country !=""){
+            $.ajax(
+            {
+                type: "GET",
+                url: 'https://sos-2016-13.herokuapp.com/api/v1/population/' + country +'?apikey='+apikey,
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    var trHTML = '';
+
+                $.each(data, function (i, item) {
+                    trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.population + '</td><td>' + item.access_to_electricity + '</td></tr></thead>';
+                });
+
+                $('#location').append(trHTML);
+                },
+                error: function (msg) {
+                    alert(msg.responseText);
+                }
+             });
+
+        }else if (population == "" && country != "" && year !=""){
+            $.ajax(
+            {
+                type: "GET",
+                url:"https://sos-2016-13.herokuapp.com/api/v1/population/" + country + "/" + year + "?apikey="+apikey,
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    var trHTML = '';
+
+                $.each(data, function (i, item) {
+                    trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.population + '</td><td>' + item.access_to_electricity + '</td></tr></thead>';
+                });
+
+                $('#location').append(trHTML);
+                },
+                error: function (msg) {
+                    alert(msg.responseText);
+                }
+             });
+        }
+
+
+    });
+
+      
+
+        $("#Add").click(function(){
+
+        var apikey = $("#apikey").val();
+        var country = $("#country").val();
+        var year = $("#year").val();
+        var population = $("#population").val();
+        var access_to_electricity = $("#access_to_electricity").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population/" + country + "/" + year + "?apikey="+apikey,
+            type:"GET",
+            data: '{"country":"'+country+'","year":'+year+',"population":'+population+',"access_to_electricity":'+access_to_electricity+'}',
+            contentType : "application/json"
+
+             });
+        });
+
+        $("#Edit").click(function(){
+
+        var apikey = $("#apikey").val();
+        var country = $("#country").val();
+        var year = $("#year").val();
+        var population = $("#population").val();
+        var access_to_electricity = $("#access_to_electricity").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population/" + country + "/" + year + "?apikey="+apikey,
+            type:"PUT",
+            data: '{"country":"'+country+'","year":'+year+',"population":'+population+',"access_to_electricity":'+access_to_electricity+'}',
+            contentType : "application/json"
+
+             });
+        });
+
+
+
+        $("#Delete").click(function(){
+
+        var apikey = $("#apikey").val();
+        var country = $("#country").val();
+        var year = $("#year").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population/" + country + "/" + year + "?apikey="+apikey,
+            type:"DELETE",
+            contentType : "application/json"
+
+             });
+        });
+
+
+        $("#DeleteAll").click(function(){
+
+        var apikey = $("#apikey").val();
+
+        $.ajax({
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population/?apikey="+apikey,
+            type:"DELETE",
+            contentType : "application/json"
+
+             });
+        });
+
+        $("#SeeAll").click(function(){
+
+        var apikey = $("#apikey").val();
+
+        $.ajax(
+        {
+            type: "GET",
+            url: 'https://sos-2016-13.herokuapp.com/api/v1/population?apikey='+apikey,
+            data: "{}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                var trHTML = '';
+
+            $.each(data, function (i, item) {
+                trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.population + '</td><td>' + item.access_to_electricity+'</td></tr></thead>';
+            });
+
+            $('#location').append(trHTML);
+            },
+            error: function (msg) {
+                alert(msg.responseText);
+                
+            }
+
+
+
+         });
+    });
+
+
+    </script>
+
+
 </body>
 </html>
