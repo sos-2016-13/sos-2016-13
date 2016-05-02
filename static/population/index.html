@@ -2,30 +2,59 @@
 <head>
 
 <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">
+
 </head>
-<body>
+<body style="background-color: #448E83">
 <h1>Eugenio Jesus Rodriguez Molina (Population and electricity access)</h1>
 
-<button id ="loadInitialData">loadInitialData</button>
-<button id ="Add"> Add</button>   
-<button id ="Edit">Edit</button>
-<button id ="Delete">Delete</button>
-<button id ="DeleteAll"> DeleteAll</button>
-<button id ="SeeAll"> SeeAll</button>
-
-Apikey:<input  id="apikey"></input>
+<button style="border: #000 2px solid; background-color: #99CCFF"  id ="loadInitialData" >loadInitialData</button>
+<button style="border: #000 2px solid; background-color: #99CCFF" id ="Add"> Add</button>   
+<button style="border: #000 2px solid; background-color: #99CCFF" id ="Edit">Edit</button>
+<button style="border: #000 2px solid; background-color: #99CCFF" id ="Delete">Delete</button>
+<button style="border: #000 2px solid; background-color: #99CCFF"  id ="DeleteAll"> DeleteAll</button>
+<button style="border: #000 2px solid; background-color: #99CCFF" id ="SeeAll"> SeeAll</button>
+<button style="border: #000 2px solid; background-color: #99CCFF" id ="buscar"> Buscar</button>
+<center>Apikey:<input  id="apikey"></input>
 Country:<input id="country"> </input>
 Year:<input id="year"> </input>
 Population:<input id="population"> </input>
-Access_to_Electricity<input id="access_to_electricity"> </input>
-<table id="location" border='1'>
-    <tr>
+Access_to_Electricity<input id="access_to_electricity"> </input></center>
+<center>Desde<input id="desde"></input>
+Hasta<input id="hasta"></input></center>
+Paginación: </br></br> <select id= "pag" name="pag" >
+   <center><option value="0">0  Elementos</option> 
+   <option value="1">1</option> 
+   <option value="2">2</option> 
+   <option value="3">3</option>
+
+</select></br> <input id="pag2" ></input>
+</center>
+<script >
+$(document).ready(function() {
+    $('#location').DataTable();
+
+} );
+
+</script>
+
+
+
+
+
+
+
+<table  style="background-color:#5E6A6A"id="location" class="display" cellspacing="0" width="100%"  >
+    <tr style="background-color:#F4390B">
         <th>Countries</th>
          <th>Year</th>
 		 <th>Population</th>
 		 <th>Access to Electricity</th>
     </tr>
 </table>
+
+
 
 <script>
 
