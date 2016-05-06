@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.js"></script>
+     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <link href="//cdn.muicss.com/mui-0.5.6/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.5.6/js/mui.min.js"></script>
+    <select id= "ano" name="ano" >
+         <option>Year</option> 
+         <option value="2010">2010</option> 
+         <option value="2011">2011</option> 
+         <option value="2012">2012</option> 
+         <option value="2013">2013</option>
+         <option value="2014">2014</option>
+         <option value="2015">2015</option>
+         <option value="2016">2016</option>
+      </select></br>
+    
+
+    <button class="mui-btn mui-btn--primary" type="submit" name="action" id= "refrescar">Send
+      
+      </button>
+
+    <script type="text/javascript">
+
+
+
+    $("#refrescar").click(function(){    
+
+    var ano = $("#ano").val();
+
+
+  
+    var request = $.ajax({
+      url: "https://sos-2016-13.herokuapp.com/api/v1/population/"+ano+"?apikey=eea"
+    });
+
+    request.done((dataFromServer,status) =>{
+
+     google.charts.load('current', {'packages':['geochart']});
+      google.charts.setOnLoadCallback(drawRegionsMap);
+      function drawRegionsMap() {
+        // Some raw data (not necessarily accurate)
+              var dataForWidget = [["Country","Population"]];
+
+        for(i=0; i<dataFromServer.length;i++){
+          var item= dataFromServer[i];
+          var itemForWidget = [item.country, item.population];
+          dataForWidget.push(itemForWidget);
+        }
+        var data = google.visualization.arrayToDataTable(dataForWidget);
+
+    var options = {
+     
+    };
+
+    var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+    chart.draw(data, options);
+  }
+   });
+  });
+    </script>
+  </head>
+  <body>
+    <div id="regions_div" style="width: 500px; height: 350px;"></div>
+  </body>
+</html>
