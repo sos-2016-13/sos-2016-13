@@ -19,7 +19,7 @@
 <div class="row">
 	
     <div class="input-field col s12 m 4 l2">
-          <input id="apikey" type="text" class="validate">
+          <input id="apikey" type="text" class="validate" value="eea" >
           <label for="apikey">Apikey: </label></input>
 	</div>
     
@@ -59,7 +59,7 @@
 </div>
 
 <div class="input-field col s6">
-          Búsqueda
+          Search
 </div>
 
 <div class="row">
@@ -67,17 +67,17 @@
       <div class="row">
         <div class="input-field col s6">
           <input id="desde" type="text" class="validate">
-          <label for="desde">desde</label>
+          <label for="desde">from</label>
         </div>
         <div class="input-field col s6">
           <input id="hasta" type="text" class="validate">
-          <label for="hasta">hasta</label>
+          <label for="hasta">to</label>
         </div>
       </div>
 
-  <label>Paginación</label>
+  <label>Pagination</label>
   <select class="browser-default" id="pag" name = "pag">
-    <option value="" disabled selected>Elige Opción</option>
+    <option value="" disabled selected>Element</option>
     <option value="0">0</option>
     <option value="1">1</option>
     <option value="2">2</option>
@@ -85,23 +85,23 @@
   </select>
 
 <div class="input-field col s6">
-          <input id="pag2" type="text" class="validate">
+          <input id="pag2" type="text" class="validate" type="hidden" value="0">
           <label for="pag2">Desde el Elemento: </label></input>
 </div>
 
 </div>          
     <div>
-    <a class="waves-effect waves-light btn" id="ver">Ver Todos</a>
-	<a class="waves-effect waves-light btn" id="new">Añadir</a>
-	<a class="waves-effect waves-light btn" id="edit">Editar</a>
-	<a class="waves-effect waves-light btn" id="remove">Borrar</a>
-	<a class="waves-effect waves-light btn" id="buscar">Buscar</a>
-	<a class="waves-effect waves-light btn" id="removeall">Borrar Todo</a>
+    <a class="waves-effect waves-light btn" id="ver">See All</a>
+	<a class="waves-effect waves-light btn" id="new">Add</a>
+	<a class="waves-effect waves-light btn" id="edit">Edit</a>
+	<a class="waves-effect waves-light btn" id="remove">Remove</a>
+	<a class="waves-effect waves-light btn" id="buscar">Search</a>
+	<a class="waves-effect waves-light btn" id="removeall">Remove All</a>
 	<div>
 
 <table class="striped" id="location" border='1'>
     <tr>
-        <th>Countries</th>
+         <th>Countries</th>
          <th>Year</th>
 		 <th>Nitrous Oxide Emissions</th>
 		 <th>Methane Emissions</th>
@@ -110,6 +110,11 @@
 
 
 </table>
+
+<div>
+<a class="waves-effect waves-light btn" id="anterior">Previous</a>
+<a class="waves-effect waves-light btn" id="siguiente">Next</a>
+</div>
 
 <span id="status"></span>
 
@@ -160,8 +165,13 @@
         refrescar(apikey);
 
   		});
+
 	
-$("#buscar").click(function(){
+	function myFunction2() {
+    	document.getElementById("pag2").value = 0;
+	}
+
+	$("#buscar").click(function(){
 
  		 $("#location td").remove(); 
 
@@ -215,6 +225,140 @@ $("#buscar").click(function(){
 				}
 	   		 });
 
+			request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+	});
+
+
+function myFunction(pag3) {
+    document.getElementById("pag2").value = pag3;
+}
+
+
+$("#siguiente").click(function(){
+
+ 		 $("#location td").remove(); 
+
+
+
+  		var apikey = $("#apikey").val();
+        var year = $("#year").val();
+        var country = $("#country").val();
+        var desde = $("#desde").val();
+        var hasta = $("#hasta").val();
+        var pag = $("#pag").val();
+        var pag2 = $("#pag2").val();
+        pag3 = parseInt(pag) + parseInt(pag2);
+
+			if(year != ""){
+				year = "/"+year;
+			}
+			if(country != ""){
+				country = "/" + country;
+			}
+			if(desde != ""){
+				desde = "&from=" + desde;
+			}
+			if(hasta != ""){
+				hasta = "&to=" + hasta;
+			}
+			if(pag != ""){
+				pag = "&limit=" + pag;
+			}
+			if(pag2 != ""){
+				pag2 = "&offset=" + pag3;
+			}
+
+
+          var request = $.ajax(
+			{
+				type: "GET",
+				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+				data: "{}",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				cache: false,
+				success: function (data) {
+					var trHTML = '';
+
+				$.each(data, function (i, item) {
+					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
+				});
+
+				$('#location').append(trHTML);
+				},
+				error: function (msg) {
+					alert(msg.responseText);
+				}
+	   		 });
+
+        	  myFunction(pag3);
+
+			request.always(function(jqXHR,status){
+				errores(jqXHR,status);
+				});
+	});
+
+	$("#anterior").click(function(){
+
+ 		 $("#location td").remove(); 
+
+
+
+  		var apikey = $("#apikey").val();
+        var year = $("#year").val();
+        var country = $("#country").val();
+        var desde = $("#desde").val();
+        var hasta = $("#hasta").val();
+        var pag = $("#pag").val();
+        var pag2 = $("#pag2").val();
+        pag3 = parseInt(pag2) - parseInt(pag);
+
+			if(year != ""){
+				year = "/"+year;
+			}
+			if(country != ""){
+				country = "/" + country;
+			}
+			if(desde != ""){
+				desde = "&from=" + desde;
+			}
+			if(hasta != ""){
+				hasta = "&to=" + hasta;
+			}
+			if(pag != ""){
+				pag = "&limit=" + pag;
+			}
+			if(pag2 != ""){
+				pag2 = "&offset=" + pag3;
+			}
+
+
+          var request = $.ajax(
+			{
+				type: "GET",
+				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+				data: "{}",
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				cache: false,
+				success: function (data) {
+					var trHTML = '';
+
+				$.each(data, function (i, item) {
+					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
+				});
+
+				$('#location').append(trHTML);
+				},
+				error: function (msg) {
+					alert(msg.responseText);
+				}
+	   		 });
+          
+          myFunction(pag3);
+      	
 			request.always(function(jqXHR,status){
 				errores(jqXHR,status);
 				});

@@ -1,0 +1,87 @@
+<html>
+  <head>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+
+
+<label>Year</label>
+  <select class="browser-default" id="ano" name = "ano">
+    <option value="" disabled selected>Select Year</option>
+    <option value="2010">2010</option>
+    <option value="2011">2011</option>
+    <option value="2012">2012</option>
+    <option value="2013">2013</option>
+    <option value="2014">2014</option>
+    <option value="2015">2015</option>
+  </select>
+
+  <div>
+    <a id="send" name ="send" class="waves-effect waves-light btn" >Send</a>
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    
+    <script type="text/javascript">
+
+
+      $("#send").click(function(){    
+
+    var ano = $("#ano").val();
+
+
+  
+    var request = $.ajax({
+      url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano+"?apikey=eea"
+    });
+
+    request.done((dataFromServer,status) =>{
+
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        console.log(dataFromServer);
+
+        var dataForWidget = [["Country","Nitrous Oxide Emission"]];
+
+        for(i=0; i<dataFromServer.length;i++){
+          var item= dataFromServer[i];
+          var itemForWidget = [item.country, item.nitrous_oxide_emissions];
+          dataForWidget.push(itemForWidget);
+        }
+       
+        console.log(dataForWidget);
+
+        /*var data = google.visualization.arrayToDataTable([
+          ['Country', 'Nitrous Oxide emissions']
+        ]);*/
+        var data = google.visualization.arrayToDataTable(dataForWidget);
+
+        var options = {
+          chart: {
+            title: 'Nitrous Oxide Emissions',
+            subtitle: 'Country',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, options);
+       }
+      });
+     });
+    </script>
+  </head>
+  <body>
+    <div id="columnchart_material" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
