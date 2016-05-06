@@ -85,7 +85,7 @@
   </select>
 
 <div class="input-field col s6">
-          <input id="pag2" type="text" class="validate" type="hidden" value="0">
+          <input disabled  id="pag2" type="text" class="validate" value="0">
           <label for="pag2"> </label></input>
 </div>
 
@@ -283,7 +283,15 @@ $("#siguiente").click(function(){
 					var trHTML = '';
 
 				$.each(data, function (i, item) {
+					if(item != null){
 					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
+					//anterior.disabled = false;
+					$('#anterior').addClass('btn-enabled');
+
+				}else{
+					//siguiente.disabled = true;
+					$('#siguiente').addClass('btn-disabled');
+					}
 				});
 
 				$('#location').append(trHTML);
@@ -293,6 +301,7 @@ $("#siguiente").click(function(){
 				}
 	   		 });
 
+
         	  myFunction(pag3);
 
 			request.always(function(jqXHR,status){
@@ -300,7 +309,7 @@ $("#siguiente").click(function(){
 				});
 	});
 
-	$("#anterior").click(function(){
+$("#anterior").click(function(){
 
  		 $("#location td").remove(); 
 
@@ -347,7 +356,14 @@ $("#siguiente").click(function(){
 					var trHTML = '';
 
 				$.each(data, function (i, item) {
+					if(item != null){
 					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
+					//siguiente.disabled = false;
+					$('#siguiente').addClass('btn-disabled');;
+					}else{
+						//anterior.disabled = true;
+						$('#anterior').addClass('btn-enabled');;
+					}
 				});
 
 				$('#location').append(trHTML);
