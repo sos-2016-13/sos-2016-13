@@ -1,5 +1,5 @@
 <html>
-<head>      
+<head>
 
 <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
@@ -8,17 +8,17 @@
     <script src="//cdn.muicss.com/mui-0.5.6/js/mui.min.js"></script>
 
 </head>
-<body style="background-color: #448E83">
+<body >
 <h1>Eugenio Jesus Rodriguez Molina (Population and electricity access)</h1>
 
-<button style="border: #000 2px solid; background-color: #99CCFF"  id ="loadInitialData" >loadInitialData</button>
-<button style="border: #000 2px solid; background-color: #99CCFF" id ="Add"> Add</button>   
-<button style="border: #000 2px solid; background-color: #99CCFF" id ="Edit">Edit</button>
-<button style="border: #000 2px solid; background-color: #99CCFF" id ="Delete">Delete</button>
-<button style="border: #000 2px solid; background-color: #99CCFF"  id ="DeleteAll"> DeleteAll</button>
-<button style="border: #000 2px solid; background-color: #99CCFF" id ="SeeAll"> SeeAll</button>
-<button style="border: #000 2px solid; background-color: #99CCFF" id ="buscar"> Search</button>
-<center>Apikey:<input  id="apikey"></input>
+<button class="mui-btn mui-btn--primary"   id ="loadInitialData" >loadInitialData</button>
+<button class="mui-btn mui-btn--primary" id ="Add"> Add</button>   
+<button class="mui-btn mui-btn--primary" id ="Edit">Edit</button>
+<button class="mui-btn mui-btn--primary" id ="Delete">Delete</button>
+<button class="mui-btn mui-btn--primary"  id ="DeleteAll"> DeleteAll</button>
+<button class="mui-btn mui-btn--primary" id ="SeeAll"> SeeAll</button>
+<button class="mui-btn mui-btn--primary" id ="Search"> Search</button>
+<center>Apikey:<input value="eea"  id="apikey" disabled></input>
 Country:<input id="country"> </input>
 Year:<input id="year"> </input>
 Population:<input id="population"> </input>
@@ -31,7 +31,7 @@ Pagination: </br></br> <select id= "pag" name="pag" >
    <option value="2">2</option> 
    <option value="3">3</option>
 
-</select></br> <input id="pag2" ></input>
+</select></br> <input id="pag2" type=hidden ></input>
 </center>
 <script >
 $(document).ready(function() {
