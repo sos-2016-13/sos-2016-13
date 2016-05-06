@@ -233,7 +233,12 @@ $("#siguiente").click(function(){
 					var trHTML = '';
 
 				$.each(data, function (i, item) {
+					if(item != null){
 					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr></thead>';
+					anterior.disabled = false;
+				}else{
+						 siguiente.disabled = true;
+					}
 				});
 
 				$('#location').append(trHTML);
@@ -242,6 +247,7 @@ $("#siguiente").click(function(){
 					alert(msg.responseText);
 				}
 	   		 });
+
 
         	  myFunction(pag3);
 
@@ -297,7 +303,12 @@ $("#anterior").click(function(){
 					var trHTML = '';
 
 				$.each(data, function (i, item) {
+					if(item != null){
 					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.petroleum_cost + '</td><td>' + item.electric_cost + '</td></tr></thead>';
+					siguiente.disabled = false;
+					}else{
+						anterior.disabled = true;
+					}
 				});
 
 				$('#location').append(trHTML);
