@@ -11,6 +11,8 @@
 <body >
 <h1>Eugenio Jesus Rodriguez Molina (Population and electricity access)</h1>
 
+
+
 <button class="mui-btn mui-btn--primary"   id ="loadInitialData" >loadInitialData</button>
 <button class="mui-btn mui-btn--primary" id ="Add"> Add</button>   
 <button class="mui-btn mui-btn--primary" id ="Edit">Edit</button>
@@ -18,20 +20,22 @@
 <button class="mui-btn mui-btn--primary"  id ="DeleteAll"> DeleteAll</button>
 <button class="mui-btn mui-btn--primary" id ="SeeAll"> SeeAll</button>
 <button class="mui-btn mui-btn--primary" id ="Search"> Search</button>
-<center>Apikey:<input value="eea"  id="apikey" ></input>
+<br></br>
+
+<div align=left>Apikey:<input value="eea"  id="apikey" ></input>
 Country:<input id="country"> </input>
 Year:<input id="year"> </input>
 Population:<input id="population"> </input>
-Access_to_Electricity<input id="access_to_electricity"> </input></center>
-<center> from<input id="desde"></input>
-to<input id="hasta"></input></center>
+Access_to_Electricity<input id="access_to_electricity"> </input></div>
+<div align=left> from<input id="desde"></input>
+to<input id="hasta"></input></div>
 Pagination: </br></br> <select id= "pag" name="pag" >
    <center><option value="0">0  Elements</option> 
    <option value="1">1</option> 
    <option value="2">2</option> 
    <option value="3">3</option>
 
-</select></br> <input id="pag2" type=hidden ></input>
+</select></br> <input id="pag2" type=hidden  value="0"></input>
 </center>
 <script >
 $(document).ready(function() {
