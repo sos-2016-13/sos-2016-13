@@ -286,11 +286,11 @@ $("#siguiente").click(function(){
 					if(item != null){
 					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
 					//anterior.disabled = false;
-					$('#anterior').addClass('btn-enabled');
+					$("#anterior").disabled = false;
 
 				}else{
 					//siguiente.disabled = true;
-					$('#siguiente').addClass('btn-disabled');
+					$("#siguiente").disabled = true;
 					}
 				});
 
@@ -359,10 +359,10 @@ $("#anterior").click(function(){
 					if(item != null){
 					trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
 					//siguiente.disabled = false;
-					$('#siguiente').addClass('btn-disabled');;
+					$("#siguiente").disabled = false;
 					}else{
 						//anterior.disabled = true;
-						$('#anterior').addClass('btn-enabled');;
+						$("#anterior").disabled = true;
 					}
 				});
 
