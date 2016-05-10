@@ -527,9 +527,9 @@ $("#anterior").click(function(){
 function errores(jqXHR,status){
 	if(status=="error"){
 					if(jqXHR.status == "401"){
-						$("#status").text("Apikey incorrecta, por favor inserte una apikey correcta");
+						$("#status").text("Invalid apikey, please insert correct apikey");
 					}else if (jqXHR.status == "409"){
-						$("#status").text("No se puede añadir ese registro, ese dato ya existe.");
+						$("#status").text("Data already exists");
 					}
 					
 				}else{
