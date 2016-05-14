@@ -3,7 +3,7 @@ var express = require("express");
 var app = express(); 
 var bodyParser =  require("body-parser");
 var request = require("request");
-var cors = require('cors');
+var cors = require("cors");
 
 var functionCtl = require("./functions.js");
 var emissionsCtl= require("./emissionsCtl.js");
@@ -51,7 +51,7 @@ res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
     next();
 });
-*/
+
 //---------------------
 app.use(bodyParser.json());
 //---------------------
