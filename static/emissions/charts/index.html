@@ -31,6 +31,29 @@
     
     <script type="text/javascript">
 
+    function refrescar(){
+    $.ajax(
+      {
+        type: "GET",
+        url:"https://sos-2016-13.herokuapp.com/emissions/charts",
+        data: "{}",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+          var trHTML = '';
+
+        $.each(data, function (i, item) {
+          trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
+        });
+
+        $('#location').append(trHTML);
+        },
+        error: function (msg) {
+          alert(msg.responseText);
+        }
+         });
+    }
 
       $("#send").click(function(){    
 
@@ -78,6 +101,8 @@
         chart.draw(data, options);
        }
       });
+     
+      refrescar(apikey);
      });
     </script>
   </head>
