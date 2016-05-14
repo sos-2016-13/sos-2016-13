@@ -42,7 +42,7 @@ app.use(pathsAlvaro, function(req,res){
 });
 
 var pathsEnrique='/api/v1/gold-medals';
-var apiServerHost = 'http://sos-2016-05.herokuapp.com';
+
 app.use(pathsEnrique, function(req,res){
 	var url = apiServerHost + req.baseUrl + req.url;
 
