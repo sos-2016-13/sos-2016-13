@@ -33,7 +33,7 @@ governify.control(app,{
 	namespace : "sos-2016-13-eea",
 	defaultPath : "/api/v1",
 	apiKeyVariable : "api"
-});
+});   
 
 app.use(cors());
 
