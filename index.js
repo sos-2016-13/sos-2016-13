@@ -4,6 +4,7 @@ var app = express();
 var bodyParser =  require("body-parser");
 var request = require("request");
 var cors = require("cors");
+var governify = require("governify");
 
 var functionCtl = require("./functions.js");
 var emissionsCtl= require("./emissionsCtl.js");
@@ -26,6 +27,13 @@ app.use("/RestClient",express.static(__dirname + '/static/emissions/RestClient')
 app.use("/population",express.static(__dirname + '/static/population'));
 
 app.use("/RestClient",express.static(__dirname + '/static/population/RestClient'));
+
+governify.control(app,{
+	datastore : "http://datastore.governify.io/api/v6.1/",
+	namespace : "sos-2016-13-eea",
+	defaultPath : "/api/v1",
+	apiKeyVariable : "api"
+});
 
 app.use(cors());
 
