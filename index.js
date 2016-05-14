@@ -1,8 +1,9 @@
  
- var express = require("express"); 
+var express = require("express"); 
 var app = express(); 
 var bodyParser =  require("body-parser");
- 
+var request = require("request");
+var cors = require('cors');
 
 var functionCtl = require("./functions.js");
 var emissionsCtl= require("./emissionsCtl.js");
@@ -25,6 +26,24 @@ app.use("/RestClient",express.static(__dirname + '/static/emissions/RestClient')
 app.use("/population",express.static(__dirname + '/static/population'));
 
 app.use("/RestClient",express.static(__dirname + '/static/population/RestClient'));
+
+app.use(cors());
+
+var pathsAlvaro='/api/v1/locations';
+var apiServerHost = 'http://sos-2016-05.herokuapp.com';
+app.use(pathsAlvaro, function(req,res){
+	var url = apiServerHost + req.baseUrl + req.url;
+
+	req.pipe(request(url,(error,response,body)=>{
+		if(error){
+			res.sendStatus(503);
+		}
+	})).pipe(res);
+});
+
+
+
+
 
 app.use(function(req, res, next) {
 res.setHeader('Access-Control-Allow-Origin', '*');
