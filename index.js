@@ -53,6 +53,17 @@ app.use(pathsEnrique, function(req,res){
 	})).pipe(res);
 });
 
+var pathsEugenio='/api/v1/participants-number';
+var apiServerHost = 'http://sos-2016-05.herokuapp.com';
+app.use(pathsAlvaro, function(req,res){
+	var url = apiServerHost + req.baseUrl + req.url;
+
+	req.pipe(request(url,(error,response,body)=>{
+		if(error){
+			res.sendStatus(503);
+		}
+	})).pipe(res);
+});
 
 /*
 
