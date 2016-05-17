@@ -63,7 +63,7 @@ app.use(pathsEnrique, function(req,res){
 
 var pathsEugenio='/api/v1/participants-number';
 var apiServerHost = 'http://sos-2016-05.herokuapp.com';
-app.use(pathsAlvaro, function(req,res){
+app.use(pathsEugenio, function(req,res){
 	var url = apiServerHost + req.baseUrl + req.url;
 
 	req.pipe(request(url,(error,response,body)=>{
