@@ -26,67 +26,60 @@
   </select>
 
   <div>
-    <a id="send" name ="send" class="waves-effect waves-light btn" >Send</a>
+    <a id="send" name ="send" class="waves-effect waves-light btn" >Send</a></div>
+
+<!--Eugenio-->
+
+<label>Year (With Population)</label>
+  <select class="browser-default" id="ano1" name = "ano1">
+    <option value="" disabled selected>Select Year</option>
+    <option value="2010">2010</option>
+    <option value="2011">2011</option>
+    <option value="2012">2012</option>
+    <option value="2013">2013</option>
+    <option value="2014">2014</option>
+    <option value="2015">2015</option>
+  </select>
+
+  <div>
+    <a id="send1" name ="send1" class="waves-effect waves-light btn" >Send</a>
+
+  </div>
+
     <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
     
     <script type="text/javascript">
 
-    function refrescar(){
-    $.ajax(
-      {
-        type: "GET",
-        url:"https://sos-2016-13.herokuapp.com/emissions/charts",
-        data: "{}",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        cache: false,
-        success: function (data) {
-          var trHTML = '';
-
-        $.each(data, function (i, item) {
-          trHTML += '<thead><tr><td>' + item.country + '</td><td>' + item.year + '</td><td>' + item.nitrous_oxide_emissions + '</td><td>' + item.methane_emissions + '</td><td>' + item.co2_emissions + '</td></tr></thead>';
-        });
-
-        $('#location').append(trHTML);
-        },
-        error: function (msg) {
-          alert(msg.responseText);
-        }
-         });
-    }
-
-      $("#send").click(function(){    
+    $("#send").click(function(){    
 
     var ano = $("#ano").val();
 
 
   
     var request = $.ajax({
-      url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano+"?apikey=eea"
+      url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano+"?apikey=eea&api=multiPlan_C4_sos-2016-13-eea_ag"
     });
+    
 
     request.done((dataFromServer,status) =>{
 
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
-
       function drawChart() {
 
         console.log(dataFromServer);
 
-        var dataForWidget = [["Country","Nitrous Oxide Emission"]];
-
+        var dataForWidget = [["Country","Nitrous Oxide Emission","Methane Emissions"]];
+                  
+                  ////ESTO FUNCA////
         for(i=0; i<dataFromServer.length;i++){
           var item= dataFromServer[i];
-          var itemForWidget = [item.country, item.nitrous_oxide_emissions];
+          var itemForWidget = [item.country, item.nitrous_oxide_emissions,item.methane_emissions];
           dataForWidget.push(itemForWidget);
         }
        
         console.log(dataForWidget);
 
-        /*var data = google.visualization.arrayToDataTable([
-          ['Country', 'Nitrous Oxide emissions']
-        ]);*/
         var data = google.visualization.arrayToDataTable(dataForWidget);
 
         var options = {
@@ -101,9 +94,72 @@
         chart.draw(data, options);
        }
       });
-     
-      refrescar(apikey);
      });
+
+    </script>
+    <script type="text/javascript">
+
+$("#send1").click(function(){    
+
+    var ano1 = $("#ano1").val();
+
+
+  
+    var request = $.ajax({
+      url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano1+"?apikey=eea&api=multiPlan_C4_sos-2016-13-eea_ag"
+    });
+    
+
+    request.done((dataFromServer,status) =>{
+
+     
+
+      var request2 = $.ajax({
+        url: "https://sos-2016-13.herokuapp.com/api/v1/population/"+ano1+"?apikey=eea&api=multiPlan_C4_sos-2016-13-eea_ag"
+       });
+
+      request2.done((dataFromServer2,status2) =>{
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        console.log(dataFromServer);
+
+        var dataForWidget = [["Country","Nitrous Oxide Emission","Methane Emissions","Population (Thousands)"]];
+     
+       for(i=0; i<dataFromServer.length;i++){
+          var item= dataFromServer[i];
+
+          for(j=0;j<dataFromServer2.length;j++){
+            var item2= dataFromServer2[j];
+            if(item.country == item2.country){
+                var itemForWidget = [item.country, item.nitrous_oxide_emissions,item.methane_emissions,item2.population];
+            }else{
+                 var itemForWidget = [item.country, item.nitrous_oxide_emissions,item.methane_emissions,0];
+         }
+        }
+        itemForWidget[3]=itemForWidget[3]/1000;
+          dataForWidget.push(itemForWidget);
+
+        }
+        console.log(dataForWidget);
+
+        var data = google.visualization.arrayToDataTable(dataForWidget);
+
+        var options = {
+          chart: {
+            title: 'Nitrous Oxide Emissions',
+            subtitle: 'Country',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, options);
+       }
+      });
+     });
+     }); 
     </script>
   </head>
   <body>
