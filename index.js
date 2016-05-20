@@ -28,10 +28,27 @@ app.use("/population",express.static(__dirname + '/static/population'));
 
 app.use("/RestClient",express.static(__dirname + '/static/population/RestClient'));
 
+
+ //--------------GOVERNIFY-----------
+
 governify.control(app,{
 	datastore : "http://datastore.governify.io/api/v6.1/",
-	namespace : "sos-2016-13-eea",
-	defaultPath : "/api/v1",
+	namespace : "sos-2016-13-asm",
+	defaultPath : "/api/v1/consumed",
+	apiKeyVariable : "api"
+});
+
+governify.control(app,{
+	datastore : "http://datastore.governify.io/api/v6.1/",
+	namespace : "sos-2016-13-ejrm",
+	defaultPath : "/api/v1/population",
+	apiKeyVariable : "api"
+});   
+
+governify.control(app,{
+	datastore : "http://datastore.governify.io/api/v6.1/",
+	namespace : "sos-2016-13-epa",
+	defaultPath : "/api/v1/emissions",
 	apiKeyVariable : "api"
 });   
 
