@@ -15,6 +15,7 @@
 
 <div class="col-xs-3">
 Data: </br></br><input id="apikey" class="form-control" placeholder="Apikey" value="eea" ></input></br>
+				<input id="api" class="form-control" placeholder="Plan"></input></br>
 
 <input id="country" class="form-control" placeholder="Country"></input></br>
 <input id="year" class="form-control" placeholder="Year"></input></br>
@@ -70,7 +71,7 @@ Pagination: </br></br> <select id= "pag" name="pag" class="form-control">
 		$.ajax(
 			{
 				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed?apikey="+apikey,
+				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed?apikey="+apikey + "&api=" + api,
 				data: "{}",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
@@ -97,7 +98,7 @@ Pagination: </br></br> <select id= "pag" name="pag" class="form-control">
         var apikey = $("#apikey").val();
 
         var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/loadInitialData?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/loadInitialData?apikey="+apikey + "&api=" + api,
             type:"GET",
             contentType : "application/json"
 
@@ -156,7 +157,7 @@ function myFunction2() {
           var request = $.ajax(
 			{
 				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed" + country + year + "?apikey="+apikey + "&api=" + api + desde + hasta + pag2 + pag,
 				data: "{}",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
@@ -224,7 +225,7 @@ $("#siguiente").click(function(){
           var request = $.ajax(
 			{
 				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed" + country + year + "?apikey="+apikey + "&api=" + api + desde + hasta + pag2 + pag,
 				data: "{}",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
@@ -294,7 +295,7 @@ $("#anterior").click(function(){
           var request = $.ajax(
 			{
 				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+				url:"https://sos-2016-13.herokuapp.com/api/v1/consumed" + country + year + "?apikey="+apikey + "&api=" + api + desde + hasta + pag2 + pag,
 				data: "{}",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
@@ -338,7 +339,7 @@ $("#anterior").click(function(){
         var electric_cost = $("#electric_cost").val();
 
 		       	var request = $.ajax({
-		            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey,
+		            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey + "&api=" + api,
 		            type:"POST",
 		            data: '{"country":"'+country+'","year":'+year+',"petroleum_cost":'+petroleum_cost+',"electric_cost":'+electric_cost+'}',
 		            contentType : "application/json"
@@ -362,7 +363,7 @@ $("#anterior").click(function(){
         var electric_cost = $("#electric_cost").val();
 
         var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey + "&api=" + api,
             type:"PUT",
             data: '{"country":"'+country+'","year":'+year+',"petroleum_cost":'+petroleum_cost+',"electric_cost":'+electric_cost+'}',
             contentType : "application/json"
@@ -387,7 +388,7 @@ $("#anterior").click(function(){
         var year = $("#year").val();
 
         var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/" + country + "/" + year + "?apikey="+apikey + "&api=" + api,
             type:"DELETE",
             contentType : "application/json"
 
@@ -407,7 +408,7 @@ $("#anterior").click(function(){
         var apikey = $("#apikey").val();
 
         	var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey + "&api=" + api,
             type:"DELETE",
             contentType : "application/json"
 
@@ -428,7 +429,7 @@ $("#anterior").click(function(){
 		var request = $.ajax(
 		{
 			type: "GET",
-			url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed?apikey='+apikey,
+			url: 'https://sos-2016-13.herokuapp.com/api/v1/consumed?apikey='+apikey + "&api=" + api,
 			data: "{}",
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
