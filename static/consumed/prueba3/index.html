@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+      
+    <script type="text/javascript">
+     
+
+   $(document).ready(() =>{    
+
+  
+    var request = $.ajax({
+      url: "https://restcountries.eu/rest/v1/"
+    });
+
+    request.done((dataFromServer,status) =>{
+
+
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
+
+        var dataForWidget = [["Country","Population"]];
+        
+
+        for(i=0; i<dataFromServer.length;i++){
+          	var item= dataFromServer[i];
+ 			      var itemForWidget = [item.name, item.population];
+ 				   	dataForWidget.push(itemForWidget);
+ 				}
+ 	  		
+	        
+        
+
+	         
+
+        var data = google.visualization.arrayToDataTable(dataForWidget);
+       
+
+        var options = {
+          title: 'Country and Population API Externa '
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    });
+  });
+
+
+
+    </script>
+  </head>
+  <body>
+  <center>
+      <div id="piechart" style="width: 900px; height: 500px;"></div>
+  </center>
+  </body>
+</html>

@@ -1,5 +1,8 @@
 <html>
   <head>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <div class="col-xs-2"></br></br>
@@ -15,8 +18,7 @@
       </select></br>
       <button id="refrescar" class="btn btn-primary btn-block">Update</button>
 </div>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
       
     <script type="text/javascript">
      
@@ -33,35 +35,71 @@
 
     request.done((dataFromServer,status) =>{
 
+
+    		var request2 = $.ajax({
+     			 url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano+"?apikey=eea&api=multiPlan_C4_sos-2016-13-epa_ag"
+   				 });
+
+    		request2.done((dataFromServer2,status2) =>{
+
+
+
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
       
       function drawChart() {
-        
-        console.log(dataFromServer);
 
-        var dataForWidget = [["Country","Petroleum Cost"]];
+        var dataForWidget = [["Country","Integration"]];
+
 
         for(i=0; i<dataFromServer.length;i++){
-          var item= dataFromServer[i];
-          var itemForWidget = [item.country, item.petroleum_cost];
-          dataForWidget.push(itemForWidget);
+          	var item= dataFromServer[i];
+ 			var itemForWidget = [item.country, item.petroleum_cost];
+	        var existe = "no";
+ 			for(i=0; i<dataForWidget.length;i++){
+ 				var item3 = dataForWidget[i];
+ 					if(item.country == item3.country){
+ 						existe = "yes";
+ 					}
+ 			}
+ 				if(existe == "no"){
+ 					dataForWidget.push(itemForWidget);
+ 				}
         }
 
-         var data = google.visualization.arrayToDataTable(dataForWidget);
+	    for(i=0; i<dataFromServer2.length;i++){
+	        var item2 = dataFromServer2[i];
+	        var itemForWidget = [item2.country, item2.nitrous_oxide_emissions];
+	        var existe2 = "no";
+ 			for(i=0; i<dataForWidget.length;i++){
+ 				var item3 = dataForWidget[i];
+ 					if(item2.country == item3.country){
+ 						existe2 = "yes";
+ 					}
+ 			}
+ 				if(existe2 == "no"){
+ 					dataForWidget.push(itemForWidget);
+ 				}         	          	
+	    }
+
+	
+        
+
+        var data = google.visualization.arrayToDataTable(dataForWidget);
        
-        console.log(dataForWidget);
 
         var options = {
-          title: 'Petroleum Cost'
+          title: 'Petroleum cost and emissions (nitrous oxide emissions)'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
       }
+       });
     });
   });
+
 
     </script>
   </head>
