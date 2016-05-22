@@ -67,7 +67,7 @@ Pagination: </br></br> <select id= "pag" name="pag" class="form-control">
 
 
 
-	function refrescar(apikey){
+	function refrescar(apikey,api){
 		$.ajax(
 			{
 				type: "GET",
@@ -96,6 +96,7 @@ Pagination: </br></br> <select id= "pag" name="pag" class="form-control">
 			$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
 
         var request = $.ajax({
             url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/loadInitialData?apikey="+apikey + "&api=" + api,
@@ -108,7 +109,7 @@ Pagination: </br></br> <select id= "pag" name="pag" class="form-control">
 				errores(jqXHR,status);
 				});
 
-        refrescar(apikey);
+        refrescar(apikey,api);
 
   		});
 
@@ -126,6 +127,7 @@ function myFunction2() {
 
 
   		var apikey = $("#apikey").val();
+  		var api = $("#api").val();
         var year = $("#year").val();
         var country = $("#country").val();
         var desde = $("#desde").val();
@@ -194,6 +196,7 @@ $("#siguiente").click(function(){
 
 
   		var apikey = $("#apikey").val();
+  		var api = $("#api").val();
         var year = $("#year").val();
         var country = $("#country").val();
         var desde = $("#desde").val();
@@ -264,6 +267,7 @@ $("#anterior").click(function(){
 
 
   		var apikey = $("#apikey").val();
+  		var api = $("#api").val();
         var year = $("#year").val();
         var country = $("#country").val();
         var desde = $("#desde").val();
@@ -333,6 +337,7 @@ $("#anterior").click(function(){
 		$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var country = $("#country").val();
         var year = $("#year").val();
         var petroleum_cost = $("#petroleum_cost").val();
@@ -349,7 +354,7 @@ $("#anterior").click(function(){
         		request.always(function(jqXHR,status){
 				errores(jqXHR,status);
 				});
-				refrescar(apikey);
+				refrescar(apikey,api);
   		});
 
   		$("#edit").click(function(){
@@ -357,6 +362,7 @@ $("#anterior").click(function(){
 		$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var country = $("#country").val();
         var year = $("#year").val();
         var petroleum_cost = $("#petroleum_cost").val();
@@ -374,7 +380,7 @@ $("#anterior").click(function(){
 				errores(jqXHR,status);
 				});
 
-				refrescar(apikey);
+				refrescar(apikey,api);
   		});
 
 
@@ -384,6 +390,7 @@ $("#anterior").click(function(){
 		$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var country = $("#country").val();
         var year = $("#year").val();
 
@@ -397,7 +404,7 @@ $("#anterior").click(function(){
         		request.always(function(jqXHR,status){
 				errores(jqXHR,status);
 				});
-				refrescar(apikey);
+				refrescar(apikey,api);
   		});
 
 
@@ -406,6 +413,7 @@ $("#anterior").click(function(){
 			$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
 
         	var request = $.ajax({
             url:"https://sos-2016-13.herokuapp.com/api/v1/consumed/?apikey="+apikey + "&api=" + api,
@@ -417,7 +425,7 @@ $("#anterior").click(function(){
        		 request.always(function(jqXHR,status){
 				errores(jqXHR,status);
 				});
-       		 refrescar(apikey);
+       		 refrescar(apikey,api);
   		});
 
 		$("#ver").click(function(){
@@ -425,6 +433,7 @@ $("#anterior").click(function(){
 			$("#location td").remove(); 
 
 		var apikey = $("#apikey").val();
+		var api = $("#api").val();
 
 		var request = $.ajax(
 		{
