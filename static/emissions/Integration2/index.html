@@ -1,0 +1,123 @@
+<html>
+  <head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+
+<label>Year (With Energy Use)</label>
+  <select class="browser-default" id="ano1" name = "ano1">
+    <option value="" disabled selected>Select Year</option>
+    <option value="2010">2010</option>
+    <option value="2011">2011</option>
+    <option value="2012">2012</option>
+  </select>
+
+  <div>
+    <a id="send1" name ="send1" class="waves-effect waves-light btn" >Send</a>
+
+  </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+    
+    <script type="text/javascript">
+
+  $("#send1").click(function(){    
+
+    var ano1 = $("#ano1").val();
+    var asig=0;
+    var a ="";
+  
+    var request = $.ajax({
+      url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano1+"?apikey=eea&api=multiPlan_C4_sos-2016-13-epa_ag"
+    });
+    
+
+    request.done((dataFromServer,status) =>{
+
+     
+
+      var request2 = $.ajax({
+        url: "https://sos-2016-01.herokuapp.com/api/v1/electrical-consume/"+ano1+"?apikey=multiPlan_C4_sos-2016-01-asm_ag"
+       });
+
+      request2.done((dataFromServer2,status2) =>{
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        console.log(dataFromServer);
+
+        var dataForWidget = [["Country","Nitrous Oxide Emission","Methane Emissions","Energy Use (Hundreds)"]];
+
+      for(i=0; i<dataFromServer.length;i++){
+              var item= dataFromServer[i];
+              var iguales = "no";
+                for(j=0;j<dataFromServer2.length;j++){
+                  var item2= dataFromServer2[j];
+                  if(item.country == item2.country){
+                      var itemForWidget = [item.country, item.nitrous_oxide_emissions,item.methane_emissions,item2.energyUse];
+
+                      itemForWidget[3]=itemForWidget[3]/100;
+                      
+                      dataForWidget.push(itemForWidget);
+                      iguales = "si";
+                  }
+                }
+              if(iguales == "no"){
+                itemForWidget = [item.country,item.nitrous_oxide_emissions,item.methane_emissions,0];
+                dataForWidget.push(itemForWidget);
+              }
+        }
+     
+
+        for(a=0;a<dataFromServer2.length;a++){
+            var item3 = dataFromServer2[a];
+            var iguales2 = "no";
+            for(e=0;e<dataFromServer.length;e++){
+              var item4 = dataFromServer[e];
+              if(item3.country == item4.country){
+                iguales2 = "si"; 
+                break;
+              }
+            }
+            if(iguales2 == "no"){
+              var itemForWidget = [item3.country,0,0, item3.energyUse];
+              itemForWidget[3]=itemForWidget[3]/100;
+              dataForWidget.push(itemForWidget);
+            }
+        }
+       
+
+        console.log(dataForWidget);
+
+        var data = google.visualization.arrayToDataTable(dataForWidget);
+
+        var options = {
+          chart: {
+            title: 'Nitrous Oxide Emissions & Energy Use',
+            subtitle: 'Country',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, options);
+       }
+      });
+     });
+     }); 
+    </script>
+  </head>
+  <body>
+    <div id="columnchart_material" style="width: 1500px; height: 500px;"></div>
+  </body>
+</html>
