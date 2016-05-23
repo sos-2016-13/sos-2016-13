@@ -77,63 +77,7 @@
    });
   });
     </script>
-    <script>
-    $("#send1").click(function(){ 
-      var ano1 = $("#ano1").val();
-    var request = $.ajax({
-      url: "https://sos-2016-13.herokuapp.com/api/v1/population/"+ano1+"?apikey=eea&api=multiPlan_C3_sos-2016-13-ejrm_ag"
-    });
-   
-
-     request.done((dataFromServer,status) =>{
-
-
-  
-    var request1 = $.ajax({
-      url: "https://sos-2016-13.herokuapp.com/api/v1/consumed/"+ano1+"?apikey=eea&api=multiPlan_C4_sos-2016-13-asm_ag"
-    });
-
-
-    request1.done((dataFromServer1,status1) =>{
-     google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawSeriesChart);
-      function drawSeriesChart() {
-        // Some raw data (not necessarily accurate)
-              var dataForWidget = [["Country","Population","Acces_to_electricity","Petroleum_Cost"]];
-
-      for(i=0; i<dataFromServer.length;i++){
-          var item= dataFromServer[i];
-
-          for(j=0;j<dataFromServer1.length;j++){
-            var item2= dataFromServer1[j];
-            if(item.country == item2.country){
-                var itemForWidget = [item.country, item.population,item.access_to_electricity,item2.petroleum_cost];
-            }else{
-                 var itemForWidget = [item.country, item.population,item.access_to_electricity,0];
-         }
-        }
-      }
-        var data = google.visualization.arrayToDataTable(dataForWidget);
-
-  var options = {
-        title: 'Correlation between country, population ' +
-               'and access_to_electricity (2010)',
-        hAxis: {title: 'population'},
-        vAxis: {title: 'access_to_electricity'},
-        bubble: {textStyle: {fontSize: 11}}
-          };
-        
-
-    var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
-    chart.draw(data, options);
-       
-       }; 
-
-   });
-  });
-});
-    </script>
-  </head>
+    
   <body>
     <div id="regions_div" style="width: 900px; height: 500px;"></div>
   </body>
