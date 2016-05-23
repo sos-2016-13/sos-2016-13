@@ -8,7 +8,6 @@
   <div class="col-xs-2"></br></br>
  <select id= "ano" name="ano" class="form-control">
          <option>Year</option> 
-         <option value="">Todos</option> 
          <option value="2010">2010</option> 
          <option value="2011">2011</option> 
          <option value="2012">2012</option> 
@@ -51,40 +50,39 @@
       function drawChart() {
 
         var dataForWidget = [["Country","Integration"]];
-        
 
-        for(i=0; i<dataFromServer.length;i++){
-          	var item= dataFromServer[i];
- 			var itemForWidget = [item.country, item.petroleum_cost];
- 			var existe = "no";
- 			for(i=0; i<dataForWidget.length;i++){
- 				var item3 = dataForWidget[i];
- 					if(item.country == item3.country){
- 						existe = "yes";
- 					}
- 				}
- 				if(existe == "no"){
- 					dataForWidget.push(itemForWidget);
- 				}
- 		}	
-	        
-        
+         for(i=0; i<dataFromServer.length;i++){
+              var item= dataFromServer[i];
+              var iguales = "no";
+                for(j=0;j<dataFromServer2.length;j++){
+                  var item2= dataFromServer2[j];
+                  if(item.country == item2.country){
+                      var itemForWidget = [item2.country, item2.maleathletesnumber];
+                      dataForWidget.push(itemForWidget);
+                      iguales = "si";
+                  }
+                }
+              if(iguales == "no"){
+                itemForWidget = [item.country, item.petroleum_cost];
+                dataForWidget.push(itemForWidget);
+              }      
+        }
 
-	    for(i=0; i<dataFromServer2.length;i++){
-	        var item2 = dataFromServer2[i];
-	        var itemForWidget = [item2.country, item2.maleathletesnumber];
-	        var existe = "no";
- 			for(i=0; i<dataForWidget.length;i++){
- 				var item3 = dataForWidget[i];
- 					if(item2.country == item3.country){
- 						existe = "yes";
- 					}
- 				}
- 				if(existe == "no"){
- 					dataForWidget.push(itemForWidget);
- 				}         	
-	    }
-
+		 for(a=0;a<dataFromServer2.length;a++){
+            var item3 = dataFromServer2[a];
+            var iguales2 = "no";
+            for(e=0;e<dataFromServer.length;e++){
+              var item4 = dataFromServer[e];
+              if(item3.country == item4.country){
+                iguales2 = "si"; 
+                break;
+              }
+            }
+            if(iguales2 == "no"){
+              var itemForWidget = [item3.country, item3.maleathletesnumber];
+              dataForWidget.push(itemForWidget);
+            }
+        }
 	
         
 
@@ -92,7 +90,7 @@
        
 
         var options = {
-          title: 'Petroleum cost and '
+          title: 'Petroleum cost and Group 5 participants-number(maleathletesnumber)'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));

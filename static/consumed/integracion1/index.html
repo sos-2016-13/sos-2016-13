@@ -50,40 +50,40 @@
       function drawChart() {
 
         var dataForWidget = [["Country","Integration"]];
+        var array;
 
-
-        for(i=0; i<dataFromServer.length;i++){
-          	var item= dataFromServer[i];
- 			var itemForWidget = [item.country, item.petroleum_cost];
-	        var existe = "no";
- 			for(i=0; i<dataForWidget.length;i++){
- 				var item3 = dataForWidget[i];
- 					if(item.country == item3.country){
- 						existe = "yes";
- 					}
- 			}
- 				if(existe == "no"){
- 					dataForWidget.push(itemForWidget);
- 				}
+    	  for(i=0; i<dataFromServer.length;i++){
+              var item= dataFromServer[i];
+              var iguales = "no";
+                for(j=0;j<dataFromServer2.length;j++){
+                  var item2= dataFromServer2[j];
+                  if(item.country == item2.country){
+                      var itemForWidget = [item2.country, item2.nitrous_oxide_emissions];
+                      dataForWidget.push(itemForWidget);
+                      iguales = "si";
+                  }
+                }
+              if(iguales == "no"){
+                itemForWidget = [item.country, item.petroleum_cost];
+                dataForWidget.push(itemForWidget);
+              }
         }
 
-	    for(i=0; i<dataFromServer2.length;i++){
-	        var item2 = dataFromServer2[i];
-	        var itemForWidget = [item2.country, item2.nitrous_oxide_emissions];
-	        var existe2 = "no";
- 			for(i=0; i<dataForWidget.length;i++){
- 				var item3 = dataForWidget[i];
- 					if(item2.country == item3.country){
- 						existe2 = "yes";
- 					}
- 			}
- 				if(existe2 == "no"){
- 					dataForWidget.push(itemForWidget);
- 				}         	          	
-	    }
-
-	
-        
+       for(a=0;a<dataFromServer2.length;a++){
+            var item3 = dataFromServer2[a];
+            var iguales2 = "no";
+            for(e=0;e<dataFromServer.length;e++){
+              var item4 = dataFromServer[e];
+              if(item3.country == item4.country){
+                iguales2 = "si"; 
+                break;
+              }
+            }
+            if(iguales2 == "no"){
+              var itemForWidget = [item3.country, item3.nitrous_oxide_emissions];
+              dataForWidget.push(itemForWidget);
+            }
+        }
 
         var data = google.visualization.arrayToDataTable(dataForWidget);
        
@@ -95,11 +95,10 @@
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
-      }
-       });
+       };
     });
   });
-
+});
 
     </script>
   </head>
