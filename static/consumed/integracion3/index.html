@@ -1,13 +1,15 @@
 <html>
   <head>
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <div class="col-xs-2"></br></br>
  <select id= "ano" name="ano" class="form-control">
          <option>Year</option> 
+         <option value="2008">2008</option>
+         <option value="2009">2009</option>
          <option value="2010">2010</option> 
          <option value="2011">2011</option> 
          <option value="2012">2012</option> 
@@ -37,7 +39,7 @@
 
 
     		var request2 = $.ajax({
-     			 url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano+"?apikey=eea&api=multiPlan_C4_sos-2016-13-epa_ag"
+     			 url: "https://sos-2016-13.herokuapp.com/api/v1/locations/"+ ano +"?apikey=multiPlan_C4_sos-2016-05-ajv_ag"
    				 });
 
     		request2.done((dataFromServer2,status2) =>{
@@ -50,15 +52,14 @@
       function drawChart() {
 
         var dataForWidget = [["Country","Integration"]];
-        
 
-    	  for(i=0; i<dataFromServer.length;i++){
+         for(i=0; i<dataFromServer.length;i++){
               var item= dataFromServer[i];
               var iguales = "no";
                 for(j=0;j<dataFromServer2.length;j++){
                   var item2= dataFromServer2[j];
                   if(item.country == item2.country){
-                      var itemForWidget = [item2.country, item2.nitrous_oxide_emissions];
+                      var itemForWidget = [item2.country, item2.doping];
                       dataForWidget.push(itemForWidget);
                       iguales = "si";
                   }
@@ -66,10 +67,10 @@
               if(iguales == "no"){
                 itemForWidget = [item.country, item.petroleum_cost];
                 dataForWidget.push(itemForWidget);
-              }
+              }      
         }
 
-       for(a=0;a<dataFromServer2.length;a++){
+		 for(a=0;a<dataFromServer2.length;a++){
             var item3 = dataFromServer2[a];
             var iguales2 = "no";
             for(e=0;e<dataFromServer.length;e++){
@@ -80,25 +81,28 @@
               }
             }
             if(iguales2 == "no"){
-              var itemForWidget = [item3.country, item3.nitrous_oxide_emissions];
+              var itemForWidget = [item3.country, item3.doping];
               dataForWidget.push(itemForWidget);
             }
         }
+	
+        
 
         var data = google.visualization.arrayToDataTable(dataForWidget);
        
 
         var options = {
-          title: 'Petroleum cost and emissions (nitrous oxide emissions)'
+          title: 'Petroleum cost and Group 5 Locations(doping) with proxy'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
-       };
+      }
+       });
     });
   });
-});
+
 
     </script>
   </head>

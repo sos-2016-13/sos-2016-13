@@ -83,6 +83,8 @@ if(filtro == 1 && limit != null && limit-1 < consumed.length-1 && offset != null
        { country: "Alemania" , year: 2010 , petroleum_cost: 2495000, electric_cost:545500000 },
        { country: "Angola" , year: 2010 , petroleum_cost: 74000, electric_cost:2201000 },
        { country: "Arabia Saudi" , year: 2010 , petroleum_cost: 5000, electric_cost:97.65 },
+	   { country: "Arabia Saudi" , year: 2012 , petroleum_cost: 343, electric_cost:234 },
+	   { country: "Spain" , year: 2008 , petroleum_cost: 234, electric_cost:23 },
        { country: "Spain" , year: "2015" , petroleum_cost: 5000, electric_cost:97.65 }];
  //Si esta lleno, borra el array.
  if(consumed.length != 0){
