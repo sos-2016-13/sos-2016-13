@@ -57,7 +57,7 @@
 
   
     var request = $.ajax({
-      url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano+"?apikey=eea&api=multiPlan_C4_sos-2016-13-eea_ag"
+      url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano+"?apikey=eea&api=multiPlan_C4_sos-2016-13-epa_ag"
     });
     
 
@@ -102,11 +102,11 @@
 $("#send1").click(function(){    
 
     var ano1 = $("#ano1").val();
-
-
+    var asig=0;
+    var a ="";
   
     var request = $.ajax({
-      url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano1+"?apikey=eea&api=multiPlan_C4_sos-2016-13-eea_ag"
+      url: "https://sos-2016-13.herokuapp.com/api/v1/emissions/"+ano1+"?apikey=eea&api=multiPlan_C4_sos-2016-13-epa_ag"
     });
     
 
@@ -115,7 +115,7 @@ $("#send1").click(function(){
      
 
       var request2 = $.ajax({
-        url: "https://sos-2016-13.herokuapp.com/api/v1/population/"+ano1+"?apikey=eea&api=multiPlan_C4_sos-2016-13-eea_ag"
+        url: "https://sos-2016-13.herokuapp.com/api/v1/population/"+ano1+"?apikey=eea&api=multiPlan_C4_sos-2016-13-ejrm_ag"
        });
 
       request2.done((dataFromServer2,status2) =>{
@@ -129,19 +129,37 @@ $("#send1").click(function(){
      
        for(i=0; i<dataFromServer.length;i++){
           var item= dataFromServer[i];
-
+          asig = 0;
           for(j=0;j<dataFromServer2.length;j++){
             var item2= dataFromServer2[j];
             if(item.country == item2.country){
                 var itemForWidget = [item.country, item.nitrous_oxide_emissions,item.methane_emissions,item2.population];
-            }else{
-                 var itemForWidget = [item.country, item.nitrous_oxide_emissions,item.methane_emissions,0];
-         }
-        }
-        itemForWidget[3]=itemForWidget[3]/1000;
-          dataForWidget.push(itemForWidget);
+                asig=1;
+                
+            }else if(asig==0){
+
+              var itemForWidget = [item.country, item.nitrous_oxide_emissions,item.methane_emissions,0];
+              var itemForWidgetAux = [item2.country,0,0,item2.population];
+              
+          }
 
         }
+        
+          
+          itemForWidget[3]=itemForWidget[3]/1000;
+          itemForWidgetAux[3]=itemForWidgetAux[3]/1000;
+/*
+          if(itemForWidgetAux[0] == itemForWidget[0]){
+            dataForWidget.push(itemForWidget);  
+          }else{*/
+            dataForWidget.push(itemForWidget);
+            dataForWidget.push(itemForWidgetAux);
+         // }
+       
+        }
+
+       
+
         console.log(dataForWidget);
 
         var data = google.visualization.arrayToDataTable(dataForWidget);
@@ -163,6 +181,6 @@ $("#send1").click(function(){
     </script>
   </head>
   <body>
-    <div id="columnchart_material" style="width: 900px; height: 500px;"></div>
+    <div id="columnchart_material" style="width: 1500px; height: 500px;"></div>
   </body>
 </html>
