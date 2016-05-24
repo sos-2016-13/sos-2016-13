@@ -23,6 +23,10 @@
           <input id="apikey" type="text" class="validate" value="eea" >
           <label for="apikey">Apikey: </label></input>
 	</div>
+	<div class="input-field col s12 m 4 l2">
+          <input id="api" type="text" class="validate" value="multiPlan_C4_sos-2016-13-epa_ag" >
+          <label for="api">Api: </label></input>
+	</div>
     
     <div class="input-field col s6">
 		<a class="waves-effect waves-light btn" id="loadInitialData">Load Inital Data
@@ -123,11 +127,11 @@
 	<script>
 
 
-	function refrescar(apikey){
+	function refrescar(apikey,api){
 		$.ajax(
 			{
 				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions?apikey="+apikey,
+				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions?apikey="+apikey+ "&api=" + api,
 				data: "{}",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
@@ -151,9 +155,10 @@
 			$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
 
         var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/loadInitialData?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/loadInitialData?apikey="+apikey+ "&api=" + api,
             type:"GET",
             contentType : "application/json"
 
@@ -163,7 +168,7 @@
 				errores(jqXHR,status);
 				});
 
-        refrescar(apikey);
+        refrescar(apikey,api);
 
   		});
 
@@ -177,6 +182,7 @@
  		 $("#location td").remove(); 
 
   		var apikey = $("#apikey").val();
+  		var api = $("#api").val();
         var year = $("#year").val();
         var country = $("#country").val();
         var desde = $("#desde").val();
@@ -207,7 +213,7 @@
           var request = $.ajax(
 			{
 				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions" + country + year + "?apikey="+apikey + "&api=" + api + desde + hasta + pag2 + pag,
 				data: "{}",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
@@ -244,6 +250,7 @@ $("#siguiente").click(function(){
 
 
   		var apikey = $("#apikey").val();
+  		var api = $("#api").val();
         var year = $("#year").val();
         var country = $("#country").val();
         var desde = $("#desde").val();
@@ -275,7 +282,7 @@ $("#siguiente").click(function(){
           var request = $.ajax(
 			{
 				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions" + country + year + "?apikey="+apikey +"&api=" + api + desde + hasta + pag2 + pag,
 				data: "{}",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
@@ -317,6 +324,7 @@ $("#anterior").click(function(){
 
 
   		var apikey = $("#apikey").val();
+  		var api = $("#api").val();
         var year = $("#year").val();
         var country = $("#country").val();
         var desde = $("#desde").val();
@@ -348,7 +356,7 @@ $("#anterior").click(function(){
           var request = $.ajax(
 			{
 				type: "GET",
-				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+				url:"https://sos-2016-13.herokuapp.com/api/v1/emissions" + country + year + "?apikey="+apikey +"&api=" + api + desde + hasta + pag2 + pag,
 				data: "{}",
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
@@ -387,6 +395,7 @@ $("#anterior").click(function(){
 		$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var country = $("#country").val();
         var year = $("#year").val();
         var nitrous_oxide_emissions = $("#nitrous_oxide_emissions").val();
@@ -394,7 +403,7 @@ $("#anterior").click(function(){
         var co2_emissions = $("#co2_emissions").val();
 
 		       	var request = $.ajax({
-		            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/?apikey="+apikey,
+		            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/?apikey="+apikey+"&api=" + api ,
 		            type:"POST",
 		            data: '{"country":"'+country+'","year":'+year+',"nitrous_oxide_emissions":'+nitrous_oxide_emissions+',"methane_emissions":'+methane_emissions+',"co2_emissions":'+co2_emissions+'}',
 		            contentType : "application/json"
@@ -404,7 +413,7 @@ $("#anterior").click(function(){
         		request.always(function(jqXHR,status){
 				errores(jqXHR,status);
 				});
-				refrescar(apikey);
+				refrescar(apikey,api);
   		});
 
 
@@ -412,9 +421,10 @@ $("#anterior").click(function(){
 		$("#removeall").click(function(){
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
 
         $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/?apikey="+apikey+"&api=" + api,
             type:"DELETE",
             contentType : "application/json"
 
@@ -426,6 +436,7 @@ $("#anterior").click(function(){
 		$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var country = $("#country").val();
         var year = $("#year").val();
         var nitrous_oxide_emissions = $("#nitrous_oxide_emissions").val();
@@ -433,7 +444,7 @@ $("#anterior").click(function(){
         var co2_emissions = $("#co2_emissions").val();
 
         var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/" + country + "/" + year + "?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/" + country + "/" + year + "?apikey="+apikey+"&api=" + api,
             type:"PUT",
              data: '{"country":"'+country+'","year":'+year+',"nitrous_oxide_emissions":'+nitrous_oxide_emissions+',"methane_emissions":'+methane_emissions+',"co2_emissions":'+co2_emissions+'}',
             contentType : "application/json"
@@ -444,7 +455,7 @@ $("#anterior").click(function(){
 				errores(jqXHR,status);
 				});
 
-				refrescar(apikey);
+				refrescar(apikey,api);
   		});
 
 
@@ -454,11 +465,12 @@ $("#anterior").click(function(){
 		$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var country = $("#country").val();
         var year = $("#year").val();
 
         var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/" + country + "/" + year + "?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/" + country + "/" + year + "?apikey="+apikey+"&api=" + api,
             type:"DELETE",
             contentType : "application/json"
 
@@ -467,7 +479,7 @@ $("#anterior").click(function(){
         		request.always(function(jqXHR,status){
 				errores(jqXHR,status);
 				});
-				refrescar(apikey);
+				refrescar(apikey,api);
   		});
 
 
@@ -476,9 +488,10 @@ $("#anterior").click(function(){
 			$("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
 
         	var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/emissions/?apikey="+apikey+"&api=" + api,
             type:"DELETE",
             contentType : "application/json"
 
@@ -487,7 +500,7 @@ $("#anterior").click(function(){
        		 request.always(function(jqXHR,status){
 				errores(jqXHR,status);
 				});
-       		 refrescar(apikey);
+       		 refrescar(apikey,api);
   		});
 
 		$("#ver").click(function(){
@@ -495,11 +508,12 @@ $("#anterior").click(function(){
 			$("#location td").remove(); 
 
 		var apikey = $("#apikey").val();
+		var api = $("#api").val();
 
 		var request = $.ajax(
 		{
 			type: "GET",
-			url: 'https://sos-2016-13.herokuapp.com/api/v1/emissions?apikey='+apikey,
+			url: 'https://sos-2016-13.herokuapp.com/api/v1/emissions?apikey='+apikey+"&api=" + api,
 			data: "{}",
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
