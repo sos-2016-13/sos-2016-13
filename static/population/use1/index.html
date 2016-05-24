@@ -8,20 +8,20 @@
      <script src="//cdn.muicss.com/mui-0.5.6/js/mui.min.js"></script>
   </head>
   <body class='default' style="background-color:#33FF80;">
-    <div class="container">
+    <div class="mui-container">
       <div class="row"><h3>YOUTUBE API V3</h3></div>
        
         <div id="buttons">
-          <label> <input id="query" value='' type=disabled/>
-            <button class="mui-btn mui-btn--primary"   id ="search" disabled onclick="search();" >search </button></label>
+          <label> <input id="query" value='' type="text"/>
+            <button class="mui-btn mui-btn--primary"   id ="search" onclick="search();" >search </button></label>
         </div>
           <div id="login-container" class="pre-auth">
-          This application requires access to your YouTube account.
+           Application need access to your YouTube account.
 
 
-          Please <a href="#" id="login-link">authorize</a> to continue.
+          Please <a href="#" id="login-link">login</a> to continue.
         </div>
-        <div class="row"><h4>RESULTS:</h4></div>
+        <div class="row"><h4>List of results:</h4></div>
         <div class="row" id="results">
           <div id="search-container"></div>
         </div>
