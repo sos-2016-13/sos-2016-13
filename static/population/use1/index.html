@@ -1,0 +1,24 @@
+</head>
+  <body class='default' style="background-color:#33FF80;">
+    <div class="container">
+      <div class="row"><h3>YOUTUBE API V3</h3></div>
+       
+        <div id="buttons">
+          <label> <input id="query" value='cats' type="text"/><button id="search-button" class="waves-effect waves-light btn disabled" disabled onclick="search()"><i class="material-icons left">search</i>search</button></label>
+        </div>
+          <div id="login-container" class="pre-auth">
+          This application requires access to your YouTube account.
+
+
+          Please <a href="#" id="login-link">authorize</a> to continue.
+        </div>
+        <div class="row"><h4>RESULTS:</h4></div>
+        <div class="row" id="results">
+          <div id="search-container"></div>
+        </div>
+    </div>
+    <script src="js/oAuth.js"></script><
+    <script src="js/busqueda.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+  </body>
+</html>  
