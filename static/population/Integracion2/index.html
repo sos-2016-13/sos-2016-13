@@ -32,7 +32,7 @@
 
   
     var request = $.ajax({
-      url: "https://sos-2016-13.herokuapp.com/api/v1/population/"+ano+"?apikey=eea&api=multiPlan_C3_sos-2016-13-ejrm_ag"
+      url: "https://sos-2016-13.herokuapp.com/api/v1/population/"+ano+"?apikey=eea&api=multiPlan_C4_sos-2016-13-ejrm_ag"
     });
 
 
@@ -53,7 +53,7 @@ request2.done((dataFromServer2,status2) =>{
 
         for(i=0; i<dataFromServer.length;i++){
             var item= dataFromServer[i];
-      var itemForWidget = [item.country,item.population, item.access_to_electricity];
+      var itemForWidget = [item.country,item.population,0];
           var existe = "no";
       for(i=0; i<dataForWidget.length;i++){
         var item3 = dataForWidget[i];
@@ -68,7 +68,7 @@ request2.done((dataFromServer2,status2) =>{
 
       for(i=0; i<dataFromServer2.length;i++){
           var item2 = dataFromServer2[i];
-          var itemForWidget = [item2.country,item2.population, item2.diesel];
+          var itemForWidget = [item2.country,item2.population,item2.diesel];
           var existe2 = "no";
       for(i=0; i<dataForWidget.length;i++){
         var item3 = dataForWidget[i];
@@ -88,8 +88,8 @@ request2.done((dataFromServer2,status2) =>{
 
   var options = {
         title: 'Correlation between country, access_to_electricity (2010)' +'and price of diesel',
-        hAxis: {title: 'diesel'},
-        vAxis: {title: 'access_to_electricity'},
+        hAxis: {title: 'population'},
+        vAxis: {title: 'diesel'},
         bubble: {textStyle: {fontSize: 11}}
           };
         

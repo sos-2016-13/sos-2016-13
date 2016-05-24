@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Search</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  </head>
+  <body class='default' style="background-color:#A9E2F3;">
+    <div class="container">
+      <div class="row"><h3>YOUTUBE SEARCH</h3></div>
+        <div id="login-container" class="pre-auth">
+          This application requires access to your YouTube account.
+          Please <a href="#" id="login-link">authorize</a> to continue.
+        </div>
+        <div id="buttons">
+          <label> <input id="query" value='cats' type="text"/><button id="search-button" class="waves-effect waves-light btn disabled" disabled onclick="search()"><i class="material-icons left">search</i>search</button></label>
+        </div>
+        <div class="row"><h4>RESULTS:</h4></div>
+        <div class="row" id="results">
+          <div id="search-container"></div>
+        </div>
+    </div>
+    <script src="js/auth.js"></script>
+    <script src="js/search.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+  </body>
+</html>

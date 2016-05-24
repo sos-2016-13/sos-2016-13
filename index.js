@@ -79,8 +79,8 @@ app.use(pathsEnrique, function(req,res){
 	})).pipe(res);
 });
 
-var pathsEugenio='/api/v1/participants-number';
-var apiServerHost = 'http://sos-2016-05.herokuapp.com';
+var pathsEugenio='/api/v1/oil';
+var apiServerHost = 'http://sos-2016-01.herokuapp.com';
 app.use(pathsEugenio, function(req,res){
 	var url = apiServerHost + req.baseUrl + req.url;
 
