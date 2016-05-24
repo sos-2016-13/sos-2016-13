@@ -80,9 +80,9 @@ app.use(pathsEnrique, function(req,res){
 });
 
 var pathsEugenio='/api/v1/oil';
-var apiServerHost = 'http://sos-2016-01.herokuapp.com';
+var apiServerHost2 = 'http://sos-2016-01.herokuapp.com';
 app.use(pathsEugenio, function(req,res){
-	var url = apiServerHost + req.baseUrl + req.url;
+	var url = apiServerHost2 + req.baseUrl + req.url;
 
 	req.pipe(request(url,(error,response,body)=>{
 		if(error){
