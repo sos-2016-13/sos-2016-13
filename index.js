@@ -66,6 +66,18 @@ app.use(pathsAlvaro, function(req,res){
 	})).pipe(res);
 });
 
+var pathsAlvaro='/facebook';
+var apiServerHost = 'http://connect.facebook.net/en_US/sdk.js';
+app.use(pathsAlvaro, function(req,res){
+	var url = apiServerHost + req.baseUrl + req.url;
+
+	req.pipe(request(url,(error,response,body)=>{
+		if(error){
+			res.sendStatus(503);
+		}
+	})).pipe(res);
+});
+
 var pathsEnrique='/api/v1/gold-medals';
 
 app.use(pathsEnrique, function(req,res){
