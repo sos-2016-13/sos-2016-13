@@ -100,6 +100,7 @@ Status<span id="status"> <span>
             $("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
 
         var request = $.ajax({
             url:"https://sos-2016-13.herokuapp.com/api/v1/population/loadInitialData?apikey="+apikey+"&api=" + api,
@@ -128,6 +129,7 @@ Status<span id="status"> <span>
          myFunction2();
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var year = $("#year").val();
         var country = $("#country").val();
         var desde = $("#desde").val();
@@ -193,6 +195,7 @@ $("#siguiente").click(function(){
 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var year = $("#year").val();
         var country = $("#country").val();
         var desde = $("#desde").val();
@@ -263,6 +266,7 @@ $("#anterior").click(function(){
 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var year = $("#year").val();
         var country = $("#country").val();
         var desde = $("#desde").val();
@@ -331,6 +335,7 @@ $("#anterior").click(function(){
         $("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var country = $("#country").val();
         var year = $("#year").val();
         var population = $("#population").val();
@@ -355,6 +360,7 @@ $("#anterior").click(function(){
         $("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var country = $("#country").val();
         var year = $("#year").val();
         var population = $("#population").val();
@@ -382,6 +388,7 @@ $("#anterior").click(function(){
         $("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
         var country = $("#country").val();
         var year = $("#year").val();
 
@@ -404,6 +411,7 @@ $("#anterior").click(function(){
             $("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
 
             var request = $.ajax({
             url:"https://sos-2016-13.herokuapp.com/api/v1/population?apikey="+apikey+ "&api=" + api ,
@@ -423,6 +431,7 @@ $("#anterior").click(function(){
             $("#location td").remove(); 
 
         var apikey = $("#apikey").val();
+        var api = $("#api").val();
 
         var request = $.ajax(
         {
