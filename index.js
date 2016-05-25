@@ -79,6 +79,32 @@ app.use(pathsEnrique, function(req,res){
 	})).pipe(res);
 });
 
+var pathsEnrique2='/emissions/Use1';
+var apiServerHostepa1 = 'http://jsonplaceholder.typicode.com/posts';
+app.use(pathsEnrique2, function(req,res){
+	var url = apiServerHostepa1 + req.baseUrl + req.url;
+
+	req.pipe(request(url,(error,response,body)=>{
+		if(error){
+			res.sendStatus(503);
+		}
+	})).pipe(res);
+});
+
+var pathsEnrique3='/emissions/Use2';
+var apiServerHostepa2 = 'http://jsonplaceholder.typicode.com/users';
+app.use(pathsEnrique3, function(req,res){
+	var url = apiServerHostepa2 + req.baseUrl + req.url;
+
+	req.pipe(request(url,(error,response,body)=>{
+		if(error){
+			res.sendStatus(503);
+		}
+	})).pipe(res);
+});
+
+
+
 var pathsEugenio='/api/v1/oil';
 var apiServerHost2 = 'http://sos-2016-01.herokuapp.com';
 app.use(pathsEugenio, function(req,res){
