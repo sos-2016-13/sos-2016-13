@@ -1,26 +1,65 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; }
-    </style>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+      
+    <script type="text/javascript">
+     
+
+   $(document).ready(() =>{    
+  
+    var request = $.ajax({
+     
+      url: "https://gsx2json.com/api?id=1t4XdLvjFdlKXcKO_oPqG73udOILTnqyw_K5yCLIBgVQ"
+    });
+
+    request.done((dataFromServer,status) =>{
+
+
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawVisualization);
+      
+      function drawVisualization() {
+
+        var dataForWidget = [["Salary","Years in a company","Age"]];
+        
+  for(i=0; i<dataFromServer.rows.length;i++){
+                var item= dataFromServer.rows[i];
+                var itemForWidget = [item.salary,item.yearswithcompany,item.age];
+                dataForWidget.push(itemForWidget);
+            }
+
+        var data = google.visualization.arrayToDataTable(dataForWidget);
+       
+
+        var options = {
+      title : 'Salary in a company in function of age',
+      vAxis: {title: 'Age'},
+      hAxis: {title: 'Salary'},
+      seriesType: 'bars',
+      series: {5: {type: 'line'}}
+    };
+
+
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+    });
+  });
+
+
+
+    </script>
   </head>
   <body>
-    <div id="map"></div>
-    <script type="text/javascript">
-
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 55.0461297, lng: -12.4045339},
-    zoom: 6
-  });
-}
-
-    </script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaepgDnJRV-8qN3zZW_0YJQF0gvRhWVF8&callback=initMap">
-    </script>
+  <center>
+      <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </center>
   </body>
 </html>
