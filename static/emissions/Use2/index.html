@@ -1,25 +1,54 @@
 <html>
   <head>
-    <script src="https://code.jquery.com/jquery-2.1.2.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-    <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="js/instafeed.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+    $(document).ready(() =>{    
+
+  
+    var request = $.ajax({
+      url: "http://jsonplaceholder.typicode.com/users"
+    });
+
+    request.done((dataFromServer,status) =>{
+
+      google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
+
+      function drawTable() {
+        
+        var data = new google.visualization.DataTable();
+       
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'UserName');
+        data.addColumn('string', 'Email');
+        data.addColumn('string', 'Phone');
+        data.addColumn('string', 'Website');
+        
+        data.addRows(dataFromServer.length);
+
+        for(i=0; i<dataFromServer.length;i++){
+
+            var item= dataFromServer[i];
+
+            data.setCell(i,0,[item.name].toString());
+            data.setCell(i,1,[item.username].toString());
+            data.setCell(i,2,[item.email].toString());
+            data.setCell(i,3,[item.phone].toString());
+            data.setCell(i,4,[item.website].toString());
+        }
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'})};
+      });
+    });
+    </script>
   </head>
-  <body  style="background-color:#D9E2F3;">
-    <div ><center>
-      <div class="container"><h3>enrparalv's Instagram</h3></div></center>
-      <script type="text/javascript">
-        var userFeed = new Instafeed({
-            get: 'user',
-            clientId: 'a70f08b6ab914279aef0eb6855fe3e9b' ,
-            userId: '3267789960',
-            accessToken: '3267789960.1677ed0.a98dc3f1e0044bcf99921e6a110694cd',
-            resolution: 'standard_resolution',
-            template: '<div class="row"><div class="col s12 m7"><div class="card"><div class="card-image"><img src="{{image}}"></div><div class="card-content"><p>{{caption}}</p></div><div class="card-action"><a href="{{link}}">Link</a></div></div></div></div>'
-            });
-        userFeed.run();
-      </script><center>
-    <div class = "container" id="instafeed"></div></center>
-    </div>
+  <body>
+    <div id="table_div"></div>
   </body>
 </html>

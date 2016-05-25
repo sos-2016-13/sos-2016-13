@@ -1,2 +1,52 @@
-<center><a class="twitter-timeline" href="https://twitter.com/unisevilla" data-widget-id="735055597851267072">Tweets por el @unisevilla.</a></center>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+    $(document).ready(() =>{    
+
+  
+    var request = $.ajax({
+      url: "http://jsonplaceholder.typicode.com/posts"
+    });
+
+    request.done((dataFromServer,status) =>{
+
+      google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
+
+      function drawTable() {
+        
+        var data = new google.visualization.DataTable();
+       
+        data.addColumn('number', 'UserID');
+        data.addColumn('number', 'ID');
+        data.addColumn('string', 'Title');
+        data.addColumn('string', 'Body');
+        
+        data.addRows(dataFromServer.length);
+
+        for(i=0; i<dataFromServer.length;i++){
+
+            var item= dataFromServer[i];
+
+            data.setCell(i,0,parseInt([item.userId]));
+            data.setCell(i,1,parseInt([item.id]));
+            data.setCell(i,2,[item.title].toString());
+            data.setCell(i,3,[item.body].toString());
+        }
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: false, width: '100%', height: '100%'})};
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <div id="table_div"></div>
+  </body>
+</html>
