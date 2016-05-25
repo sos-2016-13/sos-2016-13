@@ -75,7 +75,7 @@ Status<span id="status"> <span>
         $.ajax(
             {
                 type: "GET",
-                url:"https://sos-2016-13.herokuapp.com/api/v1/population?apikey="+apikey,
+                url:"https://sos-2016-13.herokuapp.com/api/v1/population?apikey="+apikey+"&api=" + api,
                 data: "{}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -102,7 +102,7 @@ Status<span id="status"> <span>
         var apikey = $("#apikey").val();
 
         var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/population/loadInitialData?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population/loadInitialData?apikey="+apikey+"&api=" + api,
             type:"GET",
             contentType : "application/json"
 
@@ -158,7 +158,7 @@ Status<span id="status"> <span>
           var request = $.ajax(
             {
                 type: "GET",
-                url:"https://sos-2016-13.herokuapp.com/api/v1/population" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+                url:"https://sos-2016-13.herokuapp.com/api/v1/population" + country + year + "?apikey="+apikey + "&api=" + api + desde + hasta + pag2 + pag,
                 data: "{}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -224,7 +224,7 @@ $("#siguiente").click(function(){
           var request = $.ajax(
             {
                 type: "GET",
-                url:"https://sos-2016-13.herokuapp.com/api/v1/population" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+                url:"https://sos-2016-13.herokuapp.com/api/v1/population" + country + year + "?apikey="+apikey + "&api=" + api + desde + hasta + pag2 + pag,
                 data: "{}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -294,7 +294,7 @@ $("#anterior").click(function(){
           var request = $.ajax(
             {
                 type: "GET",
-                url:"https://sos-2016-13.herokuapp.com/api/v1/population" + country + year + "?apikey="+apikey + desde + hasta + pag2 + pag,
+                url:"https://sos-2016-13.herokuapp.com/api/v1/population" + country + year + "?apikey="+apikey+ "&api=" + api  + desde + hasta + pag2 + pag,
                 data: "{}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -338,7 +338,7 @@ $("#anterior").click(function(){
 
                 var request = $.ajax({
                     type:"POST",
-                    url:"https://sos-2016-13.herokuapp.com/api/v1/population?apikey="+apikey,
+                    url:"https://sos-2016-13.herokuapp.com/api/v1/population?apikey="+apikey+ "&api=" + api ,
                     data: '{"country":"'+country+'","year":'+year+',"population":'+population+',"access_to_electricity":'+access_to_electricity+'}',
                     contentType : "application/json"
 
@@ -361,7 +361,7 @@ $("#anterior").click(function(){
         var access_to_electricity = $("#access_to_electricity").val();
 
         var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/population/" + country + "/" + year + "?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population/" + country + "/" + year + "?apikey="+apikey+ "&api=" + api ,
             type:"PUT",
             data: '{"country":"'+country+'","year":'+year+',"population":'+population+',"access_to_electricity":'+access_to_electricity+'}',
             contentType : "application/json"
@@ -386,7 +386,7 @@ $("#anterior").click(function(){
         var year = $("#year").val();
 
         var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/population/" + country + "/" + year + "?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population/" + country + "/" + year + "?apikey="+apikey+ "&api=" + api ,
             type:"DELETE",
             contentType : "application/json"
 
@@ -406,7 +406,7 @@ $("#anterior").click(function(){
         var apikey = $("#apikey").val();
 
             var request = $.ajax({
-            url:"https://sos-2016-13.herokuapp.com/api/v1/population?apikey="+apikey,
+            url:"https://sos-2016-13.herokuapp.com/api/v1/population?apikey="+apikey+ "&api=" + api ,
             type:"DELETE",
             contentType : "application/json"
 
@@ -427,7 +427,7 @@ $("#anterior").click(function(){
         var request = $.ajax(
         {
             type: "GET",
-            url: 'https://sos-2016-13.herokuapp.com/api/v1/population?apikey='+apikey,
+            url: 'https://sos-2016-13.herokuapp.com/api/v1/population?apikey='+apikey+ "&api=" + api ,
             data: "{}",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
