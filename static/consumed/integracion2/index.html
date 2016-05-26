@@ -90,10 +90,11 @@
        
 
         var options = {
-          title: 'Petroleum cost and Group 5 participants-number(maleathletesnumber)'
+          title: 'Petroleum cost and Group 5 participants-number(maleathletesnumber)',
+          pieHole: 0.4
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
 
         chart.draw(data, options);
       }
@@ -106,7 +107,7 @@
   </head>
   <body>
   <center>
-      <div id="piechart" style="width: 900px; height: 500px;"></div>
+      <div id="donutchart" style="width: 900px; height: 500px;"></div>
   </center>
   </body>
 </html>
