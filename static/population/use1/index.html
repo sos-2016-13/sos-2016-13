@@ -1,33 +1,60 @@
 
 <!doctype html>
 <html>
-  <head>
+  <head>   
     <title>Consume External API</title>
     <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>  
     <link href="//cdn.muicss.com/mui-0.5.6/css/mui.min.css" rel="stylesheet" type="text/css" />
      <script src="//cdn.muicss.com/mui-0.5.6/js/mui.min.js"></script>
-  </head>
-  <body class='default' style="background-color:#33FF80;">
-    <div class="mui-container">
-      <div class="row"><h3>YOUTUBE API V3</h3></div>
+  <script type="text/javascript">
+
+     $(document).ready(() =>{    
+      var search=$(#search).val();
+  
+    var request = $.ajax({
+      url: "https://webhose.io/search?token=7f2ccd49-ee3e-4494-8e26-d833b1f0c147&format=json&q=search ";
+    });
+
+    request.done((dataFromServer,status) =>{
+
+
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
+
+        var dataForWidget = [["title","site"]];
+        
+  for(i=0; i<dataFromServer.rows.length;i++){
+                var item= dataFromServer.rows[i];
+                var itemForWidget = [item.title, item.url];
+                dataForWidget.push(itemForWidget);
+            }
+
+        var data = google.visualization.arrayToDataTable(dataForWidget);
        
-        <div id="buttons">
-          <label> <input id="query" value='' type="text"/>
-            <button class="mui-btn mui-btn--primary"   id ="search"  disabled onclick="search();" >search </button></label>
-        </div>
-          <div id="login-container" class="pre-auth">
-           Application need access to your YouTube account.
+
+        var options = {};
+
+        var chart = new google.visualization.Chart(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+      }
+    });
+  });
 
 
-          Please <a href="#" id="login-link">login</a> to continue.
-        </div>
-        <div class="row"><h4>List of results:</h4></div>
-        <div class="row" id="results">
-          <div id="search-container"></div>
-        </div>
-    </div>
-    <script src="js/oAuth.js"></script>
-    <script src="js/busqueda.js"></script>
-    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+
+    </script>
+  </head>
+  <body>
+
+    <input id="search"  value=" "></input>
+  <center>
+      <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </center>
+   
+   
+
   </body>
 </html>  
