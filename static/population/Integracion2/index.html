@@ -90,25 +90,25 @@ request2.done((dataFromServer2,status2) =>{
 
      
 
-  var options = {
-        title: 'Correlation between access_to_electricity (2010)' +'and price of diesel',
-        hAxis: {title: 'access_to_electricity'},
-        vAxis: {title: 'diesel'},
-        bubble: {textStyle: {fontSize: 11}}
-          };
-        
+           var options = {
+          title: ' access_to_electricity and  price of diesel',
+          legend: { position: 'none' },
+        };
 
-    var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
-    chart.draw(data, options);
+        var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+    
        
-       };  
+       });  
         });
    });
-  });
+  
     </script>
     
   </head>
   <body>
-    <div id="series_chart_div" style="width: 1000px; height: 600px;"></div>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
