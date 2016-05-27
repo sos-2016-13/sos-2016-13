@@ -58,13 +58,13 @@ request2.done((dataFromServer2,status2) =>{
                 for(j=0;j<dataFromServer2.length;j++){
                   var item2= dataFromServer2[j];
                   if(item.country == item2.country){
-                      var itemForWidget = [item2.country,item2.access_to_electricity,item2.diesel];
+                      var itemForWidget = [item.country,item.access_to_electricity,item2.diesel];
                       dataForWidget.push(itemForWidget);
                       iguales = "si";
                   }
                 }
               if(iguales == "no"){
-                itemForWidget = [item.country,item.access_to_electricity,item.population];
+                itemForWidget = [item.country,item.access_to_electricity,0];
                 dataForWidget.push(itemForWidget);
               }      
         }
@@ -80,7 +80,7 @@ request2.done((dataFromServer2,status2) =>{
               }
             }
             if(iguales2 == "no"){
-              var itemForWidget = [item3.country, item3.diesel,item3.gasoline];
+              var itemForWidget = [item3.country,0, item3.diesel];
               dataForWidget.push(itemForWidget);
             }
         }
@@ -109,6 +109,6 @@ request2.done((dataFromServer2,status2) =>{
     
   </head>
   <body>
-    <div id="series_chart_div" style="width: 900px; height: 500px;"></div>
+    <div id="series_chart_div" style="width: 1000px; height: 600px;"></div>
   </body>
 </html>
