@@ -3,16 +3,29 @@
 <html>
   <head>   
     <title>Consume External API</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>  
     <link href="//cdn.muicss.com/mui-0.5.6/css/mui.min.css" rel="stylesheet" type="text/css" />
      <script src="//cdn.muicss.com/mui-0.5.6/js/mui.min.js"></script>
+  
+  </head>
+  <body>
+     <button class="mui-btn mui-btn--primary" id ="search"> Search</button>
+    <input id="search2"></input>
+  <center>
+      <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </center>
   <script type="text/javascript">
+   $("#search").click(function(){
 
-     $(document).ready(() =>{    
-      var search=$(#search).val();
+      
+      var search3=$("#search2").val();
   
     var request = $.ajax({
-      url: "https://webhose.io/search?token=7f2ccd49-ee3e-4494-8e26-d833b1f0c147&format=json&q=search ";
+      url: "https://webhose.io/search?token=7f2ccd49-ee3e-4494-8e26-d833b1f0c147&format=json&q="+search3,
+      type: "GET",
+      contentType: "application/json; charset=utf-8"
+
     });
 
     request.done((dataFromServer,status) =>{
@@ -23,11 +36,11 @@
       
       function drawChart() {
 
-        var dataForWidget = [["title","site"]];
+        var dataForWidget = [["domain_rank","site","languaje","author","site_type"]];
         
-  for(i=0; i<dataFromServer.rows.length;i++){
-                var item= dataFromServer.rows[i];
-                var itemForWidget = [item.title, item.url];
+  for(i=0; i<dataFromServer.posts.length;i++){
+                var item= dataFromServer.posts[i];
+                var itemForWidget = [item.domain_rank, item.url,item.languaje,item.author,item.site_type];
                 dataForWidget.push(itemForWidget);
             }
 
@@ -36,7 +49,7 @@
 
         var options = {};
 
-        var chart = new google.visualization.Chart(document.getElementById('chart_div'));
+        var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
 
         chart.draw(data, options);
       }
@@ -46,13 +59,6 @@
 
 
     </script>
-  </head>
-  <body>
-
-    <input id="search"  value=" "></input>
-  <center>
-      <div id="chart_div" style="width: 900px; height: 500px;"></div>
-  </center>
    
    
 
