@@ -7,22 +7,19 @@
     <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>  
     <link href="//cdn.muicss.com/mui-0.5.6/css/mui.min.css" rel="stylesheet" type="text/css" />
      <script src="//cdn.muicss.com/mui-0.5.6/js/mui.min.js"></script>
-  
-  </head>
-  <body>
+      
      <button class="mui-btn mui-btn--primary" id ="search"> Search</button>
     <input id="search2"></input>
-  <center>
-      <div id="chart_div" style="width: 900px; height: 500px;"></div>
-  </center>
-  <script type="text/javascript">
-   $("#search").click(function(){
 
-      
-      var search3=$("#search2").val();
+     <script type="text/javascript">
+  // $("#search").click(function(){
+
+      $(document).ready(() =>{    
+      //var search3=$("#search2").val();
   
     var request = $.ajax({
-      url: "https://webhose.io/search?token=7f2ccd49-ee3e-4494-8e26-d833b1f0c147&format=json&q="+search3,
+      /*url: "https://webhose.io/search?token=7f2ccd49-ee3e-4494-8e26-d833b1f0c147&format=json&q="+search3,*/
+      url:"http://www.nactem.ac.uk/software/acromine/dictionary.py?sf=LP",
       type: "GET",
       contentType: "application/json; charset=utf-8"
 
@@ -31,36 +28,46 @@
     request.done((dataFromServer,status) =>{
 
 
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      
-      function drawChart() {
+     google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
 
-        var dataForWidget = [["domain_rank","site","languaje","author","site_type"]];
+    function drawTable() {
         
-  for(i=0; i<dataFromServer.posts.length;i++){
-                var item= dataFromServer.posts[i];
-                var itemForWidget = [item.domain_rank, item.url,item.languaje,item.author,item.site_type];
-                dataForWidget.push(itemForWidget);
-            }
-
-        var data = google.visualization.arrayToDataTable(dataForWidget);
+        var data = new google.visualization.DataTable();
        
+        data.addColumn('string', 'lf');
+        data.addColumn('string', 'url');
+        data.addColumn('string', 'country');
+        data.addColumn('string', 'site_type');
+        
+        
+        data.addRows(dataFromServer.length);
 
-        var options = {};
+        for(i=0; i<dataFromServer.length;i++){
 
-        var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+            var item= dataFromServer[i];
 
-        chart.draw(data, options);
-      }
+          
+            data.setCell(i,0,[item.lfs.lf].toString());
+            
+        }
+
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+
+        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'})};
+      });
     });
-  });
+
 
 
 
     </script>
-   
-   
+  
+  </head>
+  <body>
+     
+  
+  <div id="table_div"></div>
 
   </body>
 </html>  

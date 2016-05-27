@@ -49,38 +49,41 @@ request2.done((dataFromServer2,status2) =>{
      google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawSeriesChart);
       function drawSeriesChart() {
-       var dataForWidget = [["Country","population","diesel"]];
+       var dataForWidget = [["Country","access_to_electricity","diesel"]];
 
 
         for(i=0; i<dataFromServer.length;i++){
-            var item= dataFromServer[i];
-      var itemForWidget = [item.country,item.population,0];
-          var existe = "no";
-      for(i=0; i<dataForWidget.length;i++){
-        var item3 = dataForWidget[i];
-          if(item.country == item3.country){
-            existe = "yes";
-          }
-      }
-        if(existe == "no"){
-          dataForWidget.push(itemForWidget);
-        }
+              var item= dataFromServer[i];
+              var iguales = "no";
+                for(j=0;j<dataFromServer2.length;j++){
+                  var item2= dataFromServer2[j];
+                  if(item.country == item2.country){
+                      var itemForWidget = [item2.country,item2.access_to_electricity,item2.diesel];
+                      dataForWidget.push(itemForWidget);
+                      iguales = "si";
+                  }
+                }
+              if(iguales == "no"){
+                itemForWidget = [item.country,item.access_to_electricity,item.population];
+                dataForWidget.push(itemForWidget);
+              }      
         }
 
-      for(i=0; i<dataFromServer2.length;i++){
-          var item2 = dataFromServer2[i];
-          var itemForWidget = [item2.country,item2.population,item2.diesel];
-          var existe2 = "no";
-      for(i=0; i<dataForWidget.length;i++){
-        var item3 = dataForWidget[i];
-          if(item2.country == item3.country){
-            existe2 = "yes";
-          }
-      }
-        if(existe2 == "no"){
-          dataForWidget.push(itemForWidget);
-        }                       
-      } 
+     for(a=0;a<dataFromServer2.length;a++){
+            var item3 = dataFromServer2[a];
+            var iguales2 = "no";
+            for(e=0;e<dataFromServer.length;e++){
+              var item4 = dataFromServer[e];
+              if(item3.country == item4.country){
+                iguales2 = "si"; 
+                break;
+              }
+            }
+            if(iguales2 == "no"){
+              var itemForWidget = [item3.country, item3.diesel,item3.gasoline];
+              dataForWidget.push(itemForWidget);
+            }
+        }
 
        var data = google.visualization.arrayToDataTable(dataForWidget);
        
@@ -88,8 +91,8 @@ request2.done((dataFromServer2,status2) =>{
      
 
   var options = {
-        title: 'Correlation between country, access_to_electricity (2010)' +'and price of diesel',
-        hAxis: {title: 'population'},
+        title: 'Correlation between access_to_electricity (2010)' +'and price of diesel',
+        hAxis: {title: 'access_to_electricity'},
         vAxis: {title: 'diesel'},
         bubble: {textStyle: {fontSize: 11}}
           };
