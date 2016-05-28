@@ -90,9 +90,10 @@ app.use(pathsEugenio, function(req,res){
 		}
 	})).pipe(res);
 });
-var pathsEugenio1='/population/use1';
-var apiServerHost3 = 'http://data.worldbank.org';
-app.use(pathsEugenio1, function(req,res){
+
+var pathsEugenio2='/population/use1';
+var apiServerHost3 = 'http://servicios.ine.es/';
+app.use(pathsEugenio2, function(req,res){
 	var url = apiServerHost3 + req.baseUrl + req.url;
 
 	req.pipe(request(url,(error,response,body)=>{
@@ -101,9 +102,6 @@ app.use(pathsEugenio1, function(req,res){
 		}
 	})).pipe(res);
 });
-
-
-
 
 
 

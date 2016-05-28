@@ -16,7 +16,7 @@
   
     var request = $.ajax({
     
-      url:"http://api.worldbank.org/countries" ,
+      url:"http://servicios.ine.es/wstempus/js/ES/DATOS_METADATAOPERACION/241?g1=115:&g2=433:284332&g3=96:19965&p=1&nult=1" ,
       type: "GET",
       contentType: "application/json; charset=utf-8"
      
@@ -27,41 +27,32 @@
     request.done((dataFromServer,status) =>{
 
 
-     google.charts.load('current', {'packages':['table']});
-      google.charts.setOnLoadCallback(drawTable);
+     google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      function drawChart() {
 
-    function drawTable() {
+        var dataForWidget = [["COD","FK_Unidad"]];
         
-        var data = new google.visualization.DataTable();
-       
-        data.addColumn('string', 'name');
-        data.addColumn('string','capitalcity')
-        data.addColumn('string', 'latitude');
-        data.addColumn('string', 'longitude');
-  
-
-        
-        
-        data.addRows(dataFromServer.length);
 
         for(i=0; i<dataFromServer.length;i++){
+          	var item= dataFromServer[i];
+ 			      var itemForWidget = [item.COD, item.FK_Unidad];
+ 				   	dataForWidget.push(itemForWidget);
+ 				}
+ 	  		
 
-            var item= dataFromServer[i];
+        var data = google.visualization.arrayToDataTable(dataForWidget);
+       
 
-          
-            data.setCell(i,0,[item.name].toString());
-            data.setCell(i,1,[item.capitalcity].toString());
-            data.setCell(i,2,[item.latitude].toString());
-            data.setCell(i,3,[item.longitude].toString());
-          
-          
+        var options = {
+          title: 'COD and FK_Unidad API Externa '
+        };
 
-            
-        }
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-        var table = new google.visualization.Table(document.getElementById('table_div'));
-
-        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'})};
+        chart.draw(data, options);
+    	}
       });
     });
 
@@ -74,7 +65,7 @@
   <body>
      
   
-  <div id="table_div"></div>
+  <div id="piechart"></div>
 
   </body>
 </html>  
