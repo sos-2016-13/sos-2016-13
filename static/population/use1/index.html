@@ -16,7 +16,7 @@
   
     var request = $.ajax({
     
-      url:"http://servicios.ine.es/wstempus/js/ES/DATOS_METADATAOPERACION/241?g1=115:&g2=433:284332&g3=96:19965&p=1&nult=1" ,
+      url:"https://feeds.citibikenyc.com/stations/stations.json" ,
       type: "GET",
       contentType: "application/json; charset=utf-8"
      
@@ -35,9 +35,9 @@
         var dataForWidget = [["COD","FK_Unidad"]];
         
 
-        for(i=0; i<dataFromServer.length;i++){
+        for(i=0; i<dataFromServer.stationBeanList.length;i++){
           	var item= dataFromServer[i];
- 			      var itemForWidget = [item.COD, item.FK_Unidad];
+ 			      var itemForWidget = [stationBeanList.stationName, stationBeanList.id];
  				   	dataForWidget.push(itemForWidget);
  				}
  	  		
@@ -46,7 +46,7 @@
        
 
         var options = {
-          title: 'COD and FK_Unidad API Externa '
+          title: 'API Externa'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));

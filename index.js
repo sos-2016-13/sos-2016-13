@@ -91,19 +91,6 @@ app.use(pathsEugenio, function(req,res){
 	})).pipe(res);
 });
 
-var pathsEugenio2='/population/use1';
-var apiServerHost3 = 'http://servicios.ine.es/';
-app.use(pathsEugenio2, function(req,res){
-	var url = apiServerHost3 + req.baseUrl + req.url;
-
-	req.pipe(request(url,(error,response,body)=>{
-		if(error){
-			res.sendStatus(503);
-		}
-	})).pipe(res);
-});
-
-
 
 
 
