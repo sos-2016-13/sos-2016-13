@@ -130,10 +130,13 @@ app.get("/api/v1/consumed/:var/:var2",consumedCtl.getConsumedCY);
 
 app.post("/api/v1/emissions",emissionsCtl.postEmissionsRB);
 app.post("/api/v1/emissions/:country/:year",emissionsCtl.postEmissionsC);
+app.post("/api/v1/emissions/:country",emissionsCtl.postEmissionsC2);
 app.post("/api/v1/population",populationCtl.postPopulationRB);
 app.post("/api/v1/population/:country/:year",populationCtl.postPopulationC);
+app.post("/api/v1/population/:country",populationCtl.postPopulationC2);
 app.post("/api/v1/consumed",consumedCtl.postConsumedRB);
 app.post("/api/v1/consumed/:country/:year",consumedCtl.postConsumedC);
+app.post("/api/v1/consumed/:country",consumedCtl.postConsumedC2);
 
 
 //----------------------DELETE------------------------//

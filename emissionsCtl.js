@@ -183,6 +183,10 @@ module.exports.postEmissionsC=	function(req,res){
   res. sendStatus(405);
 };
 
+module.exports.postEmissionsC2=	function(req,res){ 
+ functionsCtl.login(res,req);
+  res. sendStatus(405);
+};
 
 
 //-----------------------DELETE--------------------------//
