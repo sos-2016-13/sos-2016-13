@@ -1,5 +1,4 @@
 
-<!doctype html>
 <html>
   <head>   
     <title>Consume External API</title>
@@ -16,10 +15,12 @@
     
   
     var request = $.ajax({
-      
-      url:"http://servicios.ine.es/wstempus/js/ES/DATOS_METADATAOPERACION/241?g1=115:&g2=433:284332&g3=96:19965&p=1&nult=1",
+    
+      url:"http://api.worldbank.org/countries" ,
       type: "GET",
       contentType: "application/json; charset=utf-8"
+     
+  
 
     });
 
@@ -33,10 +34,12 @@
         
         var data = new google.visualization.DataTable();
        
-        data.addColumn('string', 'codigo');
-        data.addColumn('string', 'nombre');
-        data.addColumn('string', 'unidad');
-        data.addColumn('string', 'escala');
+        data.addColumn('string', 'name');
+        data.addColumn('string','capitalcity')
+        data.addColumn('string', 'latitude');
+        data.addColumn('string', 'longitude');
+  
+
         
         
         data.addRows(dataFromServer.length);
@@ -46,10 +49,11 @@
             var item= dataFromServer[i];
 
           
-            data.setCell(i,0,[item.COD].toString());
-            data.setCell(i,1,[item.Data.Nombre].toString());
-            data.setCell(i,2,[item.Data.FK_Unidad].toString());
-            data.setCell(i,3,[item.Data.FK_Escala].toString());
+            data.setCell(i,0,[item.name].toString());
+            data.setCell(i,1,[item.capitalcity].toString());
+            data.setCell(i,2,[item.latitude].toString());
+            data.setCell(i,3,[item.longitude].toString());
+          
           
 
             
